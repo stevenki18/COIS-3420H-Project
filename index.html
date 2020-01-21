@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/default.css">
+  <title>Group 10 Project</title>
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      <img src="./img/wonka.png" width="300" height="230" alt="">
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="./voting.html">Home</a></li>
+        <li><a href="./results.html">Results</a></li>
+        <li><a href="#">Rules and Regulations</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h1>Vote for Wonka's<sup>&reg;</sup> next candy!</h1>
+      <form id="main-form" action="./processvote.php" method="post">
+
+        <div>
+          <label for="name">Name:</label>
+          <input id="name" type="text" placeholder="John Smith" required>
+        </div>
+
+        <div>
+          <label for="email">Email Address:</label>
+          <input id="email" type="email" placeholder="john.smith@gmail.com" required>
+        </div>
+
+        <fieldset>
+          <legend>Perspective</legend>
+
+          <div>
+            <input id="radio-customer" name="perspective" type="radio" value="0">
+            <label for="radio-customer">Customer</label>
+          </div>
+
+          <div>
+            <input id="radio-reseller" name="perspective" type="radio" value="1">
+            <label for="radio-reseller">Reseller</label>
+          </div>
+
+          <div>
+            <input id="radio-oompa" name="perspective" type="radio" value="2">
+            <label for="radio-oompa">Oompa-Loompa</label>
+          </div>
+        </fieldset>
+
+        <div class="centered">
+          <label for="choice">Product Choice:</label>
+          <select id="choice" name="choice">
+            <option value="null" selected>Select an option</option>
+            <option value="0">Piglets</option>
+            <option value="1">Snowballs</option>
+            <option value="2">Yumyums</option>
+            <option value="3">Puffs</option>
+            <option value="4">Yahoos</option>
+            <option value="5">Doodles</option>
+          </select>
+        </div>
+
+        <div class="centered">
+          <input id="agree" type="checkbox" name="agree" required>
+          <label for="agree">I agree to the <a href="yolo">Terms and Conditions</a>.</label>
+        </div>
+
+        <button id="submit" name="submit" class="centered">Submit Vote</button>
+      </form>
+    </main>
+
+    <footer>
+      <div>&copy; 2020 Cool Kidz, Inc.</div>
+    </footer>
+  </div>
+
+  <!-- Fix for Chrome bug: https://stackoverflow.com/a/42969608 -->
+  <script> </script>
+</body>
+
+</html>
