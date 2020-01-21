@@ -1,9 +1,5 @@
-:root {
-  font-family: Helvetica, sans-serif;
-  font-size: 16px;
-  /* Get the 'background-color' from the instructions */
-}
-
-header {
-  
+/* SELECTS THE ENTIRE DOCUMENT */
+body {
+  font-family: Helvetica, sans-serif; /* SETS THE FONT FOR THE PAGE */
+  font-size: 16px;                    /* SETS FONT SIZE FOR THE PAGE */
 }
