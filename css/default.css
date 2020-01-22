@@ -1,4 +1,6 @@
-/* SELECTS THE ENTIRE DOCUMENT */
+/*------------------------------------------------------------------------------
+|       FORMATTING FOR DOCUMENT WHICH IS INHERITED BY EVERY ELEMENT
+|-----------------------------------------------------------------------------*/
 body {
   background-color: #FFF;                     /* SETS BACKGROUND COLOUR TO WHITE */
   color: #000;                                /* SETS FONT COLOUR TO BLACK */
@@ -9,62 +11,75 @@ body {
   margin-right: 5%;                             /* GIVES RIGHT MARGIN OF 5% */
 }
 
+/*------------------------------------------------------------------------------
+|                               NAVIGATION BAR
+|-----------------------------------------------------------------------------*/
 .navbar {
-  background-color: #333;
-  overflow: hidden;
+  background-color: #333;                     /* SETS BACKGROUND COLOUR TO #333 */
+  display: flex;                                /* SETS THE DISPLAY TO BE A FLEXBOX */
+  flex-wrap: nowrap;                            /* SETS THE FLEX BOX TO NOT WRAP */
+  overflow: hidden;                             /* HIDES OVERFLOW */
 }
 
 .navbar a {
-  color: #FFF;
-  float: left;
-  font-size: 1rem;
-  padding: 0.8rem 1rem;
-  text-align: center;
-  text-decoration: none;
-}
-
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
-
-.dropdown .dropbtn {
-  background-color: inherit;
-  border: none;
-  color: #FFF;
-  font-family: inherit;
-  font-size: 1rem;  
-  margin: 0;
-  outline: none;
-  padding: 0.8rem 1rem;
+  color: #FFF;                                /* SETS THE FONT COLOUR TO WHITE */
+  float: left;                                  /* FLOATS ITEMS TO THE LEFT */
+  font-size: 1rem;                              /* SETS FONT TO  THE DEFAULT SIZE */
+  padding: 0.8rem 1rem;                         /* GIVES PADDING BETWEEN ITEMS */ 
+  text-align: center;                           /* ALIGN TEXT TO THE CENTER */
+  text-decoration: none;                        /* REMOVES TEXT DECORATIONS  */
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: #818181;
+  background-color: #818181;                  /* SETS BACKGROUND COLOUR TO #818181 */
 }
 
+/*------------------------------------------------------------------------------
+|                               DROP DOWN
+|-----------------------------------------------------------------------------*/
+.dropdown {
+  float: left;                                  /* FLOATS ITEMS TO THE LEFT */
+  overflow: hidden;                             /* HIDES OVERFLOW */
+}
+
+/* DROP DOWN BUTTON (SEEN ON NAV BAR) */
+.dropdown .dropbtn {
+  background-color: inherit;                    /* SETS BACKGROUND COLOUR TO INHERIT FROM PARENT */
+  border: none;                                 /* REMOVE BORDER */
+  color: #FFF;                                /* SET FONT COLOUR TO WHITE */
+  font-family: inherit;                         /* SETS FONT TO INHERIT FROM PARENT */  
+  font-size: 1rem;                              /* SETS FONT SIZE TO DEFAULT */
+  margin: 0;                                    /* REMOVES MARGINS */
+  outline: none;                                /* REMOVES OUTLINE */
+  padding: 0.8rem 1rem;                         /* SETS PADDING */
+}
+
+/* DROP DOWN BOXES (APPEARS AFTER NAV BUTTON IS HOVERED OVER) */
 .dropdown-content {
-  background-color: #F9F9F9;
-  box-shadow: 0rem 0.5rem 1rem 0rem #000;
-  display: none;
-  min-width: 10rem;
-  position: absolute;
-  z-index: 1;
+  background-color: #F9F9F9;                  /* SETS BACKGROUND COLOUR TO #F9F9F9 */
+  box-shadow: 0rem 0.5rem 1rem 0rem #000;     /* SETS BOX SHADOW EFFECTS */
+  display: none;                                /* REMOVES FLEX BOX DISPLAY */
+  min-width: 10rem;                             /* SETS THE MINIMUM WIDTH FOR EACH DROPDOWN ITEM */
+  position: absolute;                           /* SETS AN ABSOLUTE POSITION */
+  z-index: 1;                                   /* SETS THE INDEX OF THE FIRST BOX TO 1 */
 }
 
+/* LINKS IN DROP DOWN BOXES */
 .dropdown-content a {
-  color: #000;
-  display: block;
-  float: none;
-  padding: 0.75rem 1rem;
-  text-align: left;
-  text-decoration: none;
+  color: #000;                                /* SETS FONT COLOUR TO BLACK */
+  display: block;                               /* SETS A BLOCK STYLE DISPLAY */
+  float: none;                                  /* REMOVES THE FLOAT FROM PARENT */
+  padding: 0.75rem 1rem;                        /* INSERTS PADDING */
+  text-align: left;                             /* ALIGNS TEXT TO THE LEFT SIDE */
+  text-decoration: none;                        /* REMOVES TEXT DECORATION */
 }
 
+/* HOVERING OVER LINKS IN DROP DOWN BOXES */
 .dropdown-content a:hover {
-  background-color: #DDD;
+  background-color: #DDD;                     /* SETS BACKGROUND COLOUR TO #DDD */
 }
 
+/* HOVERING OVER NAV BAR BUTTON */
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: block;                               /* SETS A BLOCK STYLE DISPLAY */
 }
