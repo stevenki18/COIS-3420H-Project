@@ -1,5 +1,70 @@
 /* SELECTS THE ENTIRE DOCUMENT */
 body {
-  font-family: Helvetica, sans-serif; /* SETS THE FONT FOR THE PAGE */
-  font-size: 16px;                    /* SETS FONT SIZE FOR THE PAGE */
+  background-color: #FFF;                     /* SETS BACKGROUND COLOUR TO WHITE */
+  color: #000;                                /* SETS FONT COLOUR TO BLACK */
+  font-family: Verdana, Helvetica, sans-serif;  /* SETS THE FONT FOR THE PAGE */
+  font-size: 16px;                              /* SETS FONT SIZE FOR THE PAGE */
+  margin-top: 2.5%;                             /* GIVES TOP MARGIN OF 2.5% */
+  margin-left: 5%;                              /* GIVES LEFT MARGIN OF 5% */
+  margin-right: 5%;                             /* GIVES RIGHT MARGIN OF 5% */
+}
+
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.navbar a {
+  color: #FFF;
+  float: left;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  background-color: inherit;
+  border: none;
+  color: #FFF;
+  font-family: inherit;
+  font-size: 1rem;  
+  margin: 0;
+  outline: none;
+  padding: 0.8rem 1rem;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #818181;
+}
+
+.dropdown-content {
+  background-color: #F9F9F9;
+  box-shadow: 0rem 0.5rem 1rem 0rem #000;
+  display: none;
+  min-width: 10rem;
+  position: absolute;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #000;
+  display: block;
+  float: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #DDD;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
