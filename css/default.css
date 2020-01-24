@@ -83,3 +83,19 @@ body {
 .dropdown:hover .dropdown-content {
   display: block;                               /* SETS A BLOCK STYLE DISPLAY */
 }
+
+main{
+  font-size: 1em;
+  padding: 0em 0.6em;
+}
+
+header{
+  text-align: center;
+}
+
+footer{
+  text-align: center;
+  border-top-color: #000;
+  border-top-style: solid;
+  margin-top: 1em;
+}
