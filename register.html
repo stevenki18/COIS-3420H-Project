@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link type = "text/css" rel = "stylesheet" href = "CSS/default.css" />
         <title> REGISTER </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
     </head>
 
     <body>
@@ -14,7 +15,7 @@
                 <img src = "img/wonka.png" alt = "Wonka Logo" height = 200>
                 <h1> SOME RANDOM TEXT FOR OUR HEADER </h1>
             </header>
-            
+
             <div class = "navbar">
                 <a href = "#">Home</a>
                 <div class = "dropdown">
@@ -24,16 +25,71 @@
                     <a href = "#">Our Sample List</a>
                     <a href = "#">Add List</a>
                   </div>
-                </div> 
+                </div>
                 <a href="#">Login</a>
             </div>
 
             <main>
-                <!-- FORM -->
-                <form>
-                    <!-- INPUT -->
-                    <!-- INSERT UNIQUE IN DB -->
-                    <!-- CREATE ACCOUNT -->
+                <-- FORM -->
+                <form id="register-form" action="./processregistration.php" method="post">
+                <!-- INPUT -->
+                <!-- INSERT UNIQUE IN DB -->
+                <!-- CREATE ACCOUNT -->
+                  <div>
+                    <!-- how would i check if the usrname is unique? -->
+                    <label for="usrname">Username:</label>
+                    <input id="usrname" type="text" placeholder="Thrillseeker99" required>
+                  </div>
+
+                  <div class="container">
+                    <label for="password">Password (at least 8 characters):</label>
+                    <input name="password" type="password" id="password" minlength="8" required>
+                    <meter max="4" id="password-strength"></meter>
+                    <p id="password-strength-text"></p>
+                    <script type="text/javascript">
+                    var strength = {
+                      0: "Weakest",
+                      1: "Weak",
+                      2: "OK",
+                      3: "Good",
+                      4: "Strong"
+                    }
+
+                    var password = document.getElementById('password');
+                    var meter = document.getElementById('password-strength');
+                    var text = document.getElementById('password-strength-text');
+
+                    password.addEventListener('input', function() {
+                      var val = password.value;
+                      var result = zxcvbn(val);
+
+                      // This updates the password strength meter
+                      meter.value = result.score;
+
+                      // This updates the password meter text
+                      if (val !== "") {
+                        text.innerHTML = "Password Strength: " + strength[result.score];
+                      } else {
+                        text.innerHTML = "";
+                      }
+                    });
+                  </script>
+                  </div>
+
+                  <div>
+                    <label for="firstname">First Name:</label>
+                    <input id="firstname" type="text" placeholder="Mary" required>
+                  </div>
+
+                  <div>
+                    <label for="lastname">Last Name:</label>
+                    <input id="lastname" type="text" placeholder="Sue" required>
+                  </div>
+
+                  <div>
+                    <label for="email">Email Address:</label>
+                    <input id="email" type="email" placeholder="mary.sue@gmail.com" required>
+                  <div>
                 </form>
             </main>
 
