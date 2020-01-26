@@ -1,4 +1,16 @@
-/*------------------------------------------------------------------------------
+/*********************************** Filename: default.css
+ * Applies to: index.html
+ *             manage_list.html
+ *             register.html
+ *
+ * Usage: Default styling for most of the pages for the bucket list web site.
+ *
+ * Note: reset.css is also being used by the q3.html files in order to wipe settings
+ *
+ * Created by: Steven Ki for COIS-3420H Assignment 1, Question 3
+ ******************************************************************************
+ */
+ /*------------------------------------------------------------------------------
 |       FORMATTING FOR DOCUMENT WHICH IS INHERITED BY EVERY ELEMENT
 |-----------------------------------------------------------------------------*/
 body {
@@ -6,9 +18,8 @@ body {
   color: #000;                                /* SETS FONT COLOUR TO BLACK */
   font-family: Verdana, Helvetica, sans-serif;  /* SETS THE FONT FOR THE PAGE */
   font-size: 16px;                              /* SETS FONT SIZE FOR THE PAGE */
-  margin-top: 2.5%;                             /* GIVES TOP MARGIN OF 2.5% */
-  margin-left: 5%;                              /* GIVES LEFT MARGIN OF 5% */
-  margin-right: 5%;                             /* GIVES RIGHT MARGIN OF 5% */
+  margin: auto;
+  max-width: 70rem;
 }
 
 /*------------------------------------------------------------------------------
@@ -19,28 +30,31 @@ nav {
   background-color: #333;
 }
 
-nav ul {
-  /* border: 2px solid green; */
+nav > ul {
+  border: 2px solid green;
   display: flex;
   align-items: stretch;
-  padding: 0;
-  margin: 0;
+  /* padding: 0; */
   color: #FFF;
+  vertical-align: middle;
 }
 
 nav li {
-  /* border: 2px solid red; */
+  border: 2px solid red;
   list-style-type: none;
   list-style-position: inside;
   display: flex;
+  margin: 0;
 }
 
-nav li:nth-last-child(2) {
+/* Search bar (2nd last child in list) */
+nav > ul > li:nth-last-child(2) {
   padding: 0.8rem 1rem;
   margin-left: auto;
 }
-nav a{
-  /* border: 1px solid pink; */
+
+nav a, .dropdown {
+  border: 1px solid pink;
   color: #FFF;
   font-size: 1rem;
   padding: 0.8rem 1rem;
@@ -48,59 +62,65 @@ nav a{
   text-decoration: none;
 }
 
-nav a:hover, .dropdown:hover .dropbtn {
+nav a:hover, .dropdown:hover {
   background-color: #818181;
 }
 
 /*------------------------------------------------------------------------------
 |                               DROP DOWN
 |-----------------------------------------------------------------------------*/
-.dropdown {
-  /* float: left;                                  /* FLOATS ITEMS TO THE LEFT */
-  overflow: hidden;                             /* HIDES OVERFLOW */
-}
 
-/* DROP DOWN BUTTON (SEEN ON NAV BAR) */
-.dropdown .dropbtn {
-  background-color: inherit;                    /* SETS BACKGROUND COLOUR TO INHERIT FROM PARENT */
-  border: none;                                 /* REMOVE BORDER */
-  color: #FFF;                                /* SET FONT COLOUR TO WHITE */
-  font-family: inherit;                         /* SETS FONT TO INHERIT FROM PARENT */
-  font-size: 1rem;                              /* SETS FONT SIZE TO DEFAULT */
-  margin: 0;                                    /* REMOVES MARGINS */
-  outline: none;                                /* REMOVES OUTLINE */
-  padding: 0.8rem 1rem;                         /* SETS PADDING */
+.dropdown {
+  border: 2px solid blue;
+  background-color: inherit;
+  color: #FFF;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  padding: 0.8rem 1rem;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 /* DROP DOWN BOXES (APPEARS AFTER NAV BUTTON IS HOVERED OVER) */
 .dropdown-content {
-  background-color: #F9F9F9;                  /* SETS BACKGROUND COLOUR TO #F9F9F9 */
-  box-shadow: 0rem 0.5rem 1rem 0rem #000;     /* SETS BOX SHADOW EFFECTS */
-  display: none;                                /* REMOVES FLEX BOX DISPLAY */
-  min-width: 10rem;                             /* SETS THE MINIMUM WIDTH FOR EACH DROPDOWN ITEM */
-  position: absolute;                           /* SETS AN ABSOLUTE POSITION */
-  z-index: 1;                                   /* SETS THE INDEX OF THE FIRST BOX TO 1 */
+  /* border: 2px solid yellow; */
+  background-color: #F9F9F9;
+  box-shadow: 0rem 0.5rem 1rem 0rem #000;
+  display: none;
+  min-width: 20rem;
+  position: absolute;
+  top: 3em;
+  left: -2em;
+  z-index: 1;
+  padding: 0;
+}
+
+/* HOVERING OVER NAV LIST */
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-direction: column;
 }
 
 /* LINKS IN DROP DOWN BOXES */
 .dropdown-content a {
-  color: #000;                                /* SETS FONT COLOUR TO BLACK */
-  display: block;                               /* SETS A BLOCK STYLE DISPLAY */
-  float: none;                                  /* REMOVES THE FLOAT FROM PARENT */
-  padding: 0.75rem 1rem;                        /* INSERTS PADDING */
-  text-align: left;                             /* ALIGNS TEXT TO THE LEFT SIDE */
-  text-decoration: none;                        /* REMOVES TEXT DECORATION */
+  border: 1px solid black;
+  color: #000;
+  float: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  text-decoration: none;
+  flex:1;
 }
 
 /* HOVERING OVER LINKS IN DROP DOWN BOXES */
 .dropdown-content a:hover {
-  background-color: #DDD;                     /* SETS BACKGROUND COLOUR TO #DDD */
+  background-color: #DDD;
 }
 
-/* HOVERING OVER NAV BAR BUTTON */
-.dropdown:hover .dropdown-content {
-  display: block;                               /* SETS A BLOCK STYLE DISPLAY */
-}
+
 
 main{
   font-size: 1em;
