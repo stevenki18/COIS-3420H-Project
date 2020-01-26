@@ -15,20 +15,21 @@ body {
 |                               NAVIGATION BAR
 |-----------------------------------------------------------------------------*/
 nav {
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   background-color: #333;
 }
 
 nav ul {
-  border: 2px solid green;
+  /* border: 2px solid green; */
   display: flex;
   align-items: stretch;
   padding: 0;
+  margin: 0;
   color: #FFF;
 }
 
 nav li {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   list-style-type: none;
   list-style-position: inside;
   display: flex;
@@ -39,7 +40,7 @@ nav li:nth-last-child(2) {
   margin-left: auto;
 }
 nav a{
-  border: 1px solid pink;
+  /* border: 1px solid pink; */
   color: #FFF;
   font-size: 1rem;
   padding: 0.8rem 1rem;
@@ -62,7 +63,7 @@ nav a:hover, .dropdown:hover .dropbtn {
 /* DROP DOWN BUTTON (SEEN ON NAV BAR) */
 .dropdown .dropbtn {
   background-color: inherit;                    /* SETS BACKGROUND COLOUR TO INHERIT FROM PARENT */
-  /* border: none;                                 /* REMOVE BORDER */
+  border: none;                                 /* REMOVE BORDER */
   color: #FFF;                                /* SET FONT COLOUR TO WHITE */
   font-family: inherit;                         /* SETS FONT TO INHERIT FROM PARENT */
   font-size: 1rem;                              /* SETS FONT SIZE TO DEFAULT */
