@@ -30,7 +30,7 @@
             </div>
 
             <main>
-                <-- FORM -->
+                <!-- FORM -->
                 <form id="register-form" action="./processregistration.php" method="post">
                 <!-- INPUT -->
                 <!-- INSERT UNIQUE IN DB -->
@@ -76,6 +76,12 @@
                   </script>
                   </div>
 
+                  <!-- I think password confirm needs javascript or jquery to work -->
+                  <div class="container">
+                    <label for="password_confirm">Confirm Password:</label>
+                    <input name="password_confirm" type="password" id="password_confirm" minlength="8" required>
+                  </div>
+
                   <div>
                     <label for="firstname">First Name:</label>
                     <input id="firstname" type="text" placeholder="Mary" required>
@@ -90,6 +96,20 @@
                     <label for="email">Email Address:</label>
                     <input id="email" type="email" placeholder="mary.sue@gmail.com" required>
                   <div>
+
+                    <!-- can ppl under 13 years use our website? -->
+                    <!-- it also still needs validation. (cant have any 200 year olds) -->
+                  <div>
+                    <label for="birthdate">Date of Birth:</label>
+                    <input id="birthdate" type="date" name="birthdate" max=<"1900-01-01" min="2015-01-01" required>
+                  </div>
+
+                  <div>
+                    <input id="agreebox" type="checkbox" name="agreebox" required>
+                    <label for="agreebox">I agree to the <a href="yolo">Terms and Conditions</a>.</label>
+                  </div>
+
+                    <button id="submit" name="Create Account"> Create Account</button>
                 </form>
             </main>
 
