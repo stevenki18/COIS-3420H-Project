@@ -33,6 +33,7 @@ body {
 /* HOVER FOR NAVBAR AND DROPDOWN */
 .navbar a:hover, .dropdown:hover .dropbtn {
   background-color: #818181;                  /* SETS BACKGROUND COLOUR TO #818181 */
+  cursor: pointer;
 }
 
 /*------------------------------------------------------------------------------
@@ -104,4 +105,37 @@ footer{
   text-align: center;                           /* TEXT ALIGNMENT FOR FOOTER */
   border-top: 0.1em solid #000;               /* TOP BORDER STYLING */
   margin-top: 1em;                              /* TOP MARGIN FOR FOOTER */
+}
+
+/*------------------------------------------------------------------------------
+|                               FORM STYLING
+|-----------------------------------------------------------------------------*/
+form{
+  border: 0.1rem solid #000;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+form div{
+  margin: 0.5rem 0;
+}
+
+#submit{
+  background-color: #333;
+  border-radius: 0.3rem;
+  color: #FFF;
+  padding: 0.5rem;
+}
+
+#submit:hover{
+  background-color: #818181;
+  color: #FFF;
+  cursor: pointer;
+}
+
+#description{
+  height: 7rem;
+  width: 20rem;
+  text-align: left;
+  overflow: auto;
 }

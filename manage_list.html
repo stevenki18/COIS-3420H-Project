@@ -15,22 +15,48 @@
                 <h1> SOME RANDOM TEXT FOR OUR HEADER </h1>
             </header>
 
+            <!--NAVIGATION BAR-->
             <div class = "navbar">
-                <a href = "#">Home</a>
-                <div class = "dropdown">
-                  <button class = "dropbtn">Lists <i class = "fa fa-caret-down"></i></button>
-                  <div class = "dropdown-content">
-                    <a href = "#">Things to Do Before I'm 40</a>
-                    <a href = "#">Our Sample List</a>
-                    <a href = "#">Add List</a>
-                  </div>
+                <!--LEFT JUSTIFIED-->
+                <div>
+                    <a href = "#">Home</a>
+                    <div class = "dropdown">
+                        <button class = "dropbtn">Lists <i class = "fa fa-caret-down"></i></button>
+                        <div class = "dropdown-content">
+                            <a href = "#">Things to Do Before I'm 40</a>
+                            <a href = "#">Our Sample List</a>
+                            <a href = "#">Add List</a>
+                        </div>
+                    </div>
                 </div>
-                <a href="#">Login</a>
+                <!--RIGHT JUSTIFIED-->
+                <div>
+                    <a href="#">Login</a>
+                </div>
             </div>
 
             <main>
                 <!-- FORM -->
                 <form>
+                    <!--ACTIVITY-->
+                    <div>
+                        <label for="list_item">Activity:</label>
+                        <input id="list_item" type="text" placeholder="Go skydiving" required>
+                    </div>
+
+                    <!--DESCRIPTION-->
+                    <div>
+                        <label for="description">Description:</label>
+                        <input id="description" type="text" placeholder="Write a description of your bucket list entry here..." required>
+                    </div>
+
+                    <!--DESCRIPTION-->
+                    <div>
+                        <label for="images_up">Image Upload:</label>
+                        <input id="images_up" type="text" placeholder="">
+                        <button id="search" name="Search">Search</button>
+                    </div>
+
                     <!-- INPUT -->
                     <!-- INSERT UNIQUE IN DB -->
                     <!-- CREATE ACCOUNT -->
