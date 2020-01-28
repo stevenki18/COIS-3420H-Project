@@ -270,15 +270,15 @@ footer{
 /*------------------------------------------------------------------------------
 |                               FORM STYLING
 |-----------------------------------------------------------------------------*/
-form{
+/* form{
   border: 0.1rem solid #000;
   border-radius: 0.5rem;
   padding: 1rem;
-}
+} */
 
-form div{
+/* form div{
   margin: 0.5rem 0;
-}
+} */
 
 #submit{
   background-color: #333;

@@ -9,9 +9,9 @@
       </ul>
     </li>
     <li>
-      <form>
+      <form id="search">
         <input type="text" name="submit-search" placeholder="Search Lists">
-        <button id="submit" name="submit-search" class="centered">Search</button>
+        <button id="search" name="submit-search" class="centered">Search</button>
       </form>
     </li>
     <li><a href="register.php">Login</a></li>
