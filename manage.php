@@ -12,6 +12,7 @@
         </header>
 
         <main>
+          <h1> THIS IS OUR MANAGE LIST PAGE</h1>
             <!--  -->
             <!--  -->
         </main>
