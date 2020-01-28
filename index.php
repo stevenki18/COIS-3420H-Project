@@ -13,34 +13,21 @@
  -->
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link type="text/css" rel="stylesheet" href="css/reset.css" />
-  <link type="text/css" rel="stylesheet" href="css/default(nav).css" />
-  <title> PROJECT INDEX PAGE </title>
-</head>
+<?php include 'head_include.php' ?>
 
 <body>
   <!-- SPLASH PAGE -->
   <!-- <div class = "container"> -->
-  <header>
-    <!-- LOGO -->
-    <img src="img/wonka.png" alt="Wonka Logo" height=200>
-    <h1> TEST SPLASH PAGE </h1>
-  </header>
-
-<?php include: "nav.php" ?>
+  <?php include 'header.php' ?>
 
   <main>
     <!-- OUR GENERIC LIST -->
     <!-- DEFAULT LIST -->
   </main>
 
-  <footer>
-    <!-- COPYRIGHT -->
-  </footer>
-  </div>
+
+  <?php include 'footer.php' ?>
+  
 </body>
 
 </html>
