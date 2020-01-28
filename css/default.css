@@ -1,4 +1,20 @@
+<<<<<<< HEAD
 /*------------------------------------------------------------------------------
+=======
+/*********************************** Filename: default.css
+ * Applies to: index.html
+ *             manage_list.html
+ *             register.html
+ *
+ * Usage: Default styling for most of the pages for the bucket list web site.
+ *
+ * Note: reset.css is also being used by the q3.html files in order to wipe settings
+ *
+ * Created by: Steven Ki for COIS-3420H Assignment 1, Question 3
+ ******************************************************************************
+ */
+ /*------------------------------------------------------------------------------
+>>>>>>> Steven
 |       FORMATTING FOR DOCUMENT WHICH IS INHERITED BY EVERY ELEMENT
 |-----------------------------------------------------------------------------*/
 body {
@@ -6,7 +22,155 @@ body {
   color: #000;                                /* SETS FONT COLOUR TO BLACK */
   font-family: Verdana, Helvetica, sans-serif;  /* SETS THE FONT FOR THE PAGE */
   font-size: 16px;                              /* SETS FONT SIZE FOR THE PAGE */
+<<<<<<< HEAD
   margin: 2.5% 5% 0 5%;                       /* SETS MARGINS FOR THE PAGE */
+=======
+  margin: auto;
+  max-width: 70rem;
+}
+
+p,h1,h2,h3,h4,h5 {
+  padding: 0.5rem;
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 1.25em;
+}
+
+h5 {
+  font-size: 1.15em;
+}
+
+/*------------------------------------------------------------------------------
+|                               NAVIGATION BAR
+|-----------------------------------------------------------------------------*/
+nav {
+  /* border: 2px solid blue; */
+  background-color: #333;
+}
+
+nav > ul {
+  border: 2px solid green;
+  display: flex;
+  align-items: stretch;
+  color: #FFF;
+  vertical-align: middle;
+}
+
+nav li {
+  border: 2px solid red;
+  list-style-type: none;
+  list-style-position: inside;
+  display: flex;
+}
+
+/* Search bar (2nd last child in list) */
+nav > ul > li:nth-last-child(2) {
+  padding: 0.8rem 1rem;
+  margin-left: auto;
+}
+
+nav a, .dropdown {
+  border: 1px solid pink;
+  color: #FFF;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+nav a:hover, .dropdown:hover {
+  background-color: #818181;
+}
+
+/*------------------------------------------------------------------------------
+|                               DROP DOWN
+|-----------------------------------------------------------------------------*/
+
+.dropdown {
+  border: 2px solid blue;
+  background-color: inherit;
+  color: #FFF;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  padding: 0.8rem 1rem;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* DROP DOWN BOXES (APPEARS AFTER NAV BUTTON IS HOVERED OVER) */
+.dropdown-content {
+  /* border: 2px solid yellow; */
+  background-color: #F9F9F9;
+  box-shadow: 0rem 0.5rem 1rem 0rem #000;
+  display: none;
+  min-width: 20rem;
+  position: absolute;
+  top: 3em;
+  left: -2em;
+  z-index: 1;
+}
+
+/* HOVERING OVER NAV LIST */
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* LINKS IN DROP DOWN BOXES */
+.dropdown-content a {
+  border: 1px solid black;
+  color: #000;
+  float: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  text-decoration: none;
+  flex-grow:1;
+}
+
+/* HOVERING OVER LINKS IN DROP DOWN BOXES */
+.dropdown-content a:hover {
+  background-color: #DDD;
+}
+
+/*------------------------------------------------------------------------------
+|                               OTHER CSS SYTLING
+|-----------------------------------------------------------------------------*/
+
+
+main{
+  font-size: 1em;
+  padding: 0em 0.6em;
+}
+
+header{
+  text-align: center;
+}
+
+footer{
+  text-align: center;
+  border-top: 1px solid #000;
+  padding: 1em 0;
+  margin-top: 1em;
+>>>>>>> Steven
 }
 
 /*------------------------------------------------------------------------------
