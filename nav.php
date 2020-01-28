@@ -23,6 +23,9 @@
         </form>
       </div>
     </li>
-    <li><a href="register.php">Login</a></li>
+    <li><button id="login-btn">Login</button><!--<a href="register.php">Login</a>--></li>
   </ul>
+
+  <?php include 'login.php' ?>
+
 </nav>
