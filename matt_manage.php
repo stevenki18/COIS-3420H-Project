@@ -2,8 +2,9 @@
 <html lang="en">
     <head>
         <?php include 'head_include.php' ?>
-        <title></title>
+        <title>Manage List</title>
     </head>
+
     <body>
         <!-- HEADER -->
         <header>
@@ -11,21 +12,12 @@
         </header>
 
         <main>
-<<<<<<< HEAD
-
-=======
-            
->>>>>>> master
+            <!--  -->
+            <!--  -->
         </main>
 
         <!-- FOOTER -->
         <?php include 'footer.php' ?>
-<<<<<<< HEAD
-
-    </body>
-</html>
-=======
     
     </body>
 </html>
->>>>>>> master
