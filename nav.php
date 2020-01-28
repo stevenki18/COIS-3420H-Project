@@ -1,6 +1,13 @@
 <nav>
   <ul>
-    <li><a href="index.php">Home</a></li>
+    <li>
+      <a href="index.php"><div class="logo">
+        <figure>
+          <img src="img/bucket.png" alt="Bucket List Logo" height=75 />
+        </figure>
+        <span>My Bucket List(s)</span>
+      </div></a>
+    </li>
     <li class="dropdown">Lists
       <ul class="dropdown-content">
         <li><a href="manage_list.php">Things to Do Before I'm 40</a></li>
@@ -9,10 +16,12 @@
       </ul>
     </li>
     <li>
-      <form id="search">
-        <input type="text" name="submit-search" placeholder="Search Lists">
-        <button id="search" name="submit-search" class="centered">Search</button>
-      </form>
+      <div class="search-container">
+        <form action="/action_page.php">
+          <input type="text" placeholder="Search.." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
     </li>
     <li><a href="register.php">Login</a></li>
   </ul>

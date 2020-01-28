@@ -1,7 +1,10 @@
 <header>
   <!-- LOGO -->
-  <img src="img/wonka.png" alt="Wonka Logo" height=200>
-  <h1> TEST HEADER INFORMATION </h1>
+  <div class="logo">
+    <figure>
+      <img src="img/bucket.png" alt="Bucket List Logo" height=200 />
+    </figure>
+  </div>
 
   <?php include 'nav.php' ?>
 

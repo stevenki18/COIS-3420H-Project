@@ -7,19 +7,45 @@
  *
  * Note: reset.css is also being used by the q3.html files in order to wipe settings
  *
- * Created by: Steven Ki for COIS-3420H Assignment 1, Question 3
+ * Created by: Group 10 for COIS-3420H Project
  ******************************************************************************
  */
+
+ /* USED VARIABLES */
+ :root {
+   --link-color: #8fcf69;
+ }
  /*------------------------------------------------------------------------------
 |       FORMATTING FOR DOCUMENT WHICH IS INHERITED BY EVERY ELEMENT
 |-----------------------------------------------------------------------------*/
 body {
-  background-color: #FFF;                     /* SETS BACKGROUND COLOUR TO WHITE */
-  color: #000;                                /* SETS FONT COLOUR TO BLACK */
-  font-family: Verdana, Helvetica, sans-serif;  /* SETS THE FONT FOR THE PAGE */
-  font-size: 16px;                              /* SETS FONT SIZE FOR THE PAGE */
+  background-color: #9bc3ed;
+  color: #000;
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 16px;
   margin: auto;
+}
+
+main{
+  background-color: #FFF;
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
   max-width: 70rem;
+  font-size: 1em;
+  padding: 0em 0.6em;
+  margin: auto;
+}
+
+header{
+  text-align: center;
+  background: linear-gradient(var(--link-color), transparent);
+}
+
+footer{
+  text-align: center;
+  border-top: 1px solid #000;
+  padding: 1em 0;
+  margin-top: 1em;
 }
 
 p,h1,h2,h3,h4,h5 {
@@ -34,6 +60,7 @@ h1 {
 h2 {
   font-size: 2em;
   font-weight: bold;
+  border-bottom: 2px solid var(--link-color);
 }
 
 h3 {
@@ -58,15 +85,17 @@ nav {
 }
 
 nav > ul {
-  border: 2px solid green;
+  /* border: 2px solid green; */
+  max-width: 70rem;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   color: #FFF;
   vertical-align: middle;
+  margin: 0 auto;
 }
 
 nav li {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   list-style-type: none;
   list-style-position: inside;
   display: flex;
@@ -74,21 +103,51 @@ nav li {
 
 /* Search bar (2nd last child in list) */
 nav > ul > li:nth-last-child(2) {
-  padding: 0.8rem 1rem;
+  /* padding: 0.8rem 1rem; */
   margin-left: auto;
 }
 
 nav a, .dropdown {
-  border: 1px solid pink;
-  color: #FFF;
+  /* border: 1px solid pink; */
+  color: #000;
   font-size: 1rem;
   padding: 0.8rem 1rem;
   text-align: center;
   text-decoration: none;
+  margin: 0.2rem 0.7rem;
+  border-radius: 0.5rem;
+  background-color: var(--link-color);
 }
 
 nav a:hover, .dropdown:hover {
   background-color: #818181;
+}
+
+a[href^="index"] {
+  /* border: 2px solid yellow; */
+  padding: 0 0.5em;
+  background-color: inherit;
+  color: inherit;
+
+}
+
+input[name$="search"] {
+  /* border: 2px solid yellow; */
+  border: none;
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+}
+
+nav button {
+  padding: 0.3rem 1rem;
+  color: #000;
+  margin-right: 1rem;
+  background-color: var(--link-color);
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.3rem;
 }
 
 /*------------------------------------------------------------------------------
@@ -96,17 +155,16 @@ nav a:hover, .dropdown:hover {
 |-----------------------------------------------------------------------------*/
 
 .dropdown {
-  border: 2px solid blue;
-  background-color: inherit;
-  color: #FFF;
-  font-family: inherit;
-  font-size: 1rem;
+  /* border: 2px solid blue; */
   outline: none;
-  padding: 0.8rem 1rem;
 
   position: relative;
   display: flex;
   flex-direction: column;
+}
+
+.dropdown a {
+  margin: 0.4rem 0.2rem;
 }
 
 /* DROP DOWN BOXES (APPEARS AFTER NAV BUTTON IS HOVERED OVER) */
@@ -117,9 +175,10 @@ nav a:hover, .dropdown:hover {
   display: none;
   min-width: 20rem;
   position: absolute;
-  top: 3em;
+  top: 2.5rem;
   left: -2em;
   z-index: 1;
+  border-radius: 0.5rem;
 }
 
 /* HOVERING OVER NAV LIST */
@@ -130,7 +189,7 @@ nav a:hover, .dropdown:hover {
 
 /* LINKS IN DROP DOWN BOXES */
 .dropdown-content a {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   color: #000;
   float: none;
   padding: 0.75rem 1rem;
@@ -147,53 +206,9 @@ nav a:hover, .dropdown:hover {
 /*------------------------------------------------------------------------------
 |                               OTHER CSS SYTLING
 |-----------------------------------------------------------------------------*/
-
-
-main{
-  font-size: 1em;
-  padding: 0em 0.6em;
-}
-
-header{
-  text-align: center;
-}
-
-footer{
-  text-align: center;
-  border-top: 1px solid #000;
-  padding: 1em 0;
-  margin-top: 1em;
-}
-
-/*------------------------------------------------------------------------------
-|                               FORM STYLING
-|-----------------------------------------------------------------------------*/
-/* form{
-  border: 0.1rem solid #000;
-  border-radius: 0.5rem;
-  padding: 1rem;
-} */
-
-/* form div{
-  margin: 0.5rem 0;
-} */
-
-#submit{
-  background-color: #333;
-  border-radius: 0.3rem;
-  color: #FFF;
-  padding: 0.5rem;
-}
-
-#submit:hover{
-  background-color: #818181;
-  color: #FFF;
-  cursor: pointer;
-}
-
-#description{
-  height: 7rem;
-  width: 20rem;
-  text-align: left;
-  overflow: auto;
+.logo {
+  /* border: 2px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

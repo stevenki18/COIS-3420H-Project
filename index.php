@@ -8,7 +8,7 @@
  *
  * Note: reset.css is also being used by the q3.html files in order to wipe settings
  *
- * Created by: Steven Ki for COIS-3420H Assignment 1, Question 3
+ * Created by: Group 10 for COIS-3420H Project
  ******************************************************************************
  -->
 <html lang="en">
@@ -18,13 +18,31 @@
     <title> PROJECT INDEX PAGE </title>
 
   </head>
-  
+
 <body>
   <!-- SPLASH PAGE -->
   <!-- <div class = "container"> -->
   <?php include 'header.php' ?>
 
   <main>
+    <article>
+      <h1>Welcome to My Bucket List(s)</h1>
+      <p>
+        At this site you will be able to create your own bucket list, and keep track on the progress.
+      </p>
+      <section id="about">
+        <h2>About</h2>
+      </section>
+      <section id="ideas">
+        <h2>Sample Sites</h2>
+      </section>
+      <section id="top-ten">
+        <h2>Top 10</h2>
+      </section>
+      <section id="register">
+        <h2>Register</h2>
+      </section>
+    </article>
     <!-- OUR GENERIC LIST -->
     <!-- DEFAULT LIST -->
   </main>

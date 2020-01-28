@@ -1,0 +1,23 @@
+/*********************************** Filename: index.css
+ * Applies to: index.html
+ *
+ * Usage: Specific styling for the index page
+ *
+ *
+ * Created by: Group 10 for COIS-3420H Project
+ ******************************************************************************
+ */
+ article {
+   text-align: center;
+ }
+
+ article {
+   /* border: 2px solid yellow; */
+   display: flex;
+   flex-direction: column;
+ }
+
+section {
+  /* border: 2px solid red; */
+  padding-bottom: 3rem;
+}
