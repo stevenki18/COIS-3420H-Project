@@ -34,7 +34,6 @@ nav > ul {
   border: 2px solid green;
   display: flex;
   align-items: stretch;
-  /* padding: 0; */
   color: #FFF;
   vertical-align: middle;
 }
@@ -44,7 +43,6 @@ nav li {
   list-style-type: none;
   list-style-position: inside;
   display: flex;
-  margin: 0;
 }
 
 /* Search bar (2nd last child in list) */
@@ -95,7 +93,6 @@ nav a:hover, .dropdown:hover {
   top: 3em;
   left: -2em;
   z-index: 1;
-  padding: 0;
 }
 
 /* HOVERING OVER NAV LIST */
