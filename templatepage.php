@@ -11,21 +11,11 @@
         </header>
 
         <main>
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> master
         </main>
 
         <!-- FOOTER -->
         <?php include 'footer.php' ?>
-<<<<<<< HEAD
 
     </body>
 </html>
-=======
-    
-    </body>
-</html>
->>>>>>> master
