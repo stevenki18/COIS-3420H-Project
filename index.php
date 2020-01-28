@@ -12,9 +12,13 @@
  ******************************************************************************
  -->
 <html lang="en">
+  <head>
+    <?php include 'head_include.php' ?>
 
-<?php include 'head_include.php' ?>
+    <title> PROJECT INDEX PAGE </title>
 
+  </head>
+  
 <body>
   <!-- SPLASH PAGE -->
   <!-- <div class = "container"> -->
@@ -27,7 +31,7 @@
 
 
   <?php include 'footer.php' ?>
-  
+
 </body>
 
 </html>

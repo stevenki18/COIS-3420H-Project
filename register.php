@@ -1,9 +1,17 @@
 <!DOCTYPE HTML>
 <html lang="en">
+  <head>
     <?php include 'head_include.php' ?>
 
-    <body>
-            <?php include 'header.php' ?>
+    <title> REGISTER PAGE </title>
+
+  </head>
+
+  <body>
+
+            <header>
+              <?php include 'nav.php' ?>
+            </header>
 
             <main>
                 <!-- FORM -->
