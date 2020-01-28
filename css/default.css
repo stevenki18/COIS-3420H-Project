@@ -22,6 +22,10 @@ body {
   max-width: 70rem;
 }
 
+p,h1,h2,h3,h4,h5 {
+  padding: 0.5rem;
+}
+
 h1 {
   font-size: 3em;
   font-weight: bold;
@@ -156,7 +160,7 @@ header{
 
 footer{
   text-align: center;
-  border-top-color: #000;
-  border-top-style: solid;
+  border-top: 1px solid #000;
+  padding: 1em 0;
   margin-top: 1em;
 }

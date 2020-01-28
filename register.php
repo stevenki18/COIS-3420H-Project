@@ -1,33 +1,9 @@
 <!DOCTYPE HTML>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link type = "text/css" rel = "stylesheet" href = "css/default.css" />
-        <title> REGISTER </title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
-    </head>
+    <?php include 'head_include.php' ?>
 
     <body>
-        <div class = "container">
-            <header>
-                <!-- LOGO -->
-                <img src = "img/wonka.png" alt = "Wonka Logo" height = 200>
-                <h1> SOME RANDOM TEXT FOR OUR HEADER </h1>
-            </header>
-
-            <div class = "navbar">
-                <a href = "#">Home</a>
-                <div class = "dropdown">
-                  <button class = "dropbtn">Lists <i class = "fa fa-caret-down"></i></button>
-                  <div class = "dropdown-content">
-                    <a href = "#">Things to Do Before I'm 40</a>
-                    <a href = "#">Our Sample List</a>
-                    <a href = "#">Add List</a>
-                  </div>
-                </div>
-                <a href="#">Login</a>
-            </div>
+            <?php include 'header.php' ?>
 
             <main>
                 <!-- FORM -->
@@ -113,9 +89,6 @@
                 </form>
             </main>
 
-            <footer>
-                <!-- COPYRIGHT -->
-            </footer>
-        </div>
+            <?php include 'footer.php' ?>
     </body>
 </html>
