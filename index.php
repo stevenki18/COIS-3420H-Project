@@ -12,6 +12,11 @@
  ******************************************************************************
  -->
 <html lang="en">
+<<<<<<< HEAD
+
+<?php include 'head_include.php' ?>
+
+=======
   <head>
     <?php include 'head_include.php' ?>
 
@@ -19,6 +24,7 @@
 
   </head>
   
+>>>>>>> Steven
 <body>
   <!-- SPLASH PAGE -->
   <!-- <div class = "container"> -->
@@ -31,6 +37,11 @@
 
 
   <?php include 'footer.php' ?>
+<<<<<<< HEAD
+  
+=======
+
+>>>>>>> Steven
 </body>
 
 </html>

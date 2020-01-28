@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 /*------------------------------------------------------------------------------
 =======
-=======
->>>>>>> master
 /*********************************** Filename: default.css
  * Applies to: index.html
  *             manage_list.html
@@ -23,10 +20,7 @@ body {
   color: #000;                                /* SETS FONT COLOUR TO BLACK */
   font-family: Verdana, Helvetica, sans-serif;  /* SETS THE FONT FOR THE PAGE */
   font-size: 16px;                              /* SETS FONT SIZE FOR THE PAGE */
-<<<<<<< HEAD
   margin: 2.5% 5% 0 5%;                       /* SETS MARGINS FOR THE PAGE */
-=======
->>>>>>> master
   margin: auto;
   max-width: 70rem;
 }
@@ -172,6 +166,7 @@ footer{
   border-top: 1px solid #000;
   padding: 1em 0;
   margin-top: 1em;
+>>>>>>> Steven
 }
 
 /*------------------------------------------------------------------------------
