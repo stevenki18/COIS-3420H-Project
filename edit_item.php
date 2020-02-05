@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <?php include 'head_include.php' ?>
-        <title></title>
-    </head>
-    <body>
-        <!-- HEADER -->
-        <header>
-            <?php include 'nav.php' ?>
-        </header>
+<!-- The Modal -->
+<div id="login-modal" class="modal">
 
-        <main>
-            <!-- EDIT LIST -->
-            <form id="edit-item" action="editlistitems.php" method="post">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <div class="logo">
+        <figure>
+          <img src="img/bucket.png" alt="Bucket List Logo" height=50 />
+        </figure>
+      </div>
+    </div>
+    <div class="modal-body">
+      <!-- EDIT LIST -->
+      <form id="edit-item" action="editlistitems.php" method="post">
                 <!-- BUCKET LIST ITEM -->
                 <div>
                     <label for="item">Bucket List Item:</label>
@@ -35,10 +36,38 @@
                     </div>
                 </form>
             </form>
-        </main>
+    </div>
+    <div class="modal-footer">
+      <p>&copy; Group 10</p>
+    </div>
+  </div>
 
-        <!-- FOOTER -->
-        <?php include 'footer.php' ?>
+</div>
 
-    </body>
-</html>
+<script>
+// Get the modal
+var modal = document.getElementById("login-modal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("login-btn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
