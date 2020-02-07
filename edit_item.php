@@ -1,5 +1,5 @@
 <!-- The Modal -->
-<div id="login-modal" class="modal">
+<div id="edit-modal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
@@ -12,30 +12,33 @@
       </div>
     </div>
     <div class="modal-body">
-      <!-- EDIT LIST -->
-      <form id="edit-item" action="editlistitems.php" method="post">
-                <!-- BUCKET LIST ITEM -->
-                <div>
-                    <label for="item">Bucket List Item:</label>
-                    <input type="text" id="item" name="item" placeholder="Enter a Bucket List Item..."/>
-                </div>
+      <div class="edit-container">
+        <!-- EDIT LIST -->
+        <form id="edit-item" action="#" method="post">
+          <!-- BUCKET LIST ITEM -->
+          <div>
+              <label for="item">Bucket List Item:</label>
+              <input type="text" id="item" name="item" placeholder="Enter a Bucket List Item..."/>
+          </div>
 
-                <!-- ITEM DESCRIPTION -->
-                <div>
-                    <label for="description">Bucket List Item:</label>
-                    <input type="text" id="description" name="description" placeholder="Enter a description about your item..."/>
-                </div>
+          <!-- ITEM DESCRIPTION -->
+          <div>
+              <label for="description">Bucket List Item:</label>
+              <input type="text" id="description" name="description" placeholder="Enter a description about your item..."/>
+          </div>
 
-                <form enctype="multipart/form-data" action="upload.php" method="post">
-                    <!-- IMAGE UPLOAD -->
-                    <div>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
-                        <label for="file">File Name:</label>
-                        <input type="file" name="fileToProcess" id="file"/>
-                        <input type="submit" value="Upload"/>
-                    </div>
-                </form>
-            </form>
+          <form enctype="multipart/form-data" action="upload.php" method="post">
+              <!-- IMAGE UPLOAD -->
+              <div>
+                  <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
+                  <label for="file">File Name:</label>
+                  <input type="file" name="fileToProcess" id="file"/>
+              </div>
+          </form>
+
+          <input type="submit" value="Edit"/>
+        </form>
+      </div>
     </div>
     <div class="modal-footer">
       <p>&copy; Group 10</p>
@@ -46,10 +49,10 @@
 
 <script>
 // Get the modal
-var modal = document.getElementById("login-modal");
+var modal = document.getElementById("edit-modal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("login-btn");
+var btn = document.getElementById("edit-btn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
