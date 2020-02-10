@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
   <head>
-    <?php include 'head_include.php' ?>
-
-    <title> REGISTER PAGE </title>
-
+    <?php 
+      $PAGE_TITLE = "Registration";
+      include "head_include.php"
+    ?>
   </head>
 
   <body>

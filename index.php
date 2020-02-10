@@ -13,9 +13,10 @@
  -->
 <html lang="en">
   <head>
-    <?php include 'head_include.php' ?>
-
-    <title> PROJECT INDEX PAGE </title>
+    <?php 
+        $PAGE_TITLE = "Welcome!";
+        include "head_include.php"
+    ?>
 
   </head>
 
