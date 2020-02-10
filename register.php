@@ -69,7 +69,7 @@
 
       <div>
         <input id="agreebox" type="checkbox" name="agreebox" required>
-        <label for="agreebox">I agree to the <a href="#">Terms and Conditions</a>.</label>
+        <label for="agreebox">I agree to the <a href="terms.php">Terms and Conditions</a>.</label>
       </div>
 
       <button id="submit" name="Create Account"> Create Account</button>

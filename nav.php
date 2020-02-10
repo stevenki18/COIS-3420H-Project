@@ -12,12 +12,12 @@
       <ul class="dropdown-content">
         <li><a href="manage_list.php">Things to Do Before I'm 40</a></li>
         <li><a href="manage_list.php">Our Sample List</a></li>
-        <li><a href="manage_list.php">Add List</a></li>
       </ul>
     </li>
+    <li><button id="create-btn">Add List</button></li>
     <li>
       <div class="search-container">
-        <form action="/action_page.php">
+        <form action="action_page.php">
           <input type="text" placeholder="Search.." name="search">
           <button type="submit"><i class="fa fa-search"></i></button>
         </form>
@@ -26,6 +26,9 @@
     <li><button id="login-btn">Login</button><!--<a href="register.php">Login</a>--></li>
   </ul>
 
-  <?php include 'login.php' ?>
+  <?php 
+    include 'login.php'; 
+    //include 'create_list.php';
+  ?>
 
 </nav>

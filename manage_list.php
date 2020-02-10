@@ -32,7 +32,7 @@
                 </div>
             </header>
             
-            <form id="bucket-list" action="#" method="post">
+            <form id="edit-list" action="#" method="post">
                 <fieldset>
                     <!-- FIRST ITEM -->
                     <div>
