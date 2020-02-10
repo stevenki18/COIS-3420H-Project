@@ -13,7 +13,7 @@
     </div>
     <div class="modal-body">
       <div class="login-container">
-        <form action="#">
+        <form id="login" action="#" method = "post">
           <!-- col align logins -->
           <div class="login-methods">
             <h3>Login with Social Media</h3>
