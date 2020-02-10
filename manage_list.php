@@ -22,12 +22,12 @@
                 <h1>My List</h1>
                 <!-- START DATE -->
                 <div>
-                    <h3><span id="startdate"></span></h3>
+                    <h3>2/9/2020</h3>
                     <p>START DATE</p>
                 </div>
                 <!-- END DATE -->
                 <div>
-                    <h3><span id="enddate"></span></h3>
+                    <h3><span id="todaysdate"></span></h3>
                     <p>END DATE</p>
                 </div>
             </header>
@@ -66,10 +66,7 @@
 
         <script>
             var dt = new Date();
-            document.getElementById("startdate").innerHTML = dt.toLocaleDateString();
-
-            var dt = new Date();
-            document.getElementById("enddate").innerHTML = dt.toLocaleDateString();
+            document.getElementById("todaysdate").innerHTML = dt.toLocaleDateString();
         </script>
 
     </body>
