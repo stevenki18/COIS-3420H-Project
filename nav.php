@@ -12,9 +12,9 @@
       <ul class="dropdown-content">
         <li><a href="manage_list.php">Things to Do Before I'm 40</a></li>
         <li><a href="manage_list.php">Our Sample List</a></li>
+        <li><a href = "#opencreate" id = "create-btn">Add List</a></li>
       </ul>
     </li>
-    <li><button id="create-btn">Add List</button></li>
     <li>
       <div class="search-container">
         <form action="action_page.php">
@@ -23,12 +23,15 @@
         </form>
       </div>
     </li>
-    <li><button id="login-btn">Login</button><!--<a href="register.php">Login</a>--></li>
+    <li><a href = "#openlogin" id = "login-btn">Login</a><!--<a href="register.php">Login</a>--></li>
   </ul>
 
-  <?php 
-    include 'login.php'; 
-    //include 'create_list.php';
-  ?>
+  <div id="opencreate">
+    <?php include "create_list.php" ?>
+  </div>
+
+  <div id="openlogin">
+    <?php include "login.php" ?>
+  </div>
 
 </nav>

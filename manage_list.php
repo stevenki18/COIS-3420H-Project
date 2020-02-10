@@ -32,30 +32,31 @@
                 </div>
             </header>
             
+            <div id="openedit">
+                <?php include "edit_item.php" ?>
+            </div>
+
             <form id="edit-list" action="#" method="post">
                 <fieldset>
                     <!-- FIRST ITEM -->
                     <div>
                         <input type="checkbox" id="checkbox-1" name="items[]" value="1"/>
                         <label for="checkbox-1">List item 1</label>
-                        <button type="button" name="ci-1" id="edit-item"><i class="fa fa-edit"></i></button>
-                        <?php //include 'edit_item.php' ?>
+                        <button><a href = "#openedit" id = "edit-btn"><i class="fa fa-edit"></i></a></button>
                     </div>
                     
                     <!-- SECOND ITEM -->
                     <div>
                         <input type="checkbox" id="checkbox-2" name="items[]" value="2"/>
                         <label for="checkbox-2">List item 2</label>
-                        <button type="button" name="ci-2" id="edit-item"><i class="fa fa-edit"></i></button>
-                        <?php //include 'edit_item.php' ?>
+                        <button><a href = "#openedit" id = "edit-btn"><i class="fa fa-edit"></i></a></button>
                     </div>
                     
                     <!-- THIRD ITEM -->
                     <div>
                         <input type="checkbox" id="checkbox-3" name="items[]" value="3"/>
                         <label for="checkbox-3">List item 3</label>
-                        <button type="button" name="ci-3" id="edit-item"><i class="fa fa-edit"></i></button>
-                        <?php //include 'edit_item.php' ?>
+                        <button><a href = "#openedit" id = "edit-btn"><i class="fa fa-edit"></i></a></button>
                     </div>
                 </fieldset>
             </form>

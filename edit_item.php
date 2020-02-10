@@ -5,7 +5,7 @@
   <div class="modal-content">
     <!-- HEADER -->
     <div class="modal-header">
-      <span class="close">&times;</span>
+      <a href="#close" title="Close" class="close">X</a>
       <div class="logo">
         <figure>
           <img src="img/bucket.png" alt="Bucket List Logo" height=50 />
