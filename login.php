@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php session_start();
+
+  if(isset($_COOKIE['bucket'])){
+    $username=$_COOKIE['bucket'];
+  }else {
+    $username="";
+  }
+?>
 <!DOCTYPE HTML>
 <html lang="en">
 
@@ -43,12 +50,12 @@
           <h4>or Manually</h4>
 
           <div class="manual-login">
-            <input type="text" name="username" placeholder="Username" required>
+            <input type="text" name="username" placeholder="Username" value="<?= $username ?>" required>
             <input type="password" name="password" placeholder="Password">
 
             <div>
               <label for="remember_me">Remember Me</label>
-              <input type="checkbox" id="remember_me" name="remember" value="1"/>
+              <input type="checkbox" id="remember_me" name="remember" value="0"/>
             </div>
             <input type="submit" value="Login">
             <div id="forgot-pass">

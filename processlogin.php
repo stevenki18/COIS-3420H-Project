@@ -20,16 +20,21 @@ $password = $_POST['password'] ?? NULL;
 if (!isset($username) || strlen($username) === 0) array_push($errors, "Please enter a valid username.");
 if (!isset($password)) array_push($errors, "Incorrect Password.");
 
+if (isset($_POST['remember']))
+  setcookie("bucket",$username,time()+60*60*24);
+
 if (count($errors) === 0) {
   if($username=="master" and $password=="test"){
     session_start();
     $_SESSION['user'] = $username;
+
+    header("Location: index.php");
+    exit();
   }
-  header("Location: index.php");
-  exit();
-} else {
-  header("Location: login.php");
-  exit();
+  else {
+    header("Location: login.php");
+    exit();
+  }
 }
 
 ?>
