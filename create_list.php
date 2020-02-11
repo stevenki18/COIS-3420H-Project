@@ -18,10 +18,10 @@
             <div class="create-container">
 
                 <!-- CREATE LIST -->
-                <form id="create-list" action="#" method = "post">
+                <form id="create-list" action="manage_list.php" method = "post">
                     <div>
                         <label for="add-list">Add Bucket List:</label>
-                        <input type="text" id="add-list" name="add-list" placeholder="List Name"/>
+                        <input type="text" id="add-list" name="add-list" placeholder="List Name" required/>
                         <button type="button" name="add-list" id="add-list"><i class="fa fa-unlock"></i></button>
                     </div>
 
