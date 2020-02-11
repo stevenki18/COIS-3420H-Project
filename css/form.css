@@ -1,0 +1,50 @@
+main{
+    display: flex;
+    flex-direction: column;
+}
+
+main header{
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 1em 0 0 0;
+}
+
+#register-form, #edit-item {
+    background-color: #FFF;
+    border: 0.1em solid #818181;
+    border-radius: 0.3em;
+    box-shadow: 0.1em 0.1em #000;
+    display: flex;
+    flex-direction: column;
+    margin: 1em auto;
+    padding: 1em;
+    width: 50em;
+}
+
+#register-form div, #edit-item div{
+    margin: 0.5em;
+    padding: 0.3em 0;
+}
+
+fieldset{
+    background-color: #FFF;
+    border: 0.1em solid #818181;
+    border-radius: 0.3em;
+    box-shadow: 0.1em 0.1em #000;
+    margin: 1em auto;
+    padding: 1em;
+    width: 75%;
+}
+
+fieldset div{
+    border-bottom: 0.1em solid #818181;
+    display: flex;
+    margin: 1em;
+    padding: 0.3em 0;
+}
+
+button[type="submit"]{
+    margin: 0 auto;
+}

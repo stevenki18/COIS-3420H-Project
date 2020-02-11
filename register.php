@@ -4,10 +4,9 @@
 <head>
   <?php 
       $PAGE_TITLE = "Registration";
-      include "head_include.php"
+      include "include/head_include.php"
     ?>
-
-  <link type="text/css" rel="stylesheet" href="css/register.css" />
+  <link type="text/css" rel="stylesheet" href="css/form.css" />
 </head>
 
 <body>
@@ -23,7 +22,7 @@
     </header>
 
     <!-- FORM -->
-    <form id="register-form" action="processregistration.php" method="post">
+    <form id="register-form" action="process/processregistration.php" method="post">
       <div>
         <!-- how would i check if the usrname is unique? -->
         <label for="username">Username:</label>
@@ -76,7 +75,7 @@
     </form>
   </main>
 
-  <?php include 'footer.php' ?>
+  <?php include 'include/footer.php' ?>
 
   <!-- CHECKS PASSWORD STRENGTH -->
   <script>

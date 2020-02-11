@@ -1,85 +1,55 @@
-<!-- The Modal -->
-<div id="edit-modal" class="modal">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <?php 
+            $PAGE_TITLE = "Edit List Item";
+            include 'include/head_include.php'; 
+        ?> 
+        <link type="text/css" rel="stylesheet" href="css/form.css" />
+    </head>
+    <body>
+        <!-- HEADER -->
+        <header>
+            <?php include 'nav.php' ?>
+        </header>
 
-  <!-- Modal content -->
-  <div class="modal-content">
-    <!-- HEADER -->
-    <div class="modal-header">
-      <a href="#close" title="Close" class="close">X</a>
-      <div class="logo">
-        <figure>
-          <img src="img/bucket.png" alt="Bucket List Logo" height=50 />
-        </figure>
-      </div>
-    </div>
+        <main>
+            <header>
+                <!-- LIST Item Name -->
+                <h1>My List Item</h1>
+            </header>
 
-    <!-- BODY -->
-    <div class="modal-body">
-      <div class="edit-container">
-        
-        <!-- EDIT LIST -->
-        <form id="edit-item" action="#" method="post">
-          <!-- BUCKET LIST ITEM -->
-          <div>
-              <label for="item">Bucket List Item:</label>
-              <input type="text" id="item" name="item" placeholder="Enter a Bucket List Item..."/>
-          </div>
+            <!-- EDIT LIST -->
+            <form id="edit-item" action="process/processedit.php" method="post">
+                <!-- BUCKET LIST ITEM -->
+                <div>
+                    <label for="item">Bucket List Item:</label>
+                    <input type="text" id="item" name="item" placeholder="Enter a Bucket List Item..."/>
+                </div>
 
-          <!-- ITEM DESCRIPTION -->
-          <div>
-              <label for="description">Bucket List Item:</label>
-              <input type="text" id="description" name="description" placeholder="Enter a description about your item..."/>
-          </div>
+                <!-- ITEM DESCRIPTION -->
+                <div>
+                    <label for="description">Bucket List Item:</label>
+                    <input type="text" id="description" name="description" placeholder="Enter a description about your item..."/>
+                </div>
 
-          <!-- IMAGE -->
-          <form enctype="multipart/form-data" action="upload.php" method="post">
-              <!-- IMAGE UPLOAD -->
-              <div>
-                  <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
-                  <label for="file">File Name:</label>
-                  <input type="file" name="fileToProcess" id="file"/>
-              </div>
-          </form>
+                <!-- IMAGE -->
+                <form enctype="multipart/form-data" action="upload.php" method="post">
+                    <!-- IMAGE UPLOAD -->
+                    <div>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
+                        <label for="file">File Name:</label>
+                        <input type="file" name="fileToProcess" id="file"/>
+                    </div>
+                </form>
 
-          <!-- SUBMIT -->
-          <input type="submit" value="Edit"/>
-        </form>
-        
-      </div>
-    </div>
+                <!-- SUBMIT -->
+                <input type="submit" value="Edit"/>
+            </form>
+        </main>
 
-    <!-- FOOTER -->
-    <div class="modal-footer">
-      <p>&copy; Group 10</p>
-    </div>
-  </div>
+        <!-- FOOTER -->
+        <?php include 'include/footer.php' ?>
 
-</div>
-
-<script>
-  // Get the modal
-  var modal = document.getElementById("edit-modal");
-
-  // Get the button that opens the modal
-  var btn = document.getElementById("edit-btn");
-
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
-
-  // When the user clicks the button, open the modal
-  btn.onclick = function() {
-    modal.style.display = "block";
-  }
-
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-</script>
+    </body>
+</html>

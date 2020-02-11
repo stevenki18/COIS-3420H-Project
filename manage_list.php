@@ -3,10 +3,9 @@
     <head>
         <?php 
             $PAGE_TITLE = "Manage List";
-            include "head_include.php"
+            include "include/head_include.php";
         ?>
-        <link type="text/css" rel="stylesheet" href="css/manage.css" />
-        <link type="text/css" rel="stylesheet" href="css/edit.css" />
+        <link type="text/css" rel="stylesheet" href="css/form.css" />
     </head>
 
     <body>
@@ -31,39 +30,35 @@
                     <p>END DATE</p>
                 </div>
             </header>
-            
-            <div id="openedit">
-                <?php include "edit_item.php" ?>
-            </div>
 
-            <form id="edit-list" action="#" method="post">
+            <form id="edit-list" action="edit_item.php" method="post">
                 <fieldset>
                     <!-- FIRST ITEM -->
                     <div>
                         <input type="checkbox" id="checkbox-1" name="items[]" value="1"/>
                         <label for="checkbox-1">List item 1</label>
-                        <button><a href = "#openedit" id = "edit-btn"><i class="fa fa-edit"></i></a></button>
+                        <button id="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
                     </div>
                     
                     <!-- SECOND ITEM -->
                     <div>
                         <input type="checkbox" id="checkbox-2" name="items[]" value="2"/>
                         <label for="checkbox-2">List item 2</label>
-                        <button><a href = "#openedit" id = "edit-btn"><i class="fa fa-edit"></i></a></button>
+                        <button id="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
                     </div>
                     
                     <!-- THIRD ITEM -->
                     <div>
                         <input type="checkbox" id="checkbox-3" name="items[]" value="3"/>
                         <label for="checkbox-3">List item 3</label>
-                        <button><a href = "#openedit" id = "edit-btn"><i class="fa fa-edit"></i></a></button>
+                        <button id="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
                     </div>
                 </fieldset>
             </form>
         </main>
 
         <!-- FOOTER -->
-        <?php include 'footer.php' ?>
+        <?php include 'include/footer.php' ?>
 
         <script>
             var dt = new Date();
