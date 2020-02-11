@@ -15,7 +15,7 @@
   <head>
     <?php
         $PAGE_TITLE = "Welcome!";
-        include "includes/head_include.php"
+        include "includes/meta.php"
     ?>
 
   </head>

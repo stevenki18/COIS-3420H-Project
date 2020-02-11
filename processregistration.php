@@ -12,11 +12,11 @@ $errors = [];
 if (!isset($_POST['username']) || strlen($_POST['username']) == 0)
   array_push($errors, "Please enter a username");
 
-// PASSWORD SET  
+// PASSWORD SET
 if(!isset($_POST['password'])||strlen($_POST['password']) < 8)
   array_push($errors, "Please enter a password that is at least 8 characters long");
 
-// PASSWORD MATCH  
+// PASSWORD MATCH
 if (!isset($_POST['password_confirm']) || $_POST['password']!= $_POST['password_confirm'])
   array_push($errors, "Passwords do not match");
 
@@ -28,7 +28,7 @@ if(!isset($_POST['firstname']) || strlen($_POST['firstname']) == 0)
 if(!isset($_POST['lastname']) || strlen($_POST['lastname']) == 0)
   array_push($errors, "Please enter a last name");
 
-// EMAIL  
+// EMAIL
 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 
 if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false)
@@ -48,9 +48,9 @@ if(sizeof($errors) == 0)
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php 
+  <?php
     $PAGE_TITLE = "Registration Form Errors";
-    include "head_include.php"
+    include "meta.php"
   ?>
 </head>
 <body>

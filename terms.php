@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-  <?php 
+  <?php
       $PAGE_TITLE = "Terms and Conditions";
-      include "head_include.php"
+      include "meta.php"
     ?>
 
   <link type="text/css" rel="stylesheet" href="css/terms.css" />
@@ -34,7 +34,7 @@
                 <li>Displaying first name on publicly viewable lists</li>
             </ul>
         </section>
-        
+
         <!-- SECURITY -->
         <section>
             <h3>2. Security</h3>
@@ -46,7 +46,7 @@
         <!-- PRIVACY -->
         <section>
             <h3>3. Privacy</h3>
-            <p>We respect your privacy and your rights to remain a private user on this application. We provide the option to make all lists and list items be private and 
+            <p>We respect your privacy and your rights to remain a private user on this application. We provide the option to make all lists and list items be private and
                 un-sharable with anyone other users on this page. </p>
         </section>
     </section>
