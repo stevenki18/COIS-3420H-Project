@@ -3,7 +3,7 @@
     <head>
         <?php 
             $PAGE_TITLE = "Manage List";
-            include "include/head_include.php";
+            include "includes/meta.php";
         ?>
         <link type="text/css" rel="stylesheet" href="css/form.css" />
     </head>
@@ -58,7 +58,7 @@
         </main>
 
         <!-- FOOTER -->
-        <?php include 'include/footer.php' ?>
+        <?php include 'includes/footer.php' ?>
 
         <script>
             var dt = new Date();
