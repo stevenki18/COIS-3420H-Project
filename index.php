@@ -13,9 +13,9 @@
  -->
 <html lang="en">
   <head>
-    <?php 
+    <?php
         $PAGE_TITLE = "Welcome!";
-        include "head_include.php"
+        include "includes/head_include.php"
     ?>
 
   </head>
@@ -57,7 +57,7 @@
   </main>
 
 
-  <?php include 'footer.php' ?>
+  <?php include 'includes/footer.php' ?>
 
 </body>
 
