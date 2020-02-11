@@ -5,7 +5,6 @@
             $PAGE_TITLE = "Manage List";
             include "includes/meta.php";
         ?>
-        <link type="text/css" rel="stylesheet" href="css/form.css" />
     </head>
 
     <body>
