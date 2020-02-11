@@ -10,23 +10,32 @@
     </li>
     <li class="dropdown">Lists
       <ul class="dropdown-content">
-        <li><a href="manage_list.php">Things to Do Before I'm 40</a></li>
-        <li><a href="manage_list.php">Our Sample List</a></li>
-        <li><a href = "#create_modal" id="create-btn" class="modBtn">Add List</a></li>
+        <li><a href="display_list.php">My Lists</a></li>
+        <li><a href="public_list.php">Public Lists</a></li>
+        <li><a href="sample_list.php">Our Sample List</a></li>
+        <?php if(isset($_SESSION['user'])): ?>
+        <li>
+          <a href = "#create_modal" id="create-btn" class="modBtn">Add List</a>
+        </li>
+        <?php endif; ?>
       </ul>
     </li>
     <li>
       <div class="search-container">
-        <form action="action_page.php">
+        <form action="searchresults.php">
           <input type="text" placeholder="Search.." name="search">
           <button type="submit"><i class="fa fa-search"></i></button>
         </form>
       </div>
     </li>
-    <li><a href = "#login-modal" id = "login-btn" class="modBtn">Login</a><!--<a href="register.php">Login</a>--></li>
+    <li>
+      <?php if(isset($_SESSION['user'])): ?>
+        <a href="logout.php">Sign Out</a>
+      <?php else: ?>
+      <a href = "login.php">Login</a>
+    <?php endif; ?>
+    </li>
   </ul>
-
-  <?php include "login.php" ?>
 
   <?php include "create_list.php" ?>
 
@@ -42,11 +51,6 @@
 
       // When the user clicks the button, open the modal
       btn[0].onclick = function() {
-          modal[1].style.display = "block";
-      }
-
-      // When the user clicks the button, open the modal
-      btn[1].onclick = function() {
           modal[0].style.display = "block";
       }
 
@@ -55,18 +59,10 @@
           modal[0].style.display = "none";
       }
 
-      // When the user clicks on <span> (x), close the modal
-      span[1].onclick = function() {
-          modal[1].style.display = "none";
-      }
-
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
           if (event.target == modal[0]) {
               modal[0].style.display = "none";
-          }
-          if (event.target == modal[1]) {
-              modal[1].style.display = "none";
           }
       }
   </script>

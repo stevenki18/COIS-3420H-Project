@@ -1,8 +1,9 @@
+<?php session_start(); ?>
 <!DOCTYPE HTML>
 <html lang="en">
 
 <head>
-  <?php 
+  <?php
       $PAGE_TITLE = "Registration";
       include "includes/meta.php"
     ?>
@@ -58,7 +59,7 @@
 
       <!-- can ppl under 13 years use our website? -->
       <!-- it also still needs validation. (cant have any 200 year olds) -->
-      
+
       <!-- MINIMUM = JAN 1, 1900, MAXIMUM = TODAY (SET IN SCRIPT AT BOTTOM) -->
       <div>
         <label for="birthdate">Date of Birth:</label>

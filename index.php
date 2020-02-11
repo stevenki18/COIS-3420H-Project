@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE HTML>
 <!-- ******************************** Filename: index.html, uses default.css
  *
@@ -37,26 +38,51 @@
   <main>
     <article>
       <header>
-        <h1>Welcome to My Bucket List(s)</h1>      
+        <h1>Welcome to My Bucket List(s)</h1>
       </header>
-      <p>
-        At this site you will be able to create your own bucket list, and keep track on the progress.
-      </p>
+
       <section id="about">
         <h2>About</h2>
+        <p>
+          At this site you will be able to create your own bucket list, and keep track on the progress.
+        </p>
       </section>
+
       <section id="ideas">
-        <h2>Sample Sites</h2>
+        <h2>Sample Lists</h2>
+        <ul>
+          <li>
+            Things to do before 50
+          </li>
+          <li>
+            Do before I get married!
+          </li>
+        </ul>
       </section>
+
       <section id="top-ten">
-        <h2>Top 10</h2>
+        <h2>Top 5</h2>
+        <ol>
+          <li>
+            Go Skydiving
+          </li>
+          <li>
+            Don't Die
+          </li>
+          <li>
+            List item 3
+          </li>
+          <li>
+            List item 4
+          </li>
+          <li>
+            List item 5
+          </li>
+        </ol>
       </section>
-      <section id="register">
-        <h2>Register</h2>
-      </section>
+
     </article>
-    <!-- OUR GENERIC LIST -->
-    <!-- DEFAULT LIST -->
+
   </main>
 
 
