@@ -33,26 +33,29 @@
 
             <form id="edit-list" action="edit_item.php" method="post">
                 <fieldset>
+                  <ul>
                     <!-- FIRST ITEM -->
-                    <div>
+                    <li>
                         <input type="checkbox" id="checkbox-1" name="items[]" value="1"/>
                         <label for="checkbox-1">List item 1</label>
                         <button id="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
-                    </div>
+                    </li>
 
                     <!-- SECOND ITEM -->
-                    <div>
+                    <li>
                         <input type="checkbox" id="checkbox-2" name="items[]" value="2"/>
                         <label for="checkbox-2">List item 2</label>
                         <button id="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
-                    </div>
+                    </li>
 
                     <!-- THIRD ITEM -->
-                    <div>
+                    <li>
                         <input type="checkbox" id="checkbox-3" name="items[]" value="3"/>
                         <label for="checkbox-3">List item 3</label>
                         <button id="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
-                    </div>
+                    </li>
+
+                  </ul>
                     <!-- Add item Button -->
                     <button type="button" class="modBtn">ADD NEW ITEM</button>
                 </fieldset>

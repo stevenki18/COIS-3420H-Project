@@ -38,13 +38,9 @@ fieldset{
     width: 75%;
 }
 
-fieldset div{
+fieldset li{
     border-bottom: 0.1em solid #818181;
     display: flex;
     margin: 1em;
     padding: 0.3em 0;
-}
-
-button[type="submit"]{
-    margin: 0 auto;
 }

@@ -7,7 +7,6 @@
       include "includes/meta.php"
     ?>
 
-  <link type="text/css" rel="stylesheet" href="css/terms.css" />
 </head>
 
 <body>
@@ -22,7 +21,7 @@
       <h1>Terms And Conditions</h1>
     </header>
 
-    <section>
+    <article>
         <!-- USE OF INFORMATION -->
         <section>
             <h2>1. Use of Information</h2>
@@ -49,7 +48,7 @@
             <p>We respect your privacy and your rights to remain a private user on this application. We provide the option to make all lists and list items be private and
                 un-sharable with anyone other users on this page. </p>
         </section>
-    </section>
+    </article>
 
   </main>
 

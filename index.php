@@ -33,9 +33,12 @@
     <?php include 'nav.php' ?>
 
   </header>
+
   <main>
     <article>
-      <h1>Welcome to My Bucket List(s)</h1>
+      <header>
+        <h1>Welcome to My Bucket List(s)</h1>      
+      </header>
       <p>
         At this site you will be able to create your own bucket list, and keep track on the progress.
       </p>
