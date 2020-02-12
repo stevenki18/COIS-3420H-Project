@@ -1,3 +1,4 @@
+<?php require "checklogin.php" ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,16 +18,27 @@
             <!-- DISPLAY LIST -->
             <header>
                 <!-- LIST NAME -->
-                <h1>My List</h1>
+                <h1>My List <span><i class="fa fa-lock"></i></span></h1>
+                
                 <!-- START DATE -->
                 <div>
-                    <h3>2/9/2020</h3>
+                    <!-- h3 styling -->
+                    <span>2/9/2020</h3>
                     <p>START DATE</p>
                 </div>
+                
                 <!-- END DATE -->
                 <div>
-                    <h3><span id="todaysdate"></span></h3>
+                    <!-- h3 styling -->
+                    <span><span id="todaysdate"></span></h3>
                     <p>END DATE</p>
+                </div>
+
+                <!-- EDIT LIST -->
+                <div>
+                    <!-- h1 styling -->
+                    <button type = "button"><i class = "fa fa-edit"></i></button>
+                    <button type = "button"><i class = "fa fa-trash"></i></button>
                 </div>
             </header>
 
@@ -37,21 +49,27 @@
                     <li>
                         <input type="checkbox" id="checkbox-1" name="items[]" value="1"/>
                         <label for="checkbox-1">List item 1</label>
-                        <button id="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
+                        <button type = "button"><i class = "fa fa-eye"></i></button>
+                        <button type="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
+                        <button type = "button"><i class = "fa fa-trash"></i></button>
                     </li>
 
                     <!-- SECOND ITEM -->
                     <li>
                         <input type="checkbox" id="checkbox-2" name="items[]" value="2"/>
                         <label for="checkbox-2">List item 2</label>
-                        <button id="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
+                        <button type = "button"><i class = "fa fa-eye"></i></button>
+                        <button type="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
+                        <button type = "button"><i class = "fa fa-trash"></i></button>
                     </li>
 
                     <!-- THIRD ITEM -->
                     <li>
                         <input type="checkbox" id="checkbox-3" name="items[]" value="3"/>
                         <label for="checkbox-3">List item 3</label>
-                        <button id="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
+                        <button type = "button"><i class = "fa fa-eye"></i></button>
+                        <button type="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
+                        <button type = "button"><i class = "fa fa-trash"></i></button>
                     </li>
 
                   </ul>

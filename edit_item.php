@@ -1,3 +1,4 @@
+<?php require "checklogin.php" ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,21 +16,28 @@
         <main>
             <header>
                 <!-- LIST Item Name -->
-                <h1>My List Item</h1>
+                <h1>Edit <?php //listname ?> Item</h1>
             </header>
 
             <!-- EDIT LIST -->
-            <form id="edit-item" action="process/processedit.php" method="post">
+            <form id="edit-item" action="process_edit_items.php" method="post">
                 <!-- BUCKET LIST ITEM -->
                 <div>
-                    <label for="item">Bucket List Item:</label>
-                    <input type="text" id="item" name="item" placeholder="Enter a Bucket List Item..."/>
+                    <label for="item">Item Name:</label>
+                    <input type="text" id="item" name="item" placeholder="Enter an item to add to the list..." required/>
+                    <button type="button"><i class="fa fa-lock"></i></button>
                 </div>
 
                 <!-- ITEM DESCRIPTION -->
                 <div>
                     <label for="description">Bucket List Item:</label>
-                    <input type="text" id="description" name="description" placeholder="Enter a description about your item..."/>
+                    <textarea id="description" name="description" rows="5" cols="30" placeholder = "Enter a description for your bucket list item..."></textarea>
+                </div>
+
+                <!-- DATE OF COMPLETION -->
+                <div>
+                    <label for="complete">Date of Completion:</label>
+                    <input id="complete" type="date" name="complete" min="1900-01-01">
                 </div>
 
                 <!-- IMAGE -->
@@ -43,12 +51,29 @@
                 </form>
 
                 <!-- SUBMIT -->
-                <input type="submit" value="Edit"/>
+                <button type="submit" name="Save">Save</button>
+                <button type="button" name="Cancel">Cancel</button>
             </form>
         </main>
 
         <!-- FOOTER -->
         <?php include 'includes/footer.php' ?>
 
+        <!-- SET MAXIMUM DATE THAT LIST ITEM CAN BE COMPLETED -->
+        <script>
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("complete").setAttribute("max", today);
+        </script>
     </body>
 </html>

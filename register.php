@@ -22,7 +22,7 @@
     </header>
 
     <!-- FORM -->
-    <form id="register-form" action="processregistration.php" method="post">
+    <form id="register-form" action="process_registration.php" method="post">
       <div>
         <!-- how would i check if the usrname is unique? -->
         <label for="username">Username:</label>

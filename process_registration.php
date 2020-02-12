@@ -34,7 +34,7 @@ $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false)
   array_push($errors, "Please enter a valid email address");
 
-//BIRTHDATE
+// BIRTHDATE
 if(!isset($_POST['lastname']) || strlen($_POST['lastname']) == 0)
   array_push($errors, "Please enter a birthdate that is between 2019-01-01 and " + date("Y-m-d"));
 
