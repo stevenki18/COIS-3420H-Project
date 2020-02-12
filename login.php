@@ -5,6 +5,40 @@
   }else {
     $username="";
   }
+  /* require or include the library */
+  // require './includes/library.php';
+
+  /* ------ <from-the-last-lab> ------- */
+if(isset($_POST['login'])){
+    /* $errors starts as an empty array */
+    $errors = [];
+
+    /* Get everything from $_POST */
+    $username = $_POST['username'] ?? NULL;
+    $password = $_POST['password'] ?? NULL;
+
+
+    /* Error Validation (from last lab) */
+    if (!isset($username) || strlen($username) === 0) array_push($errors, "Please enter a valid username.");
+    if (!isset($password)) array_push($errors, "Incorrect Password.");
+
+    if (isset($_POST['remember']))
+      setcookie("bucket",$username,time()+60*60*24);
+
+    if (count($errors) === 0) {
+      if($username=="master" and $password=="test"){
+        session_start();
+        $_SESSION['user'] = $username;
+
+        header("Location: index.php");
+        exit();
+      }
+      else {
+        header("Location: login.php");
+        exit();
+      }
+    }
+  }
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -25,51 +59,53 @@
   <main>
     <header>
       <!-- Register -->
-      <h1>Register</h1>
+      <h1>Login</h1>
     </header>
 
     <!-- FORM -->
-    <div class="login-container">
-      <form id="login" action="processlogin.php" method = "post">
-        <!-- col align logins -->
-        <div class="login-methods">
-          <h3>Login with Social Media</h3>
+    <form id="login" action="<?= $_SERVER['PHP_SELF']; ?>" method = "post">
+      <!-- col align logins -->
+      <div class="login-methods">
+        <h3>Login with Social Media</h3>
 
-          <!-- row align -->
-          <div class="social-options">
-            <a href="#" class="fb btn">
-              <i class="fa fa-facebook fa-fw"></i>
-             </a>
-            <a href="#" class="twitter btn">
-              <i class="fa fa-twitter fa-fw"></i>
-            </a>
-            <a href="#" class="google btn"><i class="fa fa-google fa-fw"></i>
-            </a>
+        <!-- row align -->
+        <div class="social-options">
+          <a href="#" class="fb btn">
+            <i class="fa fa-facebook fa-fw"></i>
+          </a>
+          <a href="#" class="twitter btn">
+            <i class="fa fa-twitter fa-fw"></i>
+          </a>
+          <a href="#" class="google btn">
+            <i class="fa fa-google fa-fw"></i>
+          </a>
+        </div >
+
+        <h4>or Manually</h4>
+
+        <div class="manual-login">
+          <input type="text" name="username" placeholder="Username" value="<?= $username ?>" required>
+          <input type="password" name="password" placeholder="Password" required>
+
+          <div id="remember-me-sect">
+            <label for="remember_me">Remember Me</label>
+            <input type="checkbox" id="remember_me" name="remember" value="0"/>
           </div>
 
-          <h4>or Manually</h4>
-
-          <div class="manual-login">
-            <input type="text" name="username" placeholder="Username" value="<?= $username ?>" required>
-            <input type="password" name="password" placeholder="Password">
-
-            <div>
-              <label for="remember_me">Remember Me</label>
-              <input type="checkbox" id="remember_me" name="remember" value="0"/>
-            </div>
-            <input type="submit" value="Login">
-            <div id="forgot-pass">
-              <a href="#forgotpass" class="modBtn">Forgot password?</a>
-            </div>
+          <div class="register-login">
+             <a href="register.php">Create Account</a>
+             <button type="submit" name="login">Login</button>
           </div>
 
+          <div id="forgot-pass">
+            <a href="#forgotpass" class="modBtn">Forgot password?</a>
+          </div>
         </div>
-      </form>
-    </div>
 
-    <div class="register-container">
-       <a href="register.php">Sign up</a>
-    </div>
+      </div>
+    </form>
+
+
   </main>
 
   <?php include 'forgotpass.php' ?>
@@ -86,18 +122,18 @@
 
       // When the user clicks the button, open the modal
       btn[0].onclick = function() {
-          modal[0].style.display = "block";
+          modal[1].style.display = "block";
       }
 
       // When the user clicks on <span> (x), close the modal
-      span[0].onclick = function() {
-          modal[0].style.display = "none";
+      span[1].onclick = function() {
+          modal[1].style.display = "none";
       }
 
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
-          if (event.target == modal[0]) {
-              modal[0].style.display = "none";
+          if (event.target == modal[1]) {
+              modal[1].style.display = "none";
           }
       }
   </script>

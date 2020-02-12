@@ -14,6 +14,7 @@
  /* USED VARIABLES */
  :root {
    --link-color: #8fcf69;
+   --linkhover-color: #818181;
  }
  /*------------------------------------------------------------------------------
 |       FORMATTING FOR DOCUMENT WHICH IS INHERITED BY EVERY ELEMENT
@@ -96,9 +97,9 @@ h5 {
   font-size: 1.15em;
 }
 
-button[type="submit"]{
+/* button[type="submit"]{
     margin: 0 auto;
-}
+} */
 
 form {
   border: 0.1em solid #818181;
@@ -111,57 +112,74 @@ form {
 
 ol {
   list-style-type: decimal;
+  list-style-position: inside;
+}
+
+button, nav a, .dropdown, #login a {
+  padding: 0.3rem 1rem;
+  color: #000;
+  margin: 0.5rem auto;
+  background-color: var(--link-color);
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.3rem;
+}
+
+button:hover {
+  background-color: var(--linkhover-color);
+}
+
+input {
+  /* border: none; */
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+  margin: 0.5rem 1rem;
 }
 
 /*------------------------------------------------------------------------------
 |                               NAVIGATION BAR
 |-----------------------------------------------------------------------------*/
 nav {
-  /* border: 2px solid blue; */
   background-color: #333;
 }
 
 nav > ul {
-  /* border: 2px solid green; */
   max-width: 70rem;
   display: flex;
   align-items: center;
   color: #FFF;
-  vertical-align: middle;
   margin: 0 auto;
 }
 
-nav li {
-  /* border: 2px solid red; */
-  list-style-type: none;
-  list-style-position: inside;
+/* list items of navigaion bar */
+nav li, nav form {
   display: flex;
+}
+
+#search-container {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
 }
 
 /* Search bar (2nd last child in list) */
 nav > ul > li:nth-last-child(2) {
-  /* padding: 0.8rem 1rem; */
   margin-left: auto;
 }
 
-nav a, .dropdown {
-  /* border: 1px solid pink; */
-  color: #000;
-  font-size: 1rem;
-  padding: 0.8rem 1rem;
-  text-align: center;
+nav a, .dropdown, #login a {
   text-decoration: none;
   margin: 0.2rem 0.7rem;
-  border-radius: 0.5rem;
-  background-color: var(--link-color);
 }
 
-nav a:hover, .dropdown:hover {
-  background-color: #818181;
+nav a:hover, .dropdown:hover, #search-btn:hover {
+  background-color: var(--linkhover-color);
 }
 
 a[href^="index"] {
-  /* border: 2px solid yellow; */
   padding: 0 0.5em;
   background-color: inherit;
   color: inherit;
@@ -169,120 +187,8 @@ a[href^="index"] {
 }
 
 input[name$="search"] {
-  /* border: 2px solid yellow; */
   border: none;
-  padding: 0.3rem;
-  border-radius: 0.3rem;
-  font-size: 1rem;
-}
-
-nav button {
-  padding: 0.3rem 1rem;
-  color: #000;
-  margin-right: 1rem;
-  background-color: var(--link-color);
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  border-radius: 0.3rem;
-}
-
-/*------------------------------------------------------------------------------
-|                               MODAL STYLING
-|-----------------------------------------------------------------------------*/
-/* The Modal (background) */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  max-width: 40em;
-  margin: auto;
-  border: 1px solid #888;
-}
-
-.login-methods {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0.5rem auto;
-}
-
-.modal-body div {
-  /* border: 2px solid red; */
-  margin: 1em auto;
-}
-
-.manual-login {
-  /* border: 2px solid pink; */
-  display: flex;
-  flex-direction: column;
-}
-
-.manual-login > input {
-  margin: 0.5em auto;
-}
-
-input[value="Login"]:hover {
-  cursor: pointer;
-}
-
-#forgot-pass > a {
-  background-color: inherit;
-  border: none;
-  font-size: 0.7em;
   padding: 0;
-  margin: 0;
-}
-
-#forgot-pass > a:hover {
-  color: blue;
-}
-
-/* The Close Button */
-.close {
-  color: white;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.modal-header {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
-}
-
-.modal-body {
-  padding: 2px 16px;
-  margin: 1em;
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-footer {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
 }
 
 /*------------------------------------------------------------------------------
@@ -292,7 +198,6 @@ input[value="Login"]:hover {
 .dropdown {
   /* border: 2px solid blue; */
   outline: none;
-
   position: relative;
   display: flex;
   flex-direction: column;
@@ -310,7 +215,7 @@ input[value="Login"]:hover {
   display: none;
   min-width: 20rem;
   position: absolute;
-  top: 2.5rem;
+  top: 2rem;
   left: -2em;
   z-index: 1;
   border-radius: 0.5rem;
@@ -335,8 +240,75 @@ input[value="Login"]:hover {
 
 /* HOVERING OVER LINKS IN DROP DOWN BOXES */
 .dropdown-content a:hover {
-  background-color: #DDD;
+  background-color: var(--linkhover-color);
 }
+
+/*------------------------------------------------------------------------------
+|                               MODAL STYLING
+|-----------------------------------------------------------------------------*/
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 5rem;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  max-width: 40em;
+  margin: auto;
+  border: 1px solid #888;
+  text-align: center;
+}
+
+.modal-body div {
+  /* border: 2px solid red; */
+  margin: 1em auto;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 0.2rem 1rem;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.modal-body {
+  padding: 0.2rem 1rem;
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-footer {
+  padding: 0.2rem 1rem;
+  background-color: #5cb85c;
+  color: white;
+}
+
 
 
 /*------------------------------------------------------------------------------
@@ -350,11 +322,12 @@ input[value="Login"]:hover {
 }
 
 
+
 /*------------------------------------------------------------------------------
 |                               FORM STYLING
 |-----------------------------------------------------------------------------*/
 form div{
-  margin: 0.5em;
+  margin: 0.5em auto;
   padding: 0.3em 0;
 }
 
@@ -364,6 +337,34 @@ fieldset li{
   margin: 1em;
   padding: 0.3em 0;
 }
+
+
+/*------------------------------------------------------------------------------
+|                               LOGIN STYLING
+|-----------------------------------------------------------------------------*/
+#login a:hover {
+  background-color: var(--linkhover-color);
+}
+
+.login-methods {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  /* justify-content: center; */
+  /* margin: 0.5rem auto; */
+}
+
+.manual-login {
+  /* border: 2px solid pink; */
+  display: flex;
+  flex-direction: column;
+}
+
+.manual-login > input {
+  margin: 0.5em auto;
+}
+
+
 
 /*------------------------------------------------------------------------------
 |                               MOBILE STYLING
