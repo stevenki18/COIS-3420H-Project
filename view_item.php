@@ -5,7 +5,7 @@
   <div class="modal-content">
         <!-- HEADER -->
         <div class="modal-header">
-            <span class="close">&times;</span>
+            <span onclick="document.getElementById('view-modal').style.display='none'" class="close">&times;</span>
             <div class="logo">
                 <figure>
                 <img src="img/bucket.png" alt="Bucket List Logo" height=50 />
@@ -18,7 +18,7 @@
             <div class="create-container">
 
                 <!-- EDIT LIST -->
-                <div>
+                <form id="view-item" action="#" method="post">
                     <!-- BUCKET LIST ITEM -->
                     <div>
                         <label for="item">Item Name:</label>
@@ -39,7 +39,7 @@
                             <input id="complete" type="date" name="complete" value = <?php //completion date ?>>
                         </div>
                     <?php //endif ?>
-                </div>
+                </form>
             </div>
         </div>
 

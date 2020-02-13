@@ -31,7 +31,7 @@ if(isset($_POST["Submit"])){/* Redirect if $_POST has nothing in it */
   <!-- Modal content -->
   <div class="modal-content">
     <div class="modal-header">
-      <span class="close">&times;</span>
+      <span onclick="document.getElementById('forgotpass').style.display='none'" class="close">&times;</span>
       <div class="logo">
         <figure>
           <img src="img/bucket.png" alt="Bucket List Logo" height=50 />

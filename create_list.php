@@ -5,7 +5,7 @@
   <div class="modal-content">
         <!-- HEADER -->
         <div class="modal-header">
-            <span class="close">&times;</span>
+            <span onclick="document.getElementById('create-modal').style.display='none'" class="close">&times;</span>
             <div class="logo">
                 <figure>
                 <img src="img/bucket.png" alt="Bucket List Logo" height=50 />
