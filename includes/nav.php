@@ -11,8 +11,8 @@
     <li class="dropdown">Lists
       <ul class="dropdown-content">
         <li><a href="display_list.php">My Lists</a></li>
-        <li><a href="public_list.php">Public Lists</a></li>
-        <li><a href="sample_list.php">Our Sample List</a></li>
+        <li><a href="~public_list.php">Public Lists</a></li>
+        <li><a href="~sample_list.php">Our Sample List</a></li>
         <?php if(isset($_SESSION['user'])): ?>
         <li>
           <button onclick="document.getElementById('create-modal').style.display='block'">Add List</button>
@@ -31,8 +31,8 @@
     <?php if(isset($_SESSION['user'])): ?>
       <li class="dropdown"><?php echo $_SESSION['user'] ?>
           <ul class="dropdown-content">
-            <li><a href="logout.php">Sign Out</a></li>
-            <li><a href="edit_account.php">Edit Account</a></li>
+            <li><a href="~logout.php">Sign Out</a></li>
+            <li><a href="~edit_account.php">Edit Account</a></li>
           </ul>
         </li>
     <?php else: ?>
@@ -40,9 +40,9 @@
         <a href = "login.php">Login</a>
       </li>
     <?php endif; ?>
-  
+
   </ul>
 
-  <?php include "create_list.php" ?>
+  <?php include "modals/add_list.php" ?>
 
 </nav>

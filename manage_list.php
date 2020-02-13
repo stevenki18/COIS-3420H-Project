@@ -17,7 +17,7 @@ session_start();
     <body>
         <!-- HEADER -->
         <header>
-            <?php include 'nav.php' ?>
+            <?php include 'includes/nav.php' ?>
         </header>
 
         <main>

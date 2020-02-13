@@ -61,7 +61,7 @@ if (isset($_POST['submit']))
 <body>
 
   <header>
-    <?php include 'nav.php' ?>
+    <?php include 'includes/nav.php' ?>
   </header>
 
   <main>
