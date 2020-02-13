@@ -1,4 +1,10 @@
-<?php require "checklogin.php" ?>
+<?php
+// Check for a valid session (if not redirect back to login)
+session_start();
+ if(!isset($_SESSION['user'])){
+   header("Location:login.php");
+ }
+?>
 <!DOCTYPE HTML>
 <html lang="en">
 
@@ -25,11 +31,7 @@
     <form id="register-form" action="process_edit_account.php" method="post">
       <div>
         <label for="username">Username:</label>
-        <input id="username" name="username" type="text" value = <?php //username ?> readonly>
-      </div>
-
-      <div>
-        <p>Reset Password</p>
+        <input id="username" name="username" type="text" value = "<?php echo $_SESSION['user'] ?>" readonly>
       </div>
 
       <div>
@@ -49,23 +51,23 @@
 
       <div>
         <label for="firstname">First Name:</label>
-        <input id="firstname" name="firstname" type="text" value = <?php //first name ?> required>
+        <input id="firstname" name="firstname" type="text" value = "<?php //first name ?>" required>
       </div>
 
       <div>
         <label for="lastname">Last Name:</label>
-        <input id="lastname" name="lastname" type="text" value = <?php //last name ?> required>
+        <input id="lastname" name="lastname" type="text" value = "<?php //last name ?>" required>
       </div>
 
       <div>
         <label for="email">Email Address:</label>
-        <input id="email" name="email" type="text" value = <?php //email ?> required>
+        <input id="email" name="email" type="text" value = "<?php //email ?>" required>
       </div>
 
       <!-- MINIMUM = JAN 1, 1900, MAXIMUM = TODAY (SET IN SCRIPT AT BOTTOM) -->
       <div>
         <label for="birthdate">Date of Birth:</label>
-        <input id="birthdate" type="date" name="birthdate" value = <?php //birthday ?> min="1900-01-01" required>
+        <input id="birthdate" type="date" name="birthdate" value = "<?php //birthday ?>" min="1900-01-01" required>
       </div>
 
       <button type="submit" name="Update Account"> Save Changes</button>

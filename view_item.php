@@ -18,7 +18,7 @@
             <div class="create-container">
 
                 <!-- EDIT LIST -->
-                <form id="view-item" action="#" method="post">
+                <div>
                     <!-- BUCKET LIST ITEM -->
                     <div>
                         <label for="item">Item Name:</label>
@@ -39,7 +39,7 @@
                             <input id="complete" type="date" name="complete" value = <?php //completion date ?>>
                         </div>
                     <?php //endif ?>
-                </form>
+                </div>
             </div>
         </div>
 

@@ -26,13 +26,20 @@
           <button id="search-btn" type="submit"><i class="fa fa-search"></i></button>
         </form>
     </li>
-    <li>
+
       <?php if(isset($_SESSION['user'])): ?>
-        <a href="logout.php">Sign Out</a>
+        <li class="dropdown"><?php echo $_SESSION['user'] ?>
+          <ul class="dropdown-content">
+            <li><a href="logout.php">Sign Out</a></li>
+            <li><a href="edit_account.php">Edit Account</a></li>
+          </ul>
+        </li>
       <?php else: ?>
-      <a href = "login.php">Login</a>
+      <li>
+        <a href = "login.php">Login</a>
+      </li>
     <?php endif; ?>
-    </li>
+
   </ul>
 
   <?php include "create_list.php" ?>

@@ -1,4 +1,10 @@
-<?php require "checklogin.php" ?>
+<?php
+// Check for a valid session (if not redirect back to login)
+session_start();
+ if(!isset($_SESSION['user'])){
+   header("Location:login.php");
+ }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -41,23 +47,15 @@
                 </div>
 
                 <!-- IMAGE -->
-                <!-- <form enctype="multipart/form-data" action="upload.php" method="post"> -->
-                    <!-- IMAGE UPLOAD -->
-                    <div>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
-                        <label for="file">File Name:</label>
-                        <input type="file" name="fileToProcess" id="file"/>
-                    </div>
-                <!-- </form> -->
+                <div>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
+                    <label for="file">File Name:</label>
+                    <input type="file" name="fileToProcess" id="file"/>
+                </div>
 
                 <!-- SUBMIT -->
                 <button type="submit" name="Save">Save</button>
-                <button onclick="goback()" type="button" name="Cancel" >Cancel</button>
-                <script>
-function goBack() {
-  window.history.back();
-}
-</script>
+                <button onclick="goBack()" type="button" name="Cancel" >Cancel</button>
             </form>
         </main>
 
@@ -80,5 +78,13 @@ function goBack() {
             today = yyyy + '-' + mm + '-' + dd;
             document.getElementById("complete").setAttribute("max", today);
         </script>
+
+        <!-- RETURN TO PREVIOUS PAGE -->
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+        
     </body>
 </html>
