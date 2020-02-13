@@ -216,7 +216,7 @@ input[name$="search"] {
   display: none;
   min-width: 20rem;
   position: absolute;
-  top: 2rem;
+  top: 1.5rem;
   left: -2em;
   z-index: 1;
   border-radius: 0.5rem;

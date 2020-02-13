@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <?php 
+        <?php
             $PAGE_TITLE = "Edit List Item";
-            include 'includes/meta.php'; 
-        ?> 
+            include 'includes/meta.php';
+        ?>
     </head>
     <body>
         <!-- HEADER -->
@@ -20,7 +20,7 @@
             </header>
 
             <!-- EDIT LIST -->
-            <form id="edit-item" action="process_edit_items.php" method="post">
+            <form id="edit-item" action="process_edit_items.php" method="post" enctype="multipart/form-data">
                 <!-- BUCKET LIST ITEM -->
                 <div>
                     <label for="item">Item Name:</label>
@@ -41,18 +41,23 @@
                 </div>
 
                 <!-- IMAGE -->
-                <form enctype="multipart/form-data" action="upload.php" method="post">
+                <!-- <form enctype="multipart/form-data" action="upload.php" method="post"> -->
                     <!-- IMAGE UPLOAD -->
                     <div>
                         <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
                         <label for="file">File Name:</label>
                         <input type="file" name="fileToProcess" id="file"/>
                     </div>
-                </form>
+                <!-- </form> -->
 
                 <!-- SUBMIT -->
                 <button type="submit" name="Save">Save</button>
-                <button type="button" name="Cancel">Cancel</button>
+                <button onclick="goback()" type="button" name="Cancel" >Cancel</button>
+                <script>
+function goBack() {
+  window.history.back();
+}
+</script>
             </form>
         </main>
 
