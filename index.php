@@ -24,12 +24,6 @@
 <body>
   <!-- SPLASH PAGE -->
   <header>
-    <!-- LOGO -->
-    <div class="logo">
-      <figure>
-        <img src="img/bucket.png" alt="Bucket List Logo" height=200 />
-      </figure>
-    </div>
 
     <?php include 'nav.php' ?>
 
@@ -38,6 +32,13 @@
   <main>
     <article>
       <header>
+        <!-- LOGO -->
+        <div class="logo">
+          <figure>
+            <img src="img/bucket.png" alt="Bucket List Logo" height=200 />
+          </figure>
+        </div>
+
         <h1>Welcome to My Bucket List(s)</h1>
       </header>
 
