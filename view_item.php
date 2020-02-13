@@ -1,8 +1,8 @@
 <!-- The Modal -->
 <div id="view-modal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
+    <!-- Modal content -->
+    <div class="modal-content">
         <!-- HEADER -->
         <div class="modal-header">
             <span onclick="document.getElementById('view-modal').style.display='none'" class="close">&times;</span>
@@ -22,7 +22,7 @@
                     <!-- BUCKET LIST ITEM -->
                     <div>
                         <label for="item">Item Name:</label>
-                        <input type="text" id="item" name="item" value = <?php //item name ?> readonly/>
+                        <input type="text" id="item" name="item" value = "<?php //item name ?>" readonly/>
                         <button type="button"><i class="fa fa-lock"></i></button>
                     </div>
 
@@ -36,7 +36,7 @@
                         <!-- DATE OF COMPLETION -->
                         <div>
                             <label for="complete">Date of Completion:</label>
-                            <input id="complete" type="date" name="complete" value = <?php //completion date ?>>
+                            <input id="complete" type="date" name="complete" value = "<?php //completion date ?>">
                         </div>
                     <?php //endif ?>
                 </form>
@@ -47,5 +47,5 @@
         <div class="modal-footer">
             <p>&copy; Group 10</p>
         </div>
-
+    </div>
 </div>
