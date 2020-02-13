@@ -15,13 +15,14 @@
  :root {
    --link-color: #8fcf69;
    --linkhover-color: #818181;
+   --text-color: #000;
  }
  /*------------------------------------------------------------------------------
 |       FORMATTING FOR DOCUMENT WHICH IS INHERITED BY EVERY ELEMENT
 |-----------------------------------------------------------------------------*/
 body {
   background-color: #9bc3ed;
-  color: #000;
+  color: var(--text-color);
   font-family: Verdana, Helvetica, sans-serif;
   font-size: 16px;
   margin: auto;
@@ -117,7 +118,7 @@ ol {
 
 button, nav a, .dropdown, #login a {
   padding: 0.3rem 1rem;
-  color: #000;
+  color: var(--text-color);
   margin: 0.5rem auto;
   background-color: var(--link-color);
   font-size: 1rem;
@@ -230,7 +231,7 @@ input[name$="search"] {
 /* LINKS IN DROP DOWN BOXES */
 .dropdown-content a {
   /* border: 1px solid black; */
-  color: #000;
+  color: var(--text-color);
   float: none;
   padding: 0.75rem 1rem;
   text-align: left;
@@ -285,7 +286,7 @@ input[name$="search"] {
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: var(--text-color);
   text-decoration: none;
   cursor: pointer;
 }
