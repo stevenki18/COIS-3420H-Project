@@ -15,18 +15,16 @@
         <li><a href="sample_list.php">Our Sample List</a></li>
         <?php if(isset($_SESSION['user'])): ?>
         <li>
-          <a href = "#create_modal" id="create-btn" class="modBtn">Add List</a>
+          <a href = "#create_modal" id="create-btn" class="mod-btn">Add List</a>
         </li>
         <?php endif; ?>
       </ul>
     </li>
     <li>
-      <div class="search-container">
-        <form action="searchresults.php">
-          <input type="text" placeholder="Search.." name="search">
-          <button type="submit"><i class="fa fa-search"></i></button>
+        <form action="searchresults.php" id="search-container">
+          <input type="text" placeholder="Search.." name="search" maxlength="20">
+          <button id="search-btn" type="submit"><i class="fa fa-search"></i></button>
         </form>
-      </div>
     </li>
     <li>
       <?php if(isset($_SESSION['user'])): ?>
@@ -44,7 +42,7 @@
       var modal = document.getElementsByClassName('modal');
 
       // Get the button that opens the modal
-      var btn = document.getElementsByClassName("modBtn");
+      var btn = document.getElementsByClassName("mod-btn");
 
       // Get the <span> element that closes the modal
       var span = document.getElementsByClassName("close");
