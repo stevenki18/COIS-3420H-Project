@@ -15,7 +15,8 @@
         <li><a href="sample_list.php">Our Sample List</a></li>
         <?php if(isset($_SESSION['user'])): ?>
         <li>
-          <a href = "#create_modal" id="create-btn" class="mod-btn">Add List</a>
+          <button onclick="document.getElementById('create-modal').style.display='block'">Add List</button>
+          <!-- <a href = "#create_modal" id="create-btn" class="mod-btn">Add List</a> -->
         </li>
         <?php endif; ?>
       </ul>
@@ -27,49 +28,21 @@
         </form>
     </li>
 
-      <?php if(isset($_SESSION['user'])): ?>
-        <li class="dropdown"><?php echo $_SESSION['user'] ?>
+    <?php if(isset($_SESSION['user'])): ?>
+      <li class="dropdown"><?php echo $_SESSION['user'] ?>
           <ul class="dropdown-content">
             <li><a href="logout.php">Sign Out</a></li>
             <li><a href="edit_account.php">Edit Account</a></li>
           </ul>
         </li>
-      <?php else: ?>
+    <?php else: ?>
       <li>
         <a href = "login.php">Login</a>
       </li>
     <?php endif; ?>
-
+  
   </ul>
 
   <?php include "create_list.php" ?>
-
-  <script>
-      // Get the modal
-      var modal = document.getElementsByClassName('modal');
-
-      // Get the button that opens the modal
-      var btn = document.getElementsByClassName("mod-btn");
-
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close");
-
-      // When the user clicks the button, open the modal
-      btn[0].onclick = function() {
-          modal[0].style.display = "block";
-      }
-
-      // When the user clicks on <span> (x), close the modal
-      span[0].onclick = function() {
-          modal[0].style.display = "none";
-      }
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-          if (event.target == modal[0]) {
-              modal[0].style.display = "none";
-          }
-      }
-  </script>
 
 </nav>

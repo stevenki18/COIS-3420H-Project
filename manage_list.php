@@ -86,7 +86,7 @@ session_start();
 
             <?php include 'view_item.php' ?>
 
-            <?php include 'delete_item.php' ?>
+            <?php //include 'delete_item.php' ?>
             <!-- Self process delete item -->
 
 

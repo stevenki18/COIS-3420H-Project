@@ -4,6 +4,7 @@ session_start();
  if(!isset($_SESSION['user'])){
    header("Location:login.php");
  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,8 +28,7 @@ session_start();
                 <h1>My Lists</h1>
             </header>
 
-                  <form>
-                    <ul>
+                  <div class="lists">  <ul>
                     <!-- FIRST LIST -->
                     <li>
                       <h2>Complete me by 50 <a href="manage_list.php"><i class="fa fa-edit"></i></a></h2>
@@ -55,31 +55,12 @@ session_start();
 
                   </ul>
                     <!-- Add item Button -->
-                    <button type="button" class="modBtn">ADD NEW LIST</button>
-                  </form>
+                    <button onclick="document.getElementById('create-modal').style.display='block'">Add List</button>
+            </div>
         </main>
 
         <!-- FOOTER -->
         <?php include 'includes/footer.php' ?>
-
-        <script>
-          // When the user clicks the button, open the modal
-          btn[1].onclick = function() {
-              modal[0].style.display = "block";
-          }
-
-          // When the user clicks on <span> (x), close the modal
-          span[1].onclick = function() {
-              modal[0].style.display = "none";
-          }
-
-          // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function(event) {
-              if (event.target == modal[1]) {
-                  modal[0].style.display = "none";
-              }
-          }
-        </script>
 
     </body>
 </html>

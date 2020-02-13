@@ -5,7 +5,7 @@
   <div class="modal-content">
         <!-- HEADER -->
         <div class="modal-header">
-            <span class="close">&times;</span>
+            <span onclick="document.getElementById('add-modal').style.display='none'" class="close">&times;</span>
             <div class="logo">
                 <figure>
                 <img src="img/bucket.png" alt="Bucket List Logo" height=50 />
@@ -20,7 +20,7 @@
                 <!-- ADD ITEM TO LIST -->
                 <form id="add-item" action="edit_item.php" method = "post">
                     <div>
-                        <label for="add-item">Add Bucket List:</label>
+                        <label for="add-item">Add Bucket Item:</label>
                         <input type="text" id="add-item" name="add-item" placeholder="Item Name" required/>
                         <button type="button" name="add-item" id="add-item"><i class="fa fa-unlock"></i></button>
                     </div>
@@ -36,4 +36,5 @@
             <p>&copy; Group 10</p>
         </div>
 
-</div>
+      </div>
+    </div>

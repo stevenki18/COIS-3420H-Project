@@ -30,7 +30,7 @@ if(isset($_POST['login'])){
         session_start();
         $_SESSION['user'] = $username;
 
-        header("Location: index.php");
+        header("Location: display_list.php");
         exit();
       }
       else {
@@ -98,7 +98,7 @@ if(isset($_POST['login'])){
           </div>
 
           <div id="forgot-pass">
-            <button onclick="document.getElementById('forgotpass').style.display='none'" class="modBtn">Forgot password?</button>
+            <button onclick="document.getElementById('forgotpass').style.display='block'" class="modBtn" type="button">Forgot password?</button>
           </div>
         </div>
 
