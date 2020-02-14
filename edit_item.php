@@ -37,7 +37,7 @@ session_start();
                 <!-- ITEM DESCRIPTION -->
                 <div>
                     <label for="description">Bucket List Item:</label>
-                    <textarea id="description" name="description" rows="5" cols="30" placeholder = "Enter a description for your bucket list item..."></textarea>
+                    <textarea id="description" name="description" rows="5" placeholder = "Enter a description for your bucket list item..."></textarea>
                 </div>
 
                 <!-- DATE OF COMPLETION -->

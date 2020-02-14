@@ -51,14 +51,14 @@
                 <div>
                     <!-- h1 styling -->
                     <button type="button"><i class="fa fa-edit"></i></button>
-                    <button type="button"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="delete"><i class="fa fa-trash"></i></button>
                 </div>
             </header>
 
             <ul>
                 <!-- FIRST ITEM -->
                 <li>
-                    List Item 1
+                    <span>List Item 1</span>
                     <div>
                         <button onclick="document.getElementById('view-modal').style.display='block'"><i class="fa fa-eye"></i></button>
                         <button type="button" name="Edit Item" onclick="location.href='edit_item.php'"><i class="fa fa-edit"></i></button>
@@ -68,7 +68,7 @@
 
                 <!-- SECOND ITEM -->
                 <li>
-                    List Item 2
+                    <span>List Item 2</span>
                     <div>
                         <button onclick="document.getElementById('view-modal').style.display='block'"><i class="fa fa-eye"></i></button>
                         <button type="button" name="Edit Item" onclick="location.href='edit_item.php'"><i class="fa fa-edit"></i></button>
@@ -78,7 +78,7 @@
 
                 <!-- THIRD ITEM -->
                 <li>
-                    List Item 3
+                    <span>List Item 3</span>
                     <div>
                         <button onclick="document.getElementById('view-modal').style.display='block'"><i class="fa fa-eye"></i></button>
                         <button type="button" name="Edit Item" onclick="location.href='edit_item.php'"><i class="fa fa-edit"></i></button>
@@ -86,9 +86,14 @@
                     </div>
                 </li>
 
+                <!-- BUTTON TO ADD ITEMS -->
+                <li>
+                    <button onclick="document.getElementById('add-modal').style.display='block'">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </li>
+
             </ul>
-            <!-- Add item Button -->
-            <button onclick="document.getElementById('add-modal').style.display='block'">ADD NEW ITEM</button>
 
             <?php include 'modals/add_item.php' ?>
 

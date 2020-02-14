@@ -196,7 +196,6 @@ input[name$="search"] {
 /*------------------------------------------------------------------------------
 |                               DROP DOWN
 |-----------------------------------------------------------------------------*/
-
 .dropdown {
   /* border: 2px solid blue; */
   outline: none;
@@ -318,19 +317,59 @@ form div{
   padding: 0.3em 0;
 }
 
-header~ul li{
+
+/*------------------------------------------------------------------------------
+|                             MANAGE LIST STYLING
+|-----------------------------------------------------------------------------*/
+main header div:nth-child(-n+3) span{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+main header~ul li{
   align-content: center;
   border-bottom: 0.1em solid #818181;
   display: flex;
-  margin: 1em 2em;
+  margin: 1em 3em;
   padding: 0.3em 0;
 }
 
-header~ul li div{
-  margin: 0 0 0 auto;
+main header~ul li span{
+  align-self: center;
 }
 
+main header~ul li div{
+  margin-left: auto;
+}
 
+main header~ul li:last-of-type{
+  border: none;
+  display:block;
+  justify-self: flex-start;
+}
+
+/*------------------------------------------------------------------------------
+|                             MANAGE LIST STYLING
+|-----------------------------------------------------------------------------*/
+#edit-item div:first-child input{
+  width: 15em;
+}
+
+#edit-item textarea{
+  border-radius: inherit;
+  width:30em;
+  resize: none;
+  overflow: auto;
+}
+
+#edit-item div:nth-child(2){
+  display:flex;
+}
+
+#edit-item div:nth-child(2) label{
+  align-self: flex-start;
+  padding-right: 1em;
+}
 
 /*------------------------------------------------------------------------------
 |                               LOGIN STYLING
@@ -367,6 +406,11 @@ header~ul li div{
 .delete{
   background-color: red;
 }
+
+.delete:hover{
+  background-color: lightcoral;
+}
+
 
 /*------------------------------------------------------------------------------
 |                               MOBILE STYLING
