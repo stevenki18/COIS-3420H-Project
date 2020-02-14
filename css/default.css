@@ -17,7 +17,9 @@
    --linkhover-color: #818181;
    --text-color: #000;
  }
- /*------------------------------------------------------------------------------
+
+
+/*------------------------------------------------------------------------------
 |       FORMATTING FOR DOCUMENT WHICH IS INHERITED BY EVERY ELEMENT
 |-----------------------------------------------------------------------------*/
 body {
@@ -59,14 +61,12 @@ footer{
 }
 
 article {
-  /* border: 2px solid yellow; */
   text-align: center;
   display: flex;
   flex-direction: column;
 }
 
 section {
- /* border: 2px solid red; */
  padding-bottom: 3rem;
 }
 
@@ -132,12 +132,12 @@ button:hover {
 }
 
 input {
-  /* border: none; */
   padding: 0.3rem;
   border-radius: 0.3rem;
   font-size: 1rem;
   margin: 0.5rem 1rem;
 }
+
 
 /*------------------------------------------------------------------------------
 |                               NAVIGATION BAR
@@ -192,6 +192,7 @@ input[name$="search"] {
   padding: 0;
 }
 
+
 /*------------------------------------------------------------------------------
 |                               DROP DOWN
 |-----------------------------------------------------------------------------*/
@@ -210,7 +211,6 @@ input[name$="search"] {
 
 /* DROP DOWN BOXES (APPEARS AFTER NAV BUTTON IS HOVERED OVER) */
 .dropdown-content {
-  /* border: 2px solid yellow; */
   background-color: #F9F9F9;
   box-shadow: 0rem 0.5rem 1rem 0rem #000;
   display: none;
@@ -230,7 +230,6 @@ input[name$="search"] {
 
 /* LINKS IN DROP DOWN BOXES */
 .dropdown-content a {
-  /* border: 1px solid black; */
   color: var(--text-color);
   float: none;
   padding: 0.75rem 1rem;
@@ -243,6 +242,7 @@ input[name$="search"] {
 .dropdown-content a:hover {
   background-color: var(--linkhover-color);
 }
+
 
 /*------------------------------------------------------------------------------
 |                               MODAL STYLING
@@ -272,7 +272,6 @@ input[name$="search"] {
 }
 
 .modal-body div {
-  /* border: 2px solid red; */
   margin: 1em auto;
 }
 
@@ -311,19 +310,6 @@ input[name$="search"] {
 }
 
 
-
-/*------------------------------------------------------------------------------
-|                               OTHER CSS STYLING
-|-----------------------------------------------------------------------------*/
-.logo {
-  /* border: 2px solid red; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-
 /*------------------------------------------------------------------------------
 |                               FORM STYLING
 |-----------------------------------------------------------------------------*/
@@ -332,12 +318,18 @@ form div{
   padding: 0.3em 0;
 }
 
-fieldset li{
+header~ul li{
+  align-content: center;
   border-bottom: 0.1em solid #818181;
   display: flex;
-  margin: 1em;
+  margin: 1em 2em;
   padding: 0.3em 0;
 }
+
+header~ul li div{
+  margin: 0 0 0 auto;
+}
+
 
 
 /*------------------------------------------------------------------------------
@@ -351,12 +343,9 @@ fieldset li{
   display: flex;
   flex-direction: column;
   text-align: center;
-  /* justify-content: center; */
-  /* margin: 0.5rem auto; */
 }
 
 .manual-login {
-  /* border: 2px solid pink; */
   display: flex;
   flex-direction: column;
 }
@@ -366,6 +355,18 @@ fieldset li{
 }
 
 
+/*------------------------------------------------------------------------------
+|                               OTHER CSS STYLING
+|-----------------------------------------------------------------------------*/
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete{
+  background-color: red;
+}
 
 /*------------------------------------------------------------------------------
 |                               MOBILE STYLING

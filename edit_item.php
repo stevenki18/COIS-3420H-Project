@@ -26,7 +26,7 @@ session_start();
             </header>
 
             <!-- EDIT LIST -->
-            <form id="edit-item" action="process_edit_items.php" method="post" enctype="multipart/form-data">
+            <form id="edit-item" action="#" method="post" enctype="multipart/form-data">
                 <!-- BUCKET LIST ITEM -->
                 <div>
                     <label for="item">Item Name:</label>
@@ -55,7 +55,7 @@ session_start();
 
                 <!-- SUBMIT -->
                 <button type="submit" name="Save">Save</button>
-                <button onclick="goBack()" type="button" name="Cancel" >Cancel</button>
+                <button onclick="window.history.back()" type="button" name="Cancel" >Cancel</button>
             </form>
         </main>
 
@@ -77,13 +77,6 @@ session_start();
 
             today = yyyy + '-' + mm + '-' + dd;
             document.getElementById("complete").setAttribute("max", today);
-        </script>
-
-        <!-- RETURN TO PREVIOUS PAGE -->
-        <script>
-            function goBack() {
-                window.history.back();
-            }
         </script>
 
     </body>

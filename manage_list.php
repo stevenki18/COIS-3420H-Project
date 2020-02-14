@@ -1,12 +1,14 @@
 <?php
-// Check for a valid session (if not redirect back to login)
-session_start();
- if(!isset($_SESSION['user'])){
-   header("Location:login.php");
- }
+    // Check for a valid session (if not redirect back to login)
+    session_start();
+    if(!isset($_SESSION['user']))
+    {
+        header("Location:login.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <?php
             $PAGE_TITLE = "Manage List";
@@ -21,66 +23,72 @@ session_start();
         </header>
 
         <main>
-            <!-- DISPLAY LIST -->
+            <!-- DISPLAYS LIST -->
             <header>
                 <!-- LIST NAME -->
-                <h1>My List <span><i class="fa fa-lock"></i></span></h1>
+                <h1>
+                    <?= "My List" ?> 
+                    <span>
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </h1>
 
                 <!-- START DATE -->
                 <div>
                     <!-- h3 styling -->
-                    <span>2/9/2020</h3>
+                    <span>2/9/2020</span>
                     <p>START DATE</p>
                 </div>
 
                 <!-- END DATE -->
                 <div>
                     <!-- h3 styling -->
-                    <span><span id="todaysdate"></span></h3>
+                    <span id="todaysdate"></span>
                     <p>END DATE</p>
                 </div>
 
                 <!-- EDIT LIST -->
                 <div>
                     <!-- h1 styling -->
-                    <button type = "button"><i class = "fa fa-edit"></i></button>
-                    <button type = "button"><i class = "fa fa-trash"></i></button>
+                    <button type="button"><i class="fa fa-edit"></i></button>
+                    <button type="button"><i class="fa fa-trash"></i></button>
                 </div>
             </header>
 
-            <!-- <form id="edit-list" action="edit_item.php" method="post"> -->
-                <!-- <fieldset> -->
-                  <ul>
-                    <!-- FIRST ITEM -->
-                    <li>
-                        list item 1
-                        <button onclick="document.getElementById('view-modal').style.display='block'"><i class = "fa fa-eye"></i></button>
-                        <button type="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
-                        <button type = "button"><i class = "fa fa-trash"></i></button>
-                    </li>
+            <ul>
+                <!-- FIRST ITEM -->
+                <li>
+                    List Item 1
+                    <div>
+                        <button onclick="document.getElementById('view-modal').style.display='block'"><i class="fa fa-eye"></i></button>
+                        <button type="button" name="Edit Item" onclick="location.href='edit_item.php'"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="delete"><i class="fa fa-trash"></i></button>    
+                    </div>
+                </li>
 
-                    <!-- SECOND ITEM -->
-                    <li>
-                        list item 2
-                        <button onclick="document.getElementById('view-modal').style.display='block'"><i class = "fa fa-eye"></i></button>
-                        <button type="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
-                        <button type = "button"><i class = "fa fa-trash"></i></button>
-                    </li>
+                <!-- SECOND ITEM -->
+                <li>
+                    List Item 2
+                    <div>
+                        <button onclick="document.getElementById('view-modal').style.display='block'"><i class="fa fa-eye"></i></button>
+                        <button type="button" name="Edit Item" onclick="location.href='edit_item.php'"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="delete"><i class="fa fa-trash"></i></button>    
+                    </div>
+                </li>
 
-                    <!-- THIRD ITEM -->
-                    <li>
-                        List item 3
-                        <button onclick="document.getElementById('view-modal').style.display='block'"><i class = "fa fa-eye"></i></button>
-                        <button type="submit" name="Edit Item"><i class="fa fa-edit"></i></button>
-                        <button type = "button"><i class = "fa fa-trash"></i></button>
-                    </li>
+                <!-- THIRD ITEM -->
+                <li>
+                    List Item 3
+                    <div>
+                        <button onclick="document.getElementById('view-modal').style.display='block'"><i class="fa fa-eye"></i></button>
+                        <button type="button" name="Edit Item" onclick="location.href='edit_item.php'"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="delete"><i class="fa fa-trash"></i></button>    
+                    </div>
+                </li>
 
-                  </ul>
-                    <!-- Add item Button -->
-                    <button onclick="document.getElementById('add-modal').style.display='block'">ADD NEW ITEM</button>
-                <!-- </fieldset> -->
-            <!-- </form> -->
-
+            </ul>
+            <!-- Add item Button -->
+            <button onclick="document.getElementById('add-modal').style.display='block'">ADD NEW ITEM</button>
 
             <?php include 'modals/add_item.php' ?>
 
@@ -89,11 +97,16 @@ session_start();
             <?php //include 'delete_item.php' ?>
             <!-- Self process delete item -->
 
-
         </main>
 
         <!-- FOOTER -->
         <?php include 'includes/footer.php' ?>
 
     </body>
+
+    <script>
+        var dt = new Date();
+        document.getElementById("todaysdate").innerHTML = dt.toLocaleDateString();
+    </script>
+
 </html>
