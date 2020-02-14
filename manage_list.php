@@ -82,9 +82,9 @@ session_start();
             <!-- </form> -->
 
 
-            <?php include 'add_item.php' ?>
+            <?php include 'modals/add_item.php' ?>
 
-            <?php include 'view_item.php' ?>
+            <?php include 'modals/view_item.php' ?>
 
             <?php //include 'delete_item.php' ?>
             <!-- Self process delete item -->

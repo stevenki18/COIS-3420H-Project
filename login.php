@@ -53,7 +53,7 @@ if(isset($_POST['login'])){
 <body>
 
   <header>
-    <?php include 'nav.php' ?>
+    <?php include 'includes/nav.php' ?>
   </header>
 
   <main>
@@ -108,7 +108,7 @@ if(isset($_POST['login'])){
 
   </main>
 
-  <?php include 'forgotpass.php' ?>
+  <?php include 'modals/forgotpass.php' ?>
 
 
   <?php include 'includes/footer.php' ?>
