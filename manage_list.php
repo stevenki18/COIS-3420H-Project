@@ -36,7 +36,7 @@
                 <!-- START DATE -->
                 <div>
                     <!-- h3 styling -->
-                    <span>2/9/2020</span>
+                    <span><?= "2/9/2020" ?></span>
                     <p>START DATE</p>
                 </div>
 

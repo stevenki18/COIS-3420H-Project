@@ -46,11 +46,11 @@ session_start();
                     <input id="complete" type="date" name="complete" min="1900-01-01">
                 </div>
 
-                <!-- IMAGE -->
+                <!-- IMAGES -->
                 <div>
                     <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
                     <label for="file">File Name:</label>
-                    <input type="file" name="fileToProcess" id="file"/>
+                    <input type="file" name="my_file[]" id="file" multiple/>
                 </div>
 
                 <!-- SUBMIT -->

@@ -15,80 +15,77 @@
 <html lang="en">
   <head>
     <?php
-        $PAGE_TITLE = "Welcome!";
-        include "includes/meta.php"
+      $PAGE_TITLE = "Welcome!";
+      include "includes/meta.php"
     ?>
-
   </head>
 
-<body>
-  <!-- SPLASH PAGE -->
-  <header>
+  <body>
+    <!-- SPLASH PAGE -->
+    <header>
+      <?php include 'includes/nav.php' ?>
+    </header>
 
-    <?php include 'includes/nav.php' ?>
+    <main>
+      <article>
+        <header>
+          <!-- LOGO -->
+          <div class="logo">
+            <figure>
+              <img src="img/bucket.png" alt="Bucket List Logo" height=200 />
+            </figure>
+          </div>
 
-  </header>
+          <h1>Welcome to My Bucket List(s)</h1>
+        </header>
 
-  <main>
-    <article>
-      <header>
-        <!-- LOGO -->
-        <div class="logo">
-          <figure>
-            <img src="img/bucket.png" alt="Bucket List Logo" height=200 />
-          </figure>
-        </div>
+        <section id="about">
+          <h2>About</h2>
+          <p>
+            At this site you will be able to create your own bucket list, and keep track on the progress.
+          </p>
+        </section>
 
-        <h1>Welcome to My Bucket List(s)</h1>
-      </header>
+        <section id="ideas">
+          <h2>Sample Lists</h2>
+          <ul>
+            <li>
+              Things to do before 50
+            </li>
+            <li>
+              Do before I get married!
+            </li>
+          </ul>
+        </section>
 
-      <section id="about">
-        <h2>About</h2>
-        <p>
-          At this site you will be able to create your own bucket list, and keep track on the progress.
-        </p>
-      </section>
+        <section id="top-ten">
+          <h2>Top 5</h2>
+          <ol>
+            <li>
+              Go Skydiving
+            </li>
+            <li>
+              Don't Die
+            </li>
+            <li>
+              List item 3
+            </li>
+            <li>
+              List item 4
+            </li>
+            <li>
+              List item 5
+            </li>
+          </ol>
+        </section>
 
-      <section id="ideas">
-        <h2>Sample Lists</h2>
-        <ul>
-          <li>
-            Things to do before 50
-          </li>
-          <li>
-            Do before I get married!
-          </li>
-        </ul>
-      </section>
+      </article>
 
-      <section id="top-ten">
-        <h2>Top 5</h2>
-        <ol>
-          <li>
-            Go Skydiving
-          </li>
-          <li>
-            Don't Die
-          </li>
-          <li>
-            List item 3
-          </li>
-          <li>
-            List item 4
-          </li>
-          <li>
-            List item 5
-          </li>
-        </ol>
-      </section>
-
-    </article>
-
-  </main>
+    </main>
 
 
-  <?php include 'includes/footer.php' ?>
+    <?php include 'includes/footer.php' ?>
 
-</body>
+  </body>
 
 </html>

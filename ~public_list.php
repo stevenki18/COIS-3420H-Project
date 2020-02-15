@@ -22,7 +22,7 @@
       <h1>Publicly Viewable Lists</h1>
     </header>
 
-    <div class="lists">
+    <!-- <div class="lists"> -->
       <ul>
         <!-- FIRST LIST -->
         <li>
@@ -50,7 +50,7 @@
           </ul>
 
       </ul>
-    </div>
+    <!-- </div> -->
   </main>
 
   <!-- FOOTER -->
