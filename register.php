@@ -1,9 +1,12 @@
 <?php session_start();
+require_once './includes/library.php';
+
 if (isset($_POST['submit']))
 {
   /* Redirect if $_POST has nothing in it */
   if (!isset($_POST) || count($_POST) <= 0) {
     header("Location: register.php");
+    exit();
   }
 
   /* $errors starts as an empty array */
@@ -14,12 +17,14 @@ if (isset($_POST['submit']))
   if (!isset($_POST['username']) || strlen($_POST['username']) == 0)
     array_push($errors, "Please enter a username");
 
+  // Check if user exists in Database
+
   // PASSWORD SET
   if(!isset($_POST['password'])||strlen($_POST['password']) < 8)
     array_push($errors, "Please enter a password that is at least 8 characters long");
 
   // PASSWORD MATCH
-  if (!isset($_POST['password_confirm']) || $_POST['password']!= $_POST['password_confirm'])
+  if (!isset($_POST['password_confirm']) || $_POST['password']!== $_POST['password_confirm'])
     array_push($errors, "Passwords do not match");
 
   // FIRST NAME
@@ -36,16 +41,44 @@ if (isset($_POST['submit']))
   if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false)
     array_push($errors, "Please enter a valid email address");
 
-  // BIRTHDATE
-  if(!isset($_POST['lastname']) || strlen($_POST['lastname']) == 0)
-    array_push($errors, "Please enter a birthdate that is between 2019-01-01 and " + date("Y-m-d"));
+  // BIRTHDATE ??? NEED TO DOUBLE CHECK
+  if(!isset($_POST['birthdate']) || strlen($_POST['birthdate']) == 0)
+    array_push($errors, "Please enter a birthdate that is between 1900-01-01 and " + date("Y-m-d"));
 
   // TERMS AND CONDITIONS
   if(!isset($_POST['agreebox']))
     array_push($errors, "Please accept the Terms and Conditions");
 
-  if(sizeof($errors) == 0)
-    header("Location: manage_list.php");
+  // No errors do the work with the datbase
+  if(sizeof($errors) == 0){
+    // Get all POST data (all information has been SANITIZED above or thown error)
+    $username = $_POST['username'];
+
+    $pass = $_POST['password'];
+    $hash = password_hash($pass, PASSWORD_DEFAULT);
+
+    $fname = $_POST['firstname'];
+    $lname = $_POST['lastname'];
+
+    $email = $_POST['email'];
+
+    $dob = $_POST['birthdate'];
+
+    $terms = 1;
+
+    // Connect to the database
+    $pdo = connectDB();
+
+    /* Add the new user */
+    $query = "INSERT INTO `g10_users` (username, pass, first, last, email, dob, tac) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $statement = $pdo->prepare($query);
+
+    $statement->execute([$username, $hash, $fname, $lname, $email, $dob, $terms]);
+
+    // redirect to log in
+    header("Location: login.php");
+    exit();
+  }
 }
 ?>
 <!DOCTYPE HTML>
@@ -71,9 +104,10 @@ if (isset($_POST['submit']))
     </header>
 
     <!-- FORM -->
-    <form id="register-form" action="process_registration.php" method="post">
+    <form id="register-form" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
       <div>
         <!-- how would i check if the usrname is unique? -->
+        <!-- Loop through above to check database for matching -->
         <label for="username">Username:</label>
         <input id="username" name="username" type="text" placeholder="Thrillseeker99" required>
       </div>
