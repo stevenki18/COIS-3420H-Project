@@ -317,6 +317,17 @@ form div{
   padding: 0.3em 0;
 }
 
+.social-options{
+  display: flex;
+  flex-direction: column;
+  margin: 0.3rem auto;
+}
+
+#my-signin2 div{
+  padding: 0;
+  margin: 0;
+}
+
 
 /*------------------------------------------------------------------------------
 |                             MANAGE LIST STYLING
