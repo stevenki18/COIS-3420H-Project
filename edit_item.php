@@ -1,9 +1,16 @@
 <?php
-// Check for a valid session (if not redirect back to login)
-session_start();
- if(!isset($_SESSION['user'])){
-   header("Location:login.php");
- }
+    // Check for a valid session (if not redirect back to login)
+    session_start();
+    if(!isset($_SESSION['user'])){
+        header("Location:login.php");
+    }
+
+    require_once './includes/library.php';
+    
+    $user = $_SESSION['user'];
+    $listid = $_SESSION['listid'];
+
+    $pdo = connectDB();
 ?>
 <!DOCTYPE html>
 <html lang="en">

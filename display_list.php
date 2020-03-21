@@ -5,6 +5,10 @@ session_start();
    header("Location:login.php");
  }
 
+ // STATIC SET VARIABLE FOR TESTING
+ // STORE LIST ID LIKE THIS FOR MANAGE_LIST PAGE TO PULL
+ $_SESSION['listid'] = 2;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -64,16 +64,14 @@ if (isset($_POST['submit']))
 
     $dob = $_POST['birthdate'];
 
-    $terms = 1;
-
     // Connect to the database
     $pdo = connectDB();
 
     /* Add the new user */
-    $query = "INSERT INTO `g10_users` (username, pass, first, last, email, dob, tac) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO `g10_users` (username, pass, first, last, email, dob) VALUES (?, ?, ?, ?, ?, ?)";
     $statement = $pdo->prepare($query);
 
-    $statement->execute([$username, $hash, $fname, $lname, $email, $dob, $terms]);
+    $statement->execute([$username, $hash, $fname, $lname, $email, $dob]);
 
     // redirect to log in
     header("Location: login.php");
