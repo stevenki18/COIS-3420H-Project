@@ -46,6 +46,7 @@
             <!-- DISPLAYS LIST -->
             <header>
                 <!-- LIST NAME -->
+                <!-- shrink sizing!! -->
                 <h1>
                     <?= $list['listname'] ?> 
                     <?php if($list['private'] == 1):?>
@@ -57,7 +58,6 @@
 
                 <!-- START DATE -->
                 <div>
-                    <!-- h3 styling -->
                     <span><?= $list['start'] ?></span>
                     <p>START DATE</p>
                 </div>
@@ -65,28 +65,31 @@
                 <!-- END DATE -->
                 <?php if($list['end'] != null):?>
                     <div>
-                        <!-- h3 styling -->
-                        <span id="todaysdate"></span>
+                        <span><?= $list['end'] ?></span>
                         <p>END DATE</p>
                     </div>
                 <?php endif ?>
                 
+                <!-- EDIT LIST -->
                 <?php if($list['fk_userid'] == $_SESSION['id']):?>
-                    <!-- EDIT LIST -->
                     <div>
-                        <!-- h1 styling -->
                         <button type="button"><i class="fa fa-edit"></i></button>
                         <button type="button" class="delete"><i class="fa fa-trash"></i></button>
                     </div>
                 <?php endif ?>
             </header>
 
+            <!-- LIST ITEMS -->
             <ul>
                 <?php foreach($listitems as $row): ?>
-                    <!-- FIRST ITEM -->
+                    <!-- PRIVATE ITEM AND NOT OWNER OF LIST -->
+                    <?php if($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id'])
+                            continue; 
+                    ?>
+
                     <li>
                         <?php if ($row['private'] == 1):?>
-                            <span><i class="fa fa-lock"></i> <?= $row['name']?></span>
+                                <span><i class="fa fa-lock"></i> <?= $row['name']?></span>
                         <?php else: ?>
                             <span><i class="fa fa-unlock"></i> <?= $row['name']?></span>
                         <?php endif ?>
@@ -101,16 +104,20 @@
                 <?php endforeach ?>
 
                 <!-- BUTTON TO ADD ITEMS -->
+                <?php if($list['fk_userid'] == $_SESSION['id']):?>
+                    <li>
+                        <button onclick="document.getElementById('add-modal').style.display='block'">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </li>
+                <?php endif ?>
                 <li>
-                    <button onclick="document.getElementById('add-modal').style.display='block'">
-                        <i class="fa fa-plus"></i>
-                    </button>
+                    <button><a href = "display_list.php">Return</a></button>
                 </li>
 
             </ul>
 
             <?php include 'modals/add_item.php' ?>
-
             <?php include 'modals/view_item.php' ?>
 
             <?php //include 'delete_item.php' ?>
@@ -122,10 +129,5 @@
         <?php include 'includes/footer.php' ?>
 
     </body>
-
-    <script>
-        var dt = new Date();
-        document.getElementById("todaysdate").innerHTML = dt.toLocaleDateString();
-    </script>
 
 </html>

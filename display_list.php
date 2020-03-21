@@ -7,7 +7,7 @@ session_start();
 
  // STATIC SET VARIABLE FOR TESTING
  // STORE LIST ID LIKE THIS FOR MANAGE_LIST PAGE TO PULL
- $_SESSION['listid'] = 2;
+ $_SESSION['listid'] = 3;
 
 ?>
 <!DOCTYPE html>
