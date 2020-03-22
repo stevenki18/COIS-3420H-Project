@@ -7,6 +7,9 @@
     
     require_once './includes/library.php';
     
+    $errors = [];
+    $listitem = "";
+    $viewable = 1;
     $user = $_SESSION['user'];
     $listid = $_SESSION['listid'];
 
@@ -25,6 +28,32 @@
     $stmt->execute([$listid]);
     $listitems = $stmt->fetchAll();
 
+    if(isset($_POST['submit'])){
+        $listitem = $_POST['itemname'];
+
+        if($listitem == null || strlen($listitem) == 0)
+            array_push($errors, "Please Enter An Item Name");
+                
+        if(isset($_POST['viewable']))
+            $viewable = 0;
+
+        if(sizeof($errors == 0)){
+            $pdo = connectDB();
+            $query = "INSERT INTO `g10_listitems` (id, fk_listid, name, private) VALUES (NULL, ?, ?, ?)";
+            $statement = $pdo->prepare($query);
+            $statement->execute([$listid, $listitem, $viewable]);
+
+            $query = "SELECT id FROM `g10_listitems` WHERE fk_listid = ? AND name = ?";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$listid, $listitem]);
+            $result = $stmt->fetch();
+
+            $_SESSION['itemid'] = $result['id'];
+            unset($_POST);
+            header("Location: edit_item.php");
+            exit();
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,14 +134,10 @@
 
                 <!-- BUTTON TO ADD ITEMS -->
                 <?php if($list['fk_userid'] == $_SESSION['id']):?>
-                    <li>
-                        <button onclick="document.getElementById('add-modal').style.display='block'">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </li>
+                    <li><button id = "additem"><i class="fa fa-plus"></i></button></li>
                 <?php endif ?>
                 <li>
-                    <button><a href = "display_list.php">Return</a></button>
+                    <button onclick="window.history.back()" type="button" name="Return" >Return</button>
                 </li>
 
             </ul>

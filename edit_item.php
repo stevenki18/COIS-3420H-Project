@@ -6,11 +6,43 @@
     }
 
     require_once './includes/library.php';
-    
-    $user = $_SESSION['user'];
-    $listid = $_SESSION['listid'];
+    $errors = [];
+    $itemid = $_SESSION['itemid'];
 
     $pdo = connectDB();
+
+    $query = "SELECT * FROM `g10_listitems` WHERE id = ?";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$itemid]);
+    $iteminfo = $stmt->fetch();
+
+    $name = $iteminfo['name'];
+    $description = $iteminfo['description']; 
+    $completion = $iteminfo['completion'];
+    $private = $iteminfo['private'];
+
+    if($description == null)
+        $description = "Enter a description for your bucket list item...";
+
+    if(isset($_POST['submit'])){
+        $name = $_POST['itemname'];
+        $description = $_POST['description']; 
+        $completion = $_POST['complete'];
+        $viewable = 1;
+
+        if($name == null|| strlen($name) == 0)
+            array_push($errors, "Please Enter An Item Name");
+
+        if(isset($_POST['viewable']))
+            $viewable = 0;
+
+        $query = "UPDATE `g10_users` SET name=?, description=?, completion=?, private=? WHERE id = ?";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([$name, $description, $completion, $private]);
+        $updateCount = $stmt->rowCount();
+
+        header("Location: manage_list.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,24 +65,32 @@
             </header>
 
             <!-- EDIT LIST -->
-            <form id="edit-item" action="#" method="post" enctype="multipart/form-data">
+            <form id="edit-item" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
                 <!-- BUCKET LIST ITEM -->
                 <div>
-                    <label for="item">Item Name:</label>
-                    <input type="text" id="item" name="item" placeholder="Enter an item to add to the list..." required/>
-                    <button type="button"><i class="fa fa-lock"></i></button>
+                    <label for="itemname">Item Name:</label>
+                    <input type="text" id="itemname" name="itemname" value= "<?= $name?>" required/>
+                </div>
+
+                <div>
+                    <label for="viewable">Publicly Viewable?</label>
+                    <?php if($private == 1): ?>
+                        <input id="viewable" type="checkbox" name="viewable">
+                    <?php elseif($private == 0): ?>
+                        <input id="viewable" type="checkbox" name="viewable">
+                    <?php endif ?>
                 </div>
 
                 <!-- ITEM DESCRIPTION -->
                 <div>
                     <label for="description">Bucket List Item:</label>
-                    <textarea id="description" name="description" rows="5" placeholder = "Enter a description for your bucket list item..."></textarea>
+                    <textarea id="description" name="description" rows="5" value = "<?= $description?>"></textarea>
                 </div>
 
                 <!-- DATE OF COMPLETION -->
                 <div>
                     <label for="complete">Date of Completion:</label>
-                    <input id="complete" type="date" name="complete" min="1900-01-01">
+                    <input id="complete" type="date" name="complete" value = "<?= $completion ?>" min="1900-01-01">
                 </div>
 
                 <!-- IMAGES -->
