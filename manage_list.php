@@ -125,7 +125,7 @@
                         <div>
                             <button onclick="document.getElementById('view-modal').style.display='block'"><i class="fa fa-eye"></i></button>
                             <?php if($list['fk_userid'] == $_SESSION['id']):?>
-                                <button type="button" name="Edit Item" onclick="location.href='edit_item.php'"><i class="fa fa-edit"></i></button>
+                                <button type="button" name="edititem" value="<?= $row['id']?>" id="editbuttons"><i class="fa fa-edit"></i></button>
                                 <button type="button" class="delete"><i class="fa fa-trash"></i></button>    
                             <?php endif ?>
                         </div>

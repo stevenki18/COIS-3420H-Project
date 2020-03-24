@@ -29,4 +29,32 @@ window.addEventListener('DOMContentLoaded', () => {
         }); 
     }); // END OF ADDING ITEM
 
+
+    const edit_button = document.querySelectorAll("#editbuttons");
+    
+    edit_button.forEach(edit_button => 
+        edit_button.addEventListener("click", function() {
+            var id = edit_button.value;
+            location.href='edit_item.php';
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "api/formfill.php?itemid="+id);
+            xhttp.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
+                    document.getElementById("itemname").value = this.data['name'];
+
+                    if(this.data['private'] == 1)
+                        document.getElementById("viewable").value = false;
+
+                    else if(this.data['private'] == 0)
+                        document.getElementById("viewable").value = true;
+
+                    document.getElementById("description").value = this.data['description'];
+
+                    document.getElementById("completion").value = this.data['completion'];
+                }
+            }
+            
+            xhttp.send();
+    }));
+
 });

@@ -6,42 +6,39 @@
     }
 
     require_once './includes/library.php';
+
     $errors = [];
-    $itemid = $_SESSION['itemid'];
+    $viewable = 1;
 
     $pdo = connectDB();
-
     $query = "SELECT * FROM `g10_listitems` WHERE id = ?";
     $stmt = $pdo->prepare($query);
-    $stmt->execute([$itemid]);
-    $iteminfo = $stmt->fetch();
+    $stmt->execute([$_SESSION['itemid']]);
+    $result = $stmt->fetch();
 
-    $name = $iteminfo['name'];
-    $description = $iteminfo['description']; 
-    $completion = $iteminfo['completion'];
-    $private = $iteminfo['private'];
-
-    if($description == null)
-        $description = "Enter a description for your bucket list item...";
-
-    if(isset($_POST['submit'])){
-        $name = $_POST['itemname'];
-        $description = $_POST['description']; 
-        $completion = $_POST['complete'];
-        $viewable = 1;
-
-        if($name == null|| strlen($name) == 0)
-            array_push($errors, "Please Enter An Item Name");
+    if(isset($_POST['save'])){
+        if(!isset($_POST['itemname']) || strlen($_POST['itemname']) == 0){
+            array_push($errors, "Please enter an item name");
+        }
 
         if(isset($_POST['viewable']))
             $viewable = 0;
+        
+        if(sizeof($errors) == 0){
+            $query = "UPDATE `g10_listitems` SET name = ?, description = ?, completion = ?, private = ? WHERE id = ?";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$_POST['itemname'], $_POST['description'], $_POST['completion'], $viewable, $_SESSION['itemid']]);
+            
+            if($stmt->rowCount() == 0){
+                array_push($errors, "Error updating list item");
+            }
 
-        $query = "UPDATE `g10_users` SET name=?, description=?, completion=?, private=? WHERE id = ?";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute([$name, $description, $completion, $private]);
-        $updateCount = $stmt->rowCount();
-
-        header("Location: manage_list.php");
+            else{
+                header("Location: manage_list.php");
+                exit();
+            }
+        }
+        
     }
 ?>
 <!DOCTYPE html>
@@ -61,7 +58,7 @@
         <main>
             <header>
                 <!-- LIST Item Name -->
-                <h1>Edit <?php //listname ?> Item</h1>
+                <h1>Edit Item</h1>
             </header>
 
             <!-- EDIT LIST -->
@@ -69,28 +66,28 @@
                 <!-- BUCKET LIST ITEM -->
                 <div>
                     <label for="itemname">Item Name:</label>
-                    <input type="text" id="itemname" name="itemname" value= "<?= $name?>" required/>
+                    <input type="text" id="itemname" name="itemname" value= "<?= $result['name']?>" required/>
                 </div>
 
                 <div>
                     <label for="viewable">Publicly Viewable?</label>
-                    <?php if($private == 1): ?>
-                        <input id="viewable" type="checkbox" name="viewable">
-                    <?php elseif($private == 0): ?>
-                        <input id="viewable" type="checkbox" name="viewable">
+                    <?php if($result['private'] == 1): ?>
+                        <input id="viewable" type="checkbox" name="viewable" value="off">
+                    <?php elseif($result['private'] == 0): ?>
+                        <input id="viewable" type="checkbox" name="viewable" value="on">
                     <?php endif ?>
                 </div>
 
                 <!-- ITEM DESCRIPTION -->
                 <div>
                     <label for="description">Bucket List Item:</label>
-                    <textarea id="description" name="description" rows="5" value = "<?= $description?>"></textarea>
+                    <textarea id="description" name="description" rows="5" value = "<?= $result['description']?>"></textarea>
                 </div>
 
                 <!-- DATE OF COMPLETION -->
                 <div>
                     <label for="complete">Date of Completion:</label>
-                    <input id="complete" type="date" name="complete" value = "<?= $completion ?>" min="1900-01-01">
+                    <input id="complete" type="date" name="complete" value = "<?= $result['completion'] ?>" min="1900-01-01">
                 </div>
 
                 <!-- IMAGES -->
@@ -101,7 +98,7 @@
                 </div>
 
                 <!-- SUBMIT -->
-                <button type="submit" name="Save">Save</button>
+                <button type="submit" name="save">Save</button>
                 <button onclick="window.history.back()" type="button" name="Cancel" >Cancel</button>
             </form>
         </main>
