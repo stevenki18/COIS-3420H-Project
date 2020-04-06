@@ -42,18 +42,15 @@
             $query = "INSERT INTO `g10_listitems` (id, fk_listid, name, private) VALUES (NULL, ?, ?, ?)";
             $statement = $pdo->prepare($query);
             $statement->execute([$listid, $listitem, $viewable]);
+            $last_id = $pdo->lastInsertId();
 
-            $query = "SELECT id FROM `g10_listitems` WHERE fk_listid = ? AND name = ?";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute([$listid, $listitem]);
-            $result = $stmt->fetch();
-
-            $_SESSION['itemid'] = $result['id'];
             unset($_POST);
-            header("Location: edit_item.php");
+            header("Location: edit_item.php?item=".$last_id);
             exit();
         }
     }
+
+    if(isset($_POST['']))
 ?>
 <!DOCTYPE html>
 <html lang="en">

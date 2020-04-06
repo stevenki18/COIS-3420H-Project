@@ -8,12 +8,15 @@
     require_once './includes/library.php';
 
     $errors = [];
+    $itemid = $_GET['item'];
     $viewable = 1;
 
     $pdo = connectDB();
+
+    // GET LIST ITEM INFO
     $query = "SELECT * FROM `g10_listitems` WHERE id = ?";
     $stmt = $pdo->prepare($query);
-    $stmt->execute([$_SESSION['itemid']]);
+    $stmt->execute([$itemid]);
     $result = $stmt->fetch();
 
     if(isset($_POST['save'])){
@@ -21,22 +24,20 @@
             array_push($errors, "Please enter an item name");
         }
 
+
         if(isset($_POST['viewable']))
             $viewable = 0;
         
         if(sizeof($errors) == 0){
             $query = "UPDATE `g10_listitems` SET name = ?, description = ?, completion = ?, private = ? WHERE id = ?";
             $stmt = $pdo->prepare($query);
-            $stmt->execute([$_POST['itemname'], $_POST['description'], $_POST['completion'], $viewable, $_SESSION['itemid']]);
+            if(strlen($_POST['complete']) == 0)
+                $stmt->execute([$_POST['itemname'], $_POST['description'], null, $viewable, $itemid]);
+            else
+                $stmt->execute([$_POST['itemname'], $_POST['description'], $_POST['complete'], $viewable, $itemid]);
             
-            if($stmt->rowCount() == 0){
-                array_push($errors, "Error updating list item");
-            }
-
-            else{
-                header("Location: manage_list.php");
-                exit();
-            }
+            header("Location: manage_list.php");
+            exit();
         }
         
     }
@@ -62,7 +63,7 @@
             </header>
 
             <!-- EDIT LIST -->
-            <form id="edit-item" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+            <form id="edit-item" action="<?= $_SERVER['PHP_SELF'] ?>?item=<?=$itemid?>" method="post" enctype="multipart/form-data">
                 <!-- BUCKET LIST ITEM -->
                 <div>
                     <label for="itemname">Item Name:</label>
@@ -71,23 +72,24 @@
 
                 <div>
                     <label for="viewable">Publicly Viewable?</label>
-                    <?php if($result['private'] == 1): ?>
-                        <input id="viewable" type="checkbox" name="viewable" value="off">
-                    <?php elseif($result['private'] == 0): ?>
-                        <input id="viewable" type="checkbox" name="viewable" value="on">
+                    <input id="viewable" type="checkbox" name="viewable" 
+                        <?php if($result['private'] == 0): ?>
+                        checked>
+                    <?php else: ?>
+                        >
                     <?php endif ?>
                 </div>
 
                 <!-- ITEM DESCRIPTION -->
                 <div>
                     <label for="description">Bucket List Item:</label>
-                    <textarea id="description" name="description" rows="5" value = "<?= $result['description']?>"></textarea>
+                    <textarea id="description" name="description" rows="5"><?= $result['description']?></textarea>
                 </div>
 
                 <!-- DATE OF COMPLETION -->
                 <div>
                     <label for="complete">Date of Completion:</label>
-                    <input id="complete" type="date" name="complete" value = "<?= $result['completion'] ?>" min="1900-01-01">
+                    <input id="complete" type="date" name="complete" min="1900-01-01" value= "<?= $result['completion']?>">
                 </div>
 
                 <!-- IMAGES -->
@@ -99,7 +101,7 @@
 
                 <!-- SUBMIT -->
                 <button type="submit" name="save">Save</button>
-                <button onclick="window.history.back()" type="button" name="Cancel" >Cancel</button>
+                <button onclick="window.history.back()" type="button" name="Cancel">Cancel</button>
             </form>
         </main>
 

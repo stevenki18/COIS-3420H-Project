@@ -6,32 +6,25 @@
         $item = getItemDetails($param);
 
         if(empty($item))
-            response(200, "No List Item Found", NULL);
+            response(200, NULL);
         else
-            response(200, "List Item", $item);
+            response(200, $item);
     }
 
     // INVALID REQUEST
     else
-        response(400, "Invalid Request", NULL);
+        response(400, NULL);
         
-    function response($status, $status_message, $data){
+    function response($status, $data){
         // SEND APPROPRIATE HEADERS
         // JSON
         // STATUS CODES
         header("Content-Type:application/json");
         header("HTTP/1.1".$status);
 
-        // BUILD RESPONSE ARRAY
-        $response['status']=$status;
-        $response['status_message']=$status_message;
-        
-        // COULD BE A DATABASE RESULT
-        $response['data']=$data;
-
         // TURNS ARRAY INTO JSON OBJECT
         // SEND TO BROWSER
-        $json_response = json_encode($response);
+        $json_response = json_encode($data);
         echo $json_response;
     }
     
