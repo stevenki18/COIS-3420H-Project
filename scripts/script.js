@@ -25,6 +25,19 @@ window.addEventListener('DOMContentLoaded', () => {
     }); // END OF ADD ITEM
 
 
+    // Enable close on all modal windows
+    const close = document.querySelectorAll(".close");
+    console.log(close);
+
+    close.forEach(close => {
+      close.addEventListener("click", (ev)=> {
+      console.log(ev.target.parentElement.parentElement.parentElement);
+      ev.target.parentElement.parentElement.parentElement.style.display = 'none';
+      });
+    }); // End close foreach
+
+
+
     // EDIT A LIST ITEM
     const edit_button = document.querySelectorAll("#editbuttons");
 
