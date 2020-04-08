@@ -4,16 +4,16 @@
     if(!isset($_SESSION['user'])){
         header("Location:login.php");
     }
-    
+
     require_once './includes/library.php';
-    
+
     $errors = [];
     $listitem = "";
     $viewable = 1;
     $user = $_SESSION['user'];
     $listid = $_SESSION['listid'];
 
-    
+
     $pdo = connectDB();
 
     // GET LIST INFO
@@ -33,7 +33,7 @@
 
         if($listitem == null || strlen($listitem) == 0)
             array_push($errors, "Please Enter An Item Name");
-                
+
         if(isset($_POST['viewable']))
             $viewable = 0;
 
@@ -74,7 +74,7 @@
                 <!-- LIST NAME -->
                 <!-- shrink sizing!! -->
                 <h1>
-                    <?= $list['listname'] ?> 
+                    <?= $list['listname'] ?>
                     <?php if($list['private'] == 1):?>
                         <span><i class="fa fa-lock"></i></span>
                     <?php else: ?>
@@ -95,7 +95,7 @@
                         <p>END DATE</p>
                     </div>
                 <?php endif ?>
-                
+
                 <!-- EDIT LIST -->
                 <?php if($list['fk_userid'] == $_SESSION['id']):?>
                     <div>
@@ -110,7 +110,7 @@
                 <?php foreach($listitems as $row): ?>
                     <!-- PRIVATE ITEM AND NOT OWNER OF LIST -->
                     <?php if($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id'])
-                            continue; 
+                            continue;
                     ?>
 
                     <li>
@@ -120,10 +120,10 @@
                             <span><i class="fa fa-unlock"></i> <?= $row['name']?></span>
                         <?php endif ?>
                         <div>
-                            <button onclick="document.getElementById('view-modal').style.display='block'"><i class="fa fa-eye"></i></button>
+                            <button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
                             <?php if($list['fk_userid'] == $_SESSION['id']):?>
-                                <button type="button" name="edititem" value="<?= $row['id']?>" id="editbuttons"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="delete"><i class="fa fa-trash"></i></button>    
+                                <button type="button" name="edititem" value="<?= $row['id']?>" class="editbutton"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="delete"><i class="fa fa-trash"></i></button>
                             <?php endif ?>
                         </div>
                     </li>

@@ -5,7 +5,7 @@
     <div class="modal-content">
         <!-- HEADER -->
         <div class="modal-header">
-            <span onclick="document.getElementById('view-modal').style.display='none'" class="close">&times;</span>
+            <span class="close">&times;</span>
             <div class="logo">
                 <figure>
                 <img src="img/bucket.png" alt="Bucket List Logo" height=50 />
@@ -22,23 +22,20 @@
                     <!-- BUCKET LIST ITEM -->
                     <div>
                         <label for="item">Item Name:</label>
-                        <input type="text" id="item" name="item" value = "<?php //item name ?>" readonly/>
-                        <button type="button"><i class="fa fa-lock"></i></button>
+                        <input type="text" id="item" name="item" readonly/>
                     </div>
 
                     <!-- ITEM DESCRIPTION -->
                     <div>
                         <label for="description">Bucket List Item:</label>
-                        <textarea id="description" name="description" rows="5" cols="30" readonly><?php //item description ?></textarea>
+                        <textarea id="description" name="description" rows="5" cols="30" readonly></textarea>
                     </div>
 
-                    <?php //if completed ?>
-                        <!-- DATE OF COMPLETION -->
-                        <div>
-                            <label for="complete">Date of Completion:</label>
-                            <input id="complete" type="date" name="complete" value = "<?php //completion date ?>">
-                        </div>
-                    <?php //endif ?>
+                    <!-- DATE OF COMPLETION -->
+                    <div>
+                        <label for="complete">Date of Completion:</label>
+                        <input id="complete" type="date" name="complete" readonly>
+                    </div>
                 </form>
             </div>
         </div>
