@@ -96,7 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if(document.title == "Edit List Item"){
     document.querySelector("button[name=Cancel]").addEventListener("click", () => {
-      location.href='manage_list.php';
+      location.href='view_list.php';
     });
 
 

@@ -27,7 +27,7 @@
     // if no result redirect
     $result2 = $stmt2->fetch();
     if(!$result2){
-      header("Location:manage_list.php?list=".$result['fk_listid']);
+      header("Location:view_list.php?list=".$result['fk_listid']);
       exit();
     }
 
@@ -48,7 +48,7 @@
             else
                 $stmt->execute([$_POST['itemname'], $_POST['description'], $_POST['complete'], $viewable, $itemid]);
 
-            header("Location: manage_list.php?list=".$result['fk_listid']);
+            header("Location: view_list.php?list=".$result['fk_listid']);
             exit();
         }
 

@@ -56,7 +56,7 @@
           <li>
             <h2>
               <?= $row['listname']?>
-              <a href = "manage_list.php?list=<?= $row['id']?>"><i class="fa fa-eye"></i></a>
+              <a href = "view_list.php?list=<?= $row['id']?>"><i class="fa fa-eye"></i></a>
             </h2>
           </li>
           <?php endforeach ?>
@@ -80,7 +80,7 @@
         <li>
           <h2>
             <?= $rows['listname']?>
-            <a href = "manage_list.php?list=<?= $rows['id']?>"><i class="fa fa-eye"></i></a>
+            <a href = "view_list.php?list=<?= $rows['id']?>"><i class="fa fa-eye"></i></a>
           </h2>
         </li>
         <?php endforeach ?>  

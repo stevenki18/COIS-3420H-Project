@@ -18,15 +18,19 @@
             <div class="create-container">
 
                 <!-- CREATE LIST -->
-                <form id="create-list" action="manage_list.php" method = "post">
+                <form id="create-list" action="process/process_add_list.php" method = "post">
                     <div>
-                        <label for="add-list">Add Bucket List:</label>
-                        <input type="text" id="add-list" name="add-list" placeholder="List Name" required/>
-                        <button type="button" name="add-list" id="add-list"><i class="fa fa-unlock"></i></button>
+                        <label for="listName">Add Bucket List:</label>
+                        <input type="text" id="listName" name="listName" placeholder="List Name" required/>
+                    </div>
+
+                    <div>
+                        <label for="viewableList">Publicly Viewable?</label>
+                        <input id="viewableList" type="checkbox" name="viewableList">
                     </div>
 
                     <!-- SUBMIT -->
-                    <input type="submit" value="Create List"/>
+                    <button id="addListToDB" name="submitList">Add List</button>
 
                 </form>
             </div>

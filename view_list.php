@@ -24,7 +24,7 @@
     $list = $stmt->fetch();
 
     if($list['private'] == 1 && $list['fk_userid'] != $user){
-        header("Location:display_list.php");
+        header("Location: display_list.php");
         exit();
     }
 
