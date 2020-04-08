@@ -153,7 +153,7 @@
           </div>
 
           <div class="register-login">
-             <a href="register.php">Create Account</a>
+             <a href="accounts.php">Create Account</a>
              <button type="submit" name="login">Login</button>
           </div>
 

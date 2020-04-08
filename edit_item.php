@@ -111,6 +111,7 @@
                     <input type="file" name="my_file[]" id="file" multiple/>
                 </div>
 
+                <span class="hidden"><?= $result['fk_listid']?></span>
                 <!-- SUBMIT -->
                 <button type="submit" name="save">Save</button>
                 <button type="button" name="Cancel">Cancel</button>

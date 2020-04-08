@@ -366,7 +366,7 @@ main header~ul li:last-of-type{
   width: 15em;
 }
 
-#edit-item textarea{
+#edit-item textarea, #view-item textarea{
   border-radius: inherit;
   width:30em;
   resize: none;

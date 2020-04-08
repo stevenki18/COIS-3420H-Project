@@ -81,14 +81,8 @@
                     </li>
                 <?php endforeach ?>
 
-                <!-- BUTTON TO ADD ITEMS -->
-                <?php if($list['fk_userid'] == $_SESSION['id']):?>
-                    <li><button id = "additem"><i class="fa fa-plus"></i></button></li>
-                <?php endif ?>
-                <li>
-                    <button type="button" name="Return" ><a href="display_list.php">Return</a></button>
-                </li>
-
+                <li><button id = "additem"><i class="fa fa-plus"></i></button></li>
+                <li><button type="button" name="Return" ><a href="display_list.php">Return</a></button></li>
             </ul>
 
             <h2>Completed</h2>
@@ -105,22 +99,17 @@
                         <?php else: ?>
                             <span><i class="fa fa-unlock"></i> <?= $row['name']?></span>
                         <?php endif ?>
-                        <div>
-                            <button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
-                            <?php if($list['fk_userid'] == $_SESSION['id']):?>
-                                <button type="button" name="edititem" value="<?= $row['id']?>" class="editbutton"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="delete"><i class="fa fa-trash"></i></button>
-                            <?php endif ?>
-                        </div>
+                        <div><button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button></div>
                     </li>
                 <?php endforeach ?>
                 <li>
                     <button type="button" name="Return" ><a href="display_list.php">Return</a></button>
                 </li>
-
             </ul>
 
         </main>
+        
+        <?php include 'modals/view_item.php' ?>
 
         <!-- FOOTER -->
         <?php include 'includes/footer.php' ?>

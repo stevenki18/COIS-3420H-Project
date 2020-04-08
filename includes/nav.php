@@ -32,7 +32,7 @@
       <li class="dropdown"><?= $_SESSION['user'] ?>
           <ul class="dropdown-content">
             <li><a href="~logout.php">Sign Out</a></li>
-            <li><a href="~edit_account.php">Edit Account</a></li>
+            <li><a href="accounts.php">Edit Account</a></li>
           </ul>
         </li>
     <?php else: ?>

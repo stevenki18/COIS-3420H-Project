@@ -78,7 +78,6 @@
             <!-- DISPLAYS LIST -->
             <header>
                 <!-- LIST NAME -->
-                <!-- shrink sizing!! -->
                 <h1>
                     <?= $list['listname'] ?>
                     <?php if($list['private'] == 1):?>
