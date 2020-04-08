@@ -27,7 +27,7 @@
     // if no result redirect
     $result2 = $stmt2->fetch();
     if(!$result2){
-      header("Location:manage_list.php");
+      header("Location:manage_list.php?list=".$result['fk_listid']);
       exit();
     }
 
@@ -36,7 +36,6 @@
         if(!isset($_POST['itemname']) || strlen($_POST['itemname']) == 0){
             array_push($errors, "Please enter an item name");
         }
-
 
         if(isset($_POST['viewable']))
             $viewable = 0;
@@ -49,7 +48,7 @@
             else
                 $stmt->execute([$_POST['itemname'], $_POST['description'], $_POST['complete'], $viewable, $itemid]);
 
-            header("Location: manage_list.php");
+            header("Location: manage_list.php?list=".$result['fk_listid']);
             exit();
         }
 

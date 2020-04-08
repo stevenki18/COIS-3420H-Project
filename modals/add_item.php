@@ -18,7 +18,7 @@
             <div class="create-container">
 
                 <!-- ADD ITEM TO LIST -->
-                <form id="addToList" action="<?php echo $_SERVER['PHP_SELF'] ?>" method = "post">
+                <form id="addToList" action="<?= $_SERVER['PHP_SELF'] ?>?list=<?= $listid?>" method = "post">
                     <div>
                         <label for="itemname">Add Bucket Item:</label>
                         <input type="text" id="itemname" name="itemname" placeholder="Item Name" required/>

@@ -1,8 +1,9 @@
 <?php
     // Check for a valid session (if not redirect back to login)
     session_start();
+    // DOING THIS TO GET AROUND MULTITUDE OF ERRORS WHEN TRYING TO VIEW PUBLIC WHEN NOT LOGGED IN
     if(!isset($_SESSION['user'])){
-        header("Location:login.php");
+        $_SESSION['id'] = 0;
     }
 
     require_once './includes/library.php';
@@ -10,8 +11,8 @@
     $errors = [];
     $listitem = "";
     $viewable = 1;
-    $user = $_SESSION['user'];
-    $listid = $_SESSION['listid'];
+    $user = $_SESSION['id'];
+    $listid = $_GET['list'];
 
 
     $pdo = connectDB();
@@ -21,6 +22,11 @@
     $stmt = $pdo->prepare($query);
     $stmt->execute([$listid]);
     $list = $stmt->fetch();
+
+    if($list['private'] == 1 && $list['fk_userid'] != $user){
+        header("Location:display_list.php");
+        exit();
+    }
 
     // GET ALL LIST ITEMS
     $query =  "SELECT id, name, completion, private FROM `g10_listitems` WHERE fk_listid = ?";
@@ -105,11 +111,12 @@
                 <?php endif ?>
             </header>
 
-            <!-- LIST ITEMS -->
+            <!-- IN PROGRESS -->
+            <h2>In Progress</h2>
             <ul>
                 <?php foreach($listitems as $row): ?>
                     <!-- PRIVATE ITEM AND NOT OWNER OF LIST -->
-                    <?php if($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id'])
+                    <?php if(($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id'])||$row['completion'] != null)
                             continue;
                     ?>
 
@@ -134,7 +141,36 @@
                     <li><button id = "additem"><i class="fa fa-plus"></i></button></li>
                 <?php endif ?>
                 <li>
-                    <button onclick="window.history.back()" type="button" name="Return" >Return</button>
+                    <button type="button" name="Return" ><a href="display_list.php">Return</a></button>
+                </li>
+
+            </ul>
+
+            <h2>Completed</h2>
+            <ul>
+                <?php foreach($listitems as $row): ?>
+                    <!-- PRIVATE ITEM AND NOT OWNER OF LIST -->
+                    <?php if(($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id']) || $row['completion'] == null)
+                            continue;
+                    ?>
+
+                    <li>
+                        <?php if ($row['private'] == 1):?>
+                                <span><i class="fa fa-lock"></i> <?= $row['name']?></span>
+                        <?php else: ?>
+                            <span><i class="fa fa-unlock"></i> <?= $row['name']?></span>
+                        <?php endif ?>
+                        <div>
+                            <button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
+                            <?php if($list['fk_userid'] == $_SESSION['id']):?>
+                                <button type="button" name="edititem" value="<?= $row['id']?>" class="editbutton"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="delete"><i class="fa fa-trash"></i></button>
+                            <?php endif ?>
+                        </div>
+                    </li>
+                <?php endforeach ?>
+                <li>
+                    <button type="button" name="Return" ><a href="display_list.php">Return</a></button>
                 </li>
 
             </ul>
