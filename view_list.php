@@ -36,19 +36,31 @@
     $stmt->execute([$listid]);
     $listitems = $stmt->fetchAll();
 
-    if(isset($_POST['yes'])) {
-      $pdo = connectDB();
+    // DELETE LIST
+    if(isset($_POST['remove_list'])) {
       $query = "DELETE FROM `g10_lists` WHERE id = ?";
       $statement = $pdo->prepare($query);
       $statement->execute([$listid]);
-      //$last_id = $pdo->lastInsertId();
 
       unset($_POST);
       header("Location: display_list.php");
       exit();
     }
 
-    if(isset($_POST['submit'])){
+    // DELETE LIST ITEM
+    if(isset($_POST['remove_item'])) {
+        $query = "DELETE FROM `g10_listitems` WHERE id = ?";
+        $statement = $pdo->prepare($query);
+        $statement->execute([$_POST['itemNo']]);
+  
+        unset($_POST);
+        header("Location: view_list.php?list=".$listid);
+        exit();
+    }
+
+    
+    // ADD LIST ITEM
+    if(isset($_POST['add_item'])){
         $listitem = $_POST['itemname'];
 
         if($listitem == null || strlen($listitem) == 0)
@@ -70,9 +82,6 @@
         }
     }
 
-
-
-    if(isset($_POST['']))
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -145,9 +154,7 @@
                             <button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
                             <?php if($list['fk_userid'] == $_SESSION['id']):?>
                                 <button type="button" name="edititem" value="<?= $row['id']?>" class="editbutton"><i class="fa fa-edit"></i></button>
-                                <?php if($list['fk_userid'] == $_SESSION['id']):?>
-                                <button type="button" class="delete item"><i class="fa fa-trash"></i></button>
-                              <?php endif ?>
+                                <button type="button" name="deleteitem" value="<?= $row['id']?>" class="delete removebutton"><i class="fa fa-trash"></i></button>
                             <?php endif ?>
                         </div>
                     </li>
@@ -184,7 +191,7 @@
                             <button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
                             <?php if($list['fk_userid'] == $_SESSION['id']):?>
                                 <button type="button" name="edititem" value="<?= $row['id']?>" class="editbutton"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="delete"><i class="fa fa-trash"></i></button>
+                                <button type="button" name="deleteitem" value="<?= $row['id']?>" class="delete deletebutton"><i class="fa fa-trash"></i></button>
                             <?php endif ?>
                         </div>
                     </li>
@@ -198,6 +205,7 @@
             <?php include 'modals/add_item.php' ?>
             <?php include 'modals/view_item.php' ?>
             <?php include 'modals/remove_item.php' ?>
+            <?php include 'modals/remove_list.php' ?>
 
             <?php //include 'delete_item.php' ?>
             <!-- Self process delete item -->

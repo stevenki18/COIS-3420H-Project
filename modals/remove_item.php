@@ -1,5 +1,5 @@
 <!-- The Modal -->
-<div id="removelist-modal" class="modal">
+<div id="removeitem-modal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
@@ -18,12 +18,13 @@
             <div class="create-container">
 
                 <!-- ADD ITEM TO LIST -->
-                <form id="removeList" action="<?= $_SERVER['PHP_SELF'] ?>?list=<?= $listid?>" method = "post">
+                <form id="removeFromList" action="<?= $_SERVER['PHP_SELF'] ?>?list=<?= $listid?>" method = "post">
 
-                  <p>Are you sure?</p>
+                    <p>Are you sure?</p>
+                    <input type="text" id="listItemNo" name="itemNo" class="hidden" />
 
                     <!-- SUBMIT -->
-                    <button id="removeListFromDB" name="remove_list">Yes</button>
+                    <button id="removeItemFromDB" name="remove_item">Yes</button>
                 </form>
             </div>
         </div>

@@ -41,31 +41,27 @@ window.addEventListener('DOMContentLoaded', () => {
     if(remove_list_button != null){
       remove_list_button.addEventListener("click", event => {
         document.getElementById('removelist-modal').style.display = 'block';
-
-        document.getElementById("removeListFromDB").addEventListener("click", event => {
-          // const itemName = document.getElementById("itemname");
-          // const itemError = document.querySelector("#itemname~span");
-
-          // itemError.classList.add("hidden");
-          let valid = true;
-
-          //
-          // if (!valid)
-          //   event.preventDefault();
-
-        });
       }); // END OF REMOVE ITEM
     }
 
     // EDIT A LIST ITEM
     const edit_button = document.querySelectorAll(".editbutton");
-
     edit_button.forEach(edit_button =>
       edit_button.addEventListener("click", function () {
         var id = edit_button.value;
         console.log("You are about to edit item: " + id);
         location.href = 'edit_item.php?item=' + id;
       })); // END OF EDIT ITEM
+
+    // REMOVE A LIST ITEM
+    const remove_button = document.querySelectorAll(".removebutton");
+    remove_button.forEach(remove_button =>
+      remove_button.addEventListener("click", function () {
+        var listItemId = remove_button.value;
+        document.getElementById('removeitem-modal').style.display = 'block';
+        document.getElementById('listItemNo').value = listItemId;
+      })); // END OF EDIT ITEM
+
   } // END OF MANAGE LIST PAGE
 
 
@@ -100,10 +96,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /*--------------------------------------
   |
-  |           SAMPLE LIST PAGE
+  |           SAMPLE LIST PAGE 
+  |           MANAGE LIST PAGE
+  |             VIEW BUTTONS
   |
   --------------------------------------*/
-  if (document.title == "Sample List") {
+  if (document.title == "Sample List" || document.title == "Manage List") {
     // VIEW A LIST ITEM
     const view_button = document.querySelectorAll(".viewbutton");
 
@@ -138,47 +136,8 @@ window.addEventListener('DOMContentLoaded', () => {
         };
         xhttp.send();
       })); // END OF VIEW ITEM
-
-    // Enable close on all modal windows
-    const close = document.querySelectorAll(".close");
-    console.log(close);
-
-    close.forEach(close => {
-      close.addEventListener("click", (ev) => {
-        console.log(ev.target.parentElement.parentElement.parentElement);
-        ev.target.parentElement.parentElement.parentElement.style.display = 'none';
-      });
-    }); // End close foreach
   }// END OF SAMPLE LIST AND MANAGE LIST PAGE
 
-
-  /*--------------------------------------
-  |
-  |           EDIT LIST ITEM PAGE
-  |
-  --------------------------------------*/
-  // if (document.title == "Lists") {
-  //   document.querySelector("#addlist").addEventListener("click", () => {
-  //     document.getElementById('create-modal').style.display = 'block';
-  //
-  //     document.getElementById("addListToDB").addEventListener("click", event => {
-  //       const listName = document.getElementById("listName");
-  //       const listError = document.querySelector("#listName~span");
-  //
-  //       listError.classList.add("hidden");
-  //       let valid = true;
-  //
-  //       if (listName.value == "") {
-  //         listError.classList.remove("hidden");
-  //         valid = false;
-  //       }
-  //
-  //       if (!valid)
-  //         event.preventDefault();
-  //
-  //     });
-  //   });
-  // } // END OF EDIT LIST ITEM PAGE
 
   /*--------------------------------------
   |
@@ -209,6 +168,22 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }// end if addlistlink != null
 
+
+  /*--------------------------------------
+  |
+  |        CLOSE BUTTONS FOR MODALS
+  |
+  --------------------------------------*/
+  // Enable close on all modal windows
+  const close = document.querySelectorAll(".close");
+  console.log(close);
+
+  close.forEach(close => {
+    close.addEventListener("click", (ev) => {
+      console.log(ev.target.parentElement.parentElement.parentElement);
+      ev.target.parentElement.parentElement.parentElement.style.display = 'none';
+    });
+  }); // End close foreach
 
 });
 

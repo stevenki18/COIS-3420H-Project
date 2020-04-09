@@ -31,7 +31,7 @@
                     </div>
                     
                     <!-- SUBMIT -->
-                    <button id="addItemToDB" name="submit">Add Item</button>
+                    <button id="addItemToDB" name="add_item">Add Item</button>
                 </form>
             </div>
         </div>
