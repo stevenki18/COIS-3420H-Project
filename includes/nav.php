@@ -1,3 +1,12 @@
+<?php
+
+  if(isset($_POST['logout'])){
+    session_unset();
+    header("Location: login.php");
+    exit();
+  }
+
+?>
 <nav>
   <ul>
     <li>
@@ -31,7 +40,10 @@
     <?php if(isset($_SESSION['user'])): ?>
       <li class="dropdown"><?= $_SESSION['user'] ?>
           <ul class="dropdown-content">
-            <li><a id="signOut" href="~logout.php">Sign Out</a></li>
+            <form method="post">
+              <li><input type="submit" name="logout" id="logout" value="Sign Out"></li>
+            </form>
+            <li><a href="~logout.php">Sign Out</a></li>
             <li><a href="accounts.php">Edit Account</a></li>
           </ul>
         </li>

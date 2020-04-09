@@ -101,11 +101,9 @@ window.addEventListener('DOMContentLoaded', () => {
   /*--------------------------------------
   |
   |           SAMPLE LIST PAGE
-  |                 AND
-  |           MANAGE LIST PAGE
   |
   --------------------------------------*/
-  if (document.title == "Sample List" || document.title == "Manage List") {
+  if (document.title == "Sample List") {
     // VIEW A LIST ITEM
     const view_button = document.querySelectorAll(".viewbutton");
 
