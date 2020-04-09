@@ -19,12 +19,12 @@
     </li>
     <li class="dropdown">Lists
       <ul class="dropdown-content">
-        <li><a href="display_list.php">My Lists</a></li>
-        <li><a href="display_list.php">Public Lists</a></li>
+        <li><a href="display_list.php">View Lists</a></li>
+        <!-- <li><a href="display_list.php">Public Lists</a></li> -->
         <li><a href="sample_list.php">Our Sample List</a></li>
         <?php if(isset($_SESSION['user'])): ?>
         <li>
-          <button onclick="document.getElementById('create-modal').style.display='block'">Add List</button>
+          <a href="#" id="add-list-nav">Add List</a>
           <!-- <a href = "#create_modal" id="create-btn" class="mod-btn">Add List</a> -->
         </li>
         <?php endif; ?>

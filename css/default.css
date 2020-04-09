@@ -328,6 +328,10 @@ form div{
   margin: 0;
 }
 
+#create-list{
+  display: inherit;
+}
+
 
 /*------------------------------------------------------------------------------
 |                             MANAGE LIST STYLING
@@ -337,7 +341,7 @@ main header div:nth-child(-n+3) span{
   font-weight: bold;
 }
 
-main header~ul li{
+main header~ul li, .lists>ul li{
   align-content: center;
   border-bottom: 0.1em solid #818181;
   display: flex;
@@ -353,7 +357,7 @@ main header~ul li div{
   margin-left: auto;
 }
 
-main header~ul li:last-of-type{
+main header~ul li:last-of-type, .lists>ul li:last-of-type{
   border: none;
   display:block;
   justify-self: flex-start;
@@ -366,7 +370,7 @@ main header~ul li:last-of-type{
   width: 15em;
 }
 
-#edit-item textarea, #view-item textarea{
+#edit-item textarea{
   border-radius: inherit;
   width:30em;
   resize: none;

@@ -23,7 +23,9 @@
     $stmt->execute([$listid]);
     $list = $stmt->fetch();
 
-    if($list['private'] == 1 && $list['fk_userid'] != $user){
+    // Check to make sure user is either logged in and list is theirs
+    // or the list is public and available
+    if($list['private'] == 1 && $list['fk_userid'] != $user || !$list){
         header("Location: display_list.php");
         exit();
     }
