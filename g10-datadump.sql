@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 09, 2020 at 05:59 AM
+-- Generation Time: Apr 09, 2020 at 11:33 PM
 -- Server version: 5.7.29
 -- PHP Version: 7.1.33
 
@@ -28,17 +28,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `g10_listitems`
 --
 
-CREATE TABLE IF NOT EXISTS `g10_listitems` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `g10_listitems` (
+  `id` int(11) NOT NULL,
   `fk_listid` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` varchar(280) DEFAULT NULL,
   `picpath` varchar(255) DEFAULT NULL,
   `completion` date DEFAULT NULL,
-  `private` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  KEY `g10_listid_2_fklistid` (`fk_listid`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+  `private` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `g10_listitems`
@@ -49,21 +47,22 @@ INSERT INTO `g10_listitems` (`id`, `fk_listid`, `name`, `description`, `picpath`
 (2, 1, 'Ride a camel', 'Ride a camel in the desert', NULL, NULL, 0),
 (5, 3, 'Add Items', 'Get add items working.\r\n\r\nAdd items is working', NULL, '2020-04-04', 1),
 (7, 3, 'Edit Items', 'Get edit items working\r\n\r\nEdit items complete', NULL, '2020-04-06', 1),
-(8, 3, 'Delete Items', 'Get delete items working\r\n', NULL, NULL, 0),
+(8, 3, 'Delete Items', 'Get delete items working\r\n\r\nDelete items working', NULL, '2020-04-09', 1),
 (9, 3, 'Add List', 'Get add list working\r\n\r\nAdd List Works', NULL, '2020-04-08', 1),
 (10, 3, 'Manage List', 'Get my list page to link to manage list with proper list id\r\n\r\nManage List Done', NULL, '2020-04-08', 1),
-(13, 3, 'View Items', 'Get View items working\r\n\r\nView Items Working', NULL, '2020-04-08', 0),
+(13, 3, 'View Items', 'Get View items working\r\n\r\nView Items Working', NULL, '2020-04-08', 1),
 (14, 3, 'Clean Up Styling', 'Clean up styling on finished pages', NULL, NULL, 0),
-(15, 3, 'ADD ITEMS MODAL CLOSE BUTTON', 'CLOSE BUTTON STOPPED WORKING ONCE SWITCHED OVER TO JS FILE\r\n\r\nClose Button working again', NULL, '2020-04-08', 0),
+(15, 3, 'ADD ITEMS MODAL CLOSE BUTTON', 'CLOSE BUTTON STOPPED WORKING ONCE SWITCHED OVER TO JS FILE\r\n\r\nClose Button working again', NULL, '2020-04-08', 1),
 (16, 3, 'Delete Account', 'Account deletion (please not master)', NULL, NULL, 0),
-(17, 3, 'Delete List', 'Delete A List (button should only show up if the user who owns the list is logged in)', NULL, NULL, 0),
+(17, 3, 'Delete List', 'Delete A List (button should only show up if the user who owns the list is logged in)\r\n\r\nDelete List working', NULL, '2020-04-09', 1),
 (24, 3, 'Edit List', 'Add ability to edit list information after creation... list name & public/private', NULL, NULL, 0),
 (25, 3, 'Image Upload', 'Allow for image upload for bucket list items', NULL, NULL, 0),
-(26, 3, 'Logout', 'Deal with logout php page\r\n\r\nKind of required for sign off (Can we leave it?)', NULL, NULL, 0),
+(26, 3, 'Logout', 'Deal with logout php page\r\n\r\nKind of required for sign off (Can we leave it?)\r\n\r\nM - Logout can stay as is, just renamed file to remove ~', NULL, '2020-04-09', 1),
 (27, 1, 'Go skydiving', 'Go skydiving from 10, 000 feet', NULL, NULL, 0),
 (28, 1, 'Go to California', 'Go to California\r\n\r\n- Los Angeles\r\n- Disneyland\r\n- Big Sur', NULL, NULL, 0),
 (29, 1, 'Climb a mountain', 'Climb a mountain\r\n\r\nClimbed Mount Etna in Sicily, Italy', NULL, '2016-03-16', 0),
-(30, 3, 'Google Login?', 'Are we doing the Google login option?\r\n\r\nGoogle log in now works. (What a mess!)', NULL, '2020-04-09', 0);
+(30, 3, 'Google Login?', 'Are we doing the Google login option?\r\n\r\nGoogle log in now works. (What a mess!)', NULL, '2020-04-09', 1),
+(33, 3, 'Add List From Display Lists', 'M - Add list button on the display list page doesn\'t work (works from nav). We can just remove it if that is fine to go from there', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -71,16 +70,14 @@ INSERT INTO `g10_listitems` (`id`, `fk_listid`, `name`, `description`, `picpath`
 -- Table structure for table `g10_lists`
 --
 
-CREATE TABLE IF NOT EXISTS `g10_lists` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `g10_lists` (
+  `id` int(11) NOT NULL,
   `fk_userid` int(11) NOT NULL,
   `listname` varchar(50) NOT NULL,
   `start` date NOT NULL,
   `end` date DEFAULT NULL,
-  `private` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  KEY `g10_userid_2_fkuserid` (`fk_userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  `private` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `g10_lists`
@@ -96,16 +93,15 @@ INSERT INTO `g10_lists` (`id`, `fk_userid`, `listname`, `start`, `end`, `private
 -- Table structure for table `g10_users`
 --
 
-CREATE TABLE IF NOT EXISTS `g10_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `g10_users` (
+  `id` int(11) NOT NULL,
   `username` varchar(32) NOT NULL,
   `pass` varchar(128) NOT NULL,
   `first` varchar(64) NOT NULL,
   `last` varchar(64) NOT NULL,
   `email` varchar(128) NOT NULL,
-  `dob` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `dob` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `g10_users`
@@ -115,6 +111,52 @@ INSERT INTO `g10_users` (`id`, `username`, `pass`, `first`, `last`, `email`, `do
 (1, 'master', '$2y$10$KM7oAENR.MK38SefX0S1bOH/4mdeswIpU8m37HqvwTRkgWYXG2jEO', 'Master', 'Chief', 'hmaster@email.com', '1900-01-05'),
 (2, 'matthewculin', '$2y$10$oLdbgAhG6AEQ4Zpk1XNHQebQCA6lrLvOhWHjz099eooLNUo8O.gru', 'Matthew', 'Culin', 'matthewculin@trentu.ca', '1997-10-15'),
 (3, 'airstu85@gmail.com', '$2y$10$YG0eGSNq9txFEp1GryEns.tjKO97SwZ1d8Bwzev5SZZ1XkdRM6QqO', 'Steven', 'Ki', 'airstu85@gmail.com', NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `g10_listitems`
+--
+ALTER TABLE `g10_listitems`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `g10_listid_2_fklistid` (`fk_listid`);
+
+--
+-- Indexes for table `g10_lists`
+--
+ALTER TABLE `g10_lists`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `g10_userid_2_fkuserid` (`fk_userid`);
+
+--
+-- Indexes for table `g10_users`
+--
+ALTER TABLE `g10_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `g10_listitems`
+--
+ALTER TABLE `g10_listitems`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT for table `g10_lists`
+--
+ALTER TABLE `g10_lists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `g10_users`
+--
+ALTER TABLE `g10_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
