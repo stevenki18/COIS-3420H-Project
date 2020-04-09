@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-  session_start(); 
+  session_start();
   require_once './includes/library.php';
 
   $pdo = connectDb();
@@ -108,7 +108,7 @@
             </ul>
 
         </main>
-        
+
         <?php include 'modals/view_item.php' ?>
 
         <!-- FOOTER -->

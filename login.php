@@ -53,19 +53,55 @@
         $usererror=true;
       } // END IF (row fetch)
     }
-  }
+  } // End if POST login
+
+  if(isset($_POST['g-login'])){
+    $email = $_POST['email'];
+    $pass = $_POST['password'];
+
+    $pdo = connectDB();
+
+    $query = "SELECT * FROM g10_users WHERE email = ?";
+    $stmt = $pdo->prepare($query);
+    $results=$stmt->execute([$email]);
+
+    if($row=$stmt->fetch()){
+      //verify password
+      if(password_verify($pass, $row['pass'])){
+        $_SESSION['user'] = $row['username'];
+        $_SESSION['id'] = $row['id'];
+
+        if (isset($_POST['remember']))
+          setcookie("bucket",$user,time()+60*60*24);
+
+        echo "Success";
+        exit();
+
+      }else{ // password_verify
+        $usererror=true;
+        echo "Incorrect Password";
+      }// END IF (password_verify)
+
+    }else{ //Fetch failed (No row for username)
+      $usererror=true;
+      echo "No Username";
+
+    } // END IF (row fetch)
+
+    exit();
+  } // End google Login (or create)
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
 
 <head>
+
   <?php
       $PAGE_TITLE = "Login";
       include "includes/meta.php"
     ?>
-    <meta name="google-signin-client_id" content="441193499655-h5qgjum9ksclgrfpoqqk6r2u94eiu7vn.apps.googleusercontent.com" >
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
 
 </head>
 
@@ -96,37 +132,10 @@
             <i class="fa fa-twitter fa-fw"></i>
           </a>
 
-          <a href="#" onclick="signOut();">Sign out</a>
-<script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
-</script>
 
+          <!-- REQUIRED FOR GOOGLE SIGN ON -->
+          <div class="g-signin2" id="my-signin2" data-onsuccess="onSignIn"></div>
 
-          <div id="my-signin2"></div>
-  <script>
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-  </script>
 
         </div >
 

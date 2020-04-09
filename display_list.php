@@ -11,18 +11,17 @@
 
   $pdo = connectDB();
 
-  if(isset($_SESSION['id'])){
-    $query = "SELECT * FROM `g10_lists` WHERE fk_userid = ?";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([$_SESSION['id']]);
-    $result = $stmt->fetchAll();
-  }
-
-  $query = "SELECT * FROM `g10_lists` WHERE private = ?";
+  $query = "SELECT * FROM `g10_lists` WHERE fk_userid = ?";
   $stmt = $pdo->prepare($query);
-  $stmt->execute([0]);
-  $results = $stmt->fetchAll();
-  
+  $stmt->execute([$_SESSION['id']]);
+  $myresult = $stmt->fetchAll();
+
+
+  $query = "SELECT * FROM `g10_lists` WHERE private = ? AND fk_userid != ?";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute([0, $_SESSION['id']]);
+  $publicresults = $stmt->fetchAll();
+
 
 ?>
 <!DOCTYPE html>
@@ -30,7 +29,7 @@
 
   <head>
     <?php
-      $PAGE_TITLE = "Public Lists";
+      $PAGE_TITLE = "Lists";
       include "includes/meta.php";
     ?>
   </head>
@@ -42,48 +41,55 @@
     </header>
 
     <main>
-    <!-- PERSONAL LISTS -->
-    <?php if(isset($_SESSION['id'])): ?>
-      <!-- DISPLAY LIST -->
       <header>
         <!-- LIST NAME -->
-        <h1>My Lists</h1>
+        <h1>Lists</h1>
       </header>
 
+    <!-- PERSONAL LISTS (ONLY IF LOGGED IN)-->
+    <?php if(isset($_SESSION['user'])): ?>
+      <!-- DISPLAY LIST -->
+      <h2>My Lists</h2>
       <div class="lists">
         <ul>
-          <?php foreach($result as $row):?>
+          <?php foreach($myresult as $row):?>
           <li>
-            <h2>
+            <h3>
+              <?php if($row['private'] == 1):?>
+                <span><i class="fa fa-lock"></i></span>
+              <?php else: ?>
+                  <span><i class="fa fa-unlock"></i></span>
+              <?php endif ?>
               <?= $row['listname']?>
               <a href = "view_list.php?list=<?= $row['id']?>"><i class="fa fa-eye"></i></a>
-            </h2>
+            </h3>
           </li>
           <?php endforeach ?>
+          <!-- BUTTON TO ADD ITEMS -->
+          <li><button id="addlist"><i class="fa fa-plus"></i></button></li>
+
         </ul>
       </div>
-  
+
       <!-- Add item Button -->
-      <button onclick="document.getElementById('create-modal').style.display='block'">
-        <i class="fa fa-plus"></i>
-      </button>
+      <!-- <button onclick="document.getElementById('create-modal').style.display='block'"> -->
+        <!-- <i class="fa fa-plus"></i> -->
+      <!-- </button> -->
     <?php endif ?>
 
     <!-- PUBLIC LISTS -->
-    <header>
-      <h1>Public Lists</h1>
-    </header>
+    <h2>Public Lists</h2>
 
     <div class="lists">
       <ul>
-        <?php foreach($results as $rows):?>
+        <?php foreach($publicresults as $rows):?>
         <li>
-          <h2>
+          <h3>
             <?= $rows['listname']?>
             <a href = "view_list.php?list=<?= $rows['id']?>"><i class="fa fa-eye"></i></a>
-          </h2>
+          </h3>
         </li>
-        <?php endforeach ?>  
+        <?php endforeach ?>
       </ul>
     </div>
     </main>

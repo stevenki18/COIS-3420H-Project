@@ -1,7 +1,7 @@
 "use strict";
 
 window.addEventListener('DOMContentLoaded', () => {
-  console.log(document);
+  // console.log(document);
 
   /*--------------------------------------
   |
@@ -12,26 +12,29 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log(document.title);
 
     // ADD AN ITEM TO A LIST
-    document.getElementById("additem").addEventListener("click", event => {
-      document.getElementById('add-modal').style.display = 'block';
+    let add_item_button = document.getElementById("additem");
+    if(add_item_button != null){
+      add_item_button.addEventListener("click", event => {
+        document.getElementById('add-modal').style.display = 'block';
 
-      document.getElementById("addItemToDB").addEventListener("click", event => {
-        const itemName = document.getElementById("itemname");
-        const itemError = document.querySelector("#itemname~span");
+        document.getElementById("addItemToDB").addEventListener("click", event => {
+          const itemName = document.getElementById("itemname");
+          const itemError = document.querySelector("#itemname~span");
 
-        itemError.classList.add("hidden");
-        let valid = true;
+          itemError.classList.add("hidden");
+          let valid = true;
 
-        if (itemName.value == "") {
-          itemError.classList.remove("hidden");
-          valid = false;
-        }
+          if (itemName.value == "") {
+            itemError.classList.remove("hidden");
+            valid = false;
+          }
 
-        if (!valid)
-          event.preventDefault();
+          if (!valid)
+            event.preventDefault();
 
-      });
-    }); // END OF ADD ITEM
+        });
+      }); // END OF ADD ITEM
+    }
 
     // EDIT A LIST ITEM
     const edit_button = document.querySelectorAll(".editbutton");
@@ -77,7 +80,7 @@ window.addEventListener('DOMContentLoaded', () => {
   /*--------------------------------------
   |
   |           SAMPLE LIST PAGE
-  |                 AND 
+  |                 AND
   |           MANAGE LIST PAGE
   |
   --------------------------------------*/
@@ -130,4 +133,176 @@ window.addEventListener('DOMContentLoaded', () => {
   }// END OF SAMPLE LIST AND MANAGE LIST PAGE
 
 
+  /*--------------------------------------
+  |
+  |           EDIT LIST ITEM PAGE
+  |
+  --------------------------------------*/
+  // if (document.title == "Lists") {
+  //   document.querySelector("#addlist").addEventListener("click", () => {
+  //     document.getElementById('create-modal').style.display = 'block';
+  //
+  //     document.getElementById("addListToDB").addEventListener("click", event => {
+  //       const listName = document.getElementById("listName");
+  //       const listError = document.querySelector("#listName~span");
+  //
+  //       listError.classList.add("hidden");
+  //       let valid = true;
+  //
+  //       if (listName.value == "") {
+  //         listError.classList.remove("hidden");
+  //         valid = false;
+  //       }
+  //
+  //       if (!valid)
+  //         event.preventDefault();
+  //
+  //     });
+  //   });
+  // } // END OF EDIT LIST ITEM PAGE
+
+  /*--------------------------------------
+  |
+  |           Once NAV has add list
+  |
+  --------------------------------------*/
+  var addlistlink = document.querySelector("#add-list-nav");
+  if(addlistlink != null){
+    addlistlink.addEventListener("click", event => {
+      document.getElementById('create-modal').style.display = 'block';
+
+      document.getElementById("addListToDB").addEventListener("click", event => {
+        const listName = document.getElementById("listName");
+        const listError = document.querySelector("#listName~span");
+
+        listError.classList.add("hidden");
+        let valid = true;
+
+        if (listName.value == "") {
+          listError.classList.remove("hidden");
+          valid = false;
+        }
+
+        if (!valid)
+          event.preventDefault();
+
+      });
+    });
+  }// end if addlistlink != null
+
+
 });
+
+
+/* -------------------------------------------------
+|
+|       GOOGLE SCRIPT STUFF (MODIFIED FOR USE)
+|
+---------------------------------------------------*/
+
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('Full Name: ' + profile.getName());
+  console.log('Given Name: ' + profile.getGivenName()); // Do not send to your backend! Use an ID token instead.
+  console.log('Family Name: ' + profile.getFamilyName());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  console.log("id: " + googleUser.getId()); // This will be the users password
+
+  let data = {email:profile.getEmail(), firstname:profile.getGivenName(),
+              lastname:profile.getFamilyName(), password: googleUser.getId()};
+
+  const XHR = new XMLHttpRequest();
+  // let formElement = document.querySelector("#login");
+
+  let urlEncodeData = "", urlEncodeDataPairs = [];
+
+  urlEncodeDataPairs.push(encodeURIComponent("email") + '=' + encodeURIComponent(data['email']));
+  urlEncodeDataPairs.push(encodeURIComponent("password") + '=' + encodeURIComponent(data['password']));
+  urlEncodeDataPairs.push(encodeURIComponent("g-login") + '=' + encodeURIComponent(""));
+
+
+  urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+  XHR.addEventListener("load", function(event) {
+    if(event.target.responseText == "No Username"){
+      console.log("creating new user");
+      createnew(data);
+    }
+    else if(event.target.responseText == "Success") {
+      console.log("Account found, redirecting");
+      location.href="display_list.php";
+    }
+  });
+
+  XHR.addEventListener("error", function(event){
+    alert('Oops! Something went wrong.');
+  });
+
+  XHR.open("POST", "https://loki.trentu.ca/~stevenki/3420/project/login.php");
+
+  XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  XHR.send(urlEncodeData);
+
+} // END GOOGLE onSignIn
+
+function createnew(data){
+  console.log(data);
+  const XHR = new XMLHttpRequest();
+  // let formElement = document.querySelector("#login");
+
+  let urlEncodeData = "", urlEncodeDataPairs = [];
+
+  urlEncodeDataPairs.push(encodeURIComponent("username") + '=' + encodeURIComponent(data['email']));
+  urlEncodeDataPairs.push(encodeURIComponent("password") + '=' + encodeURIComponent(data['password']));
+  urlEncodeDataPairs.push(encodeURIComponent("firstname") + '=' + encodeURIComponent(data['firstname']));
+  urlEncodeDataPairs.push(encodeURIComponent("lastname") + '=' + encodeURIComponent(data['lastname']));
+  urlEncodeDataPairs.push(encodeURIComponent("email") + '=' + encodeURIComponent(data['email']));
+  urlEncodeDataPairs.push(encodeURIComponent("g-create") + '=' + encodeURIComponent(""));
+
+
+  urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+  XHR.addEventListener("load", function(event) {
+    if(event.target.responseText == "Success"){
+      alert("Account Created");
+      location.href="display_list.php";
+    }
+    else {
+      alert("Information Passed, but account not created");
+    }
+  });
+
+  XHR.addEventListener("error", function(event){
+    alert('Oops! Something went wrong.');
+  });
+
+  XHR.open("POST", "https://loki.trentu.ca/~stevenki/3420/project/accounts.php");
+
+  XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  XHR.send(urlEncodeData);
+} // END CREATE NEW ACCOUNT OFF GOOGLE SIGN IN
+
+function onLoad() {
+  console.log("onLoad");
+  gapi.load('auth2', function(){
+    gapi.auth2.init();
+  });
+}
+
+var signOutLink = document.querySelector("#signOut");
+if(signOutLink != null){
+  signOutLink.addEventListener("click", event => {
+    event.preventDefault();
+    signOut();
+    location.href="~logout.php";
+  });
+}
+
+function signOut() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+}

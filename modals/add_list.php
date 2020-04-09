@@ -22,6 +22,7 @@
                     <div>
                         <label for="listName">Add Bucket List:</label>
                         <input type="text" id="listName" name="listName" placeholder="List Name" required/>
+                        <span class = "error hidden">Please Enter An List Name</span>
                     </div>
 
                     <div>
