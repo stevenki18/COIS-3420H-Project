@@ -36,6 +36,27 @@ window.addEventListener('DOMContentLoaded', () => {
       }); // END OF ADD ITEM
     }
 
+    // REMOVE A LIST
+    let remove_list_button = document.getElementById("removeList");
+    if(remove_list_button != null){
+      remove_list_button.addEventListener("click", event => {
+        document.getElementById('removelist-modal').style.display = 'block';
+
+        document.getElementById("removeListFromDB").addEventListener("click", event => {
+          // const itemName = document.getElementById("itemname");
+          // const itemError = document.querySelector("#itemname~span");
+
+          // itemError.classList.add("hidden");
+          let valid = true;
+
+          //
+          // if (!valid)
+          //   event.preventDefault();
+
+        });
+      }); // END OF REMOVE ITEM
+    }
+
     // EDIT A LIST ITEM
     const edit_button = document.querySelectorAll(".editbutton");
 

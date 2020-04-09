@@ -36,6 +36,18 @@
     $stmt->execute([$listid]);
     $listitems = $stmt->fetchAll();
 
+    if(isset($_POST['yes'])) {
+      $pdo = connectDB();
+      $query = "DELETE FROM `g10_lists` WHERE id = ?";
+      $statement = $pdo->prepare($query);
+      $statement->execute([$listid]);
+      //$last_id = $pdo->lastInsertId();
+
+      unset($_POST);
+      header("Location: display_list.php");
+      exit();
+    }
+
     if(isset($_POST['submit'])){
         $listitem = $_POST['itemname'];
 
@@ -57,6 +69,8 @@
             exit();
         }
     }
+
+
 
     if(isset($_POST['']))
 ?>
@@ -107,7 +121,7 @@
                 <?php if($list['fk_userid'] == $_SESSION['id']):?>
                     <div>
                         <button type="button"><i class="fa fa-edit"></i></button>
-                        <button type="button" class="delete"><i class="fa fa-trash"></i></button>
+                        <button type="button" class="delete" id = "removeList"><i class="fa fa-trash"></i></button>
                     </div>
                 <?php endif ?>
             </header>
@@ -131,7 +145,9 @@
                             <button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
                             <?php if($list['fk_userid'] == $_SESSION['id']):?>
                                 <button type="button" name="edititem" value="<?= $row['id']?>" class="editbutton"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="delete"><i class="fa fa-trash"></i></button>
+                                <?php if($list['fk_userid'] == $_SESSION['id']):?>
+                                <button type="button" class="delete item"><i class="fa fa-trash"></i></button>
+                              <?php endif ?>
                             <?php endif ?>
                         </div>
                     </li>
@@ -178,6 +194,7 @@
 
             <?php include 'modals/add_item.php' ?>
             <?php include 'modals/view_item.php' ?>
+            <?php include 'modals/remove_item.php' ?>
 
             <?php //include 'delete_item.php' ?>
             <!-- Self process delete item -->
