@@ -138,6 +138,9 @@
                 <!-- BUTTON TO ADD ITEMS -->
                 <?php if($list['fk_userid'] == $_SESSION['id']):?>
                     <li><button id = "additem"><i class="fa fa-plus"></i></button></li>
+                <?php else: ?>
+                <!-- SOLVE JAVASCRIPT ISSUES -->
+                    <li><button id = "additem" class = "hidden"><i class="fa fa-plus"></i></button></li>
                 <?php endif ?>
                 <li>
                     <button type="button" name="Return" ><a href="display_list.php">Return</a></button>
