@@ -207,6 +207,8 @@
       $PAGE_TITLE = "Account Information";
       include "includes/meta.php"
     ?>
+    <!-- Source https://github.com/dropbox/zxcvbn -->
+    <script defer src="scripts/zxcvbn.js"></script>
 </head>
 
 <body>
@@ -245,6 +247,8 @@
         <div>
           <label for="new_password">New Password:</label>
           <input name="new_password" type="password" id="new_password" minlength="8">
+          <meter max="4" id="newpassword-strength"></meter>
+          <p id="newpassword-strength-text"></p>
         </div>
         <div>
           <label for="password_confirm">Confirm Password:</label>
@@ -342,35 +346,6 @@
 
   <?php include 'includes/footer.php' ?>
 
-  <!-- CHECKS PASSWORD STRENGTH -->
-  <script>
-    var strength = {
-      0: "Weakest",
-      1: "Weak",
-      2: "OK",
-      3: "Good",
-      4: "Strong"
-    }
-
-    var password = document.getElementById('password');
-    var meter = document.getElementById('password-strength');
-    var text = document.getElementById('password-strength-text');
-
-    password.addEventListener('input', function () {
-      var val = password.value;
-      var result = zxcvbn(val);
-
-      // This updates the password strength meter
-      meter.value = result.score;
-
-      // This updates the password meter text
-      if (val !== "") {
-        text.innerHTML = "Password Strength: " + strength[result.score];
-      } else {
-        text.innerHTML = "";
-      }
-    });
-  </script>
 </body>
 
 </html>

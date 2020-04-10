@@ -1,30 +1,3 @@
-<?php
-/* require or include the library */
-// require './includes/library.php';
-
-/* ------ <from-the-last-lab> ------- */
-if(isset($_POST["Submit"])){/* Redirect if $_POST has nothing in it */
-  if (!isset($_POST) || count($_POST) <= 0) {
-    header("Location: login.php");
-  }
-
-  /* $errors starts as an empty array */
-  $errors = [];
-
-  /* Get everything from $_POST */
-  $username = $_POST['username'] ?? NULL;
-  $email = $_POST['email'] ?? NULL;
-
-
-  /* Error Validation (from last lab) */
-  if (!isset($username) || strlen($username) === 0) array_push($errors, "Please enter a valid username.");
-  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) array_push($errors, "Please enter a valid email address.");
-
-  header("Location: login.php");
-  exit();
-}
-
-?>
 <!-- The Modal -->
 <div id="forgotpass" class="modal">
 
@@ -42,12 +15,25 @@ if(isset($_POST["Submit"])){/* Redirect if $_POST has nothing in it */
 
     <div class="modal-body">
       <h3>Forgot your password</h3>
-        <form id="forgot-pass-modal" action="<?= $_SERVER['PHP_SELF']; ?>" method = "post">
+        <form id="forgot-pass-modal" action="#" method = "post">
           <!-- col align logins -->
-            <div class="manual-login">
-              <input type="text" name="username" placeholder="Username" required>
-              <input type="text" name="email" placeholder="john@gmail.com" required>
-              <button type="submit" name="Submit">Submit</button>
+            <div id="forgotCheck" class="manual-login">
+              <input type="text" name="forgotusername" placeholder="Username" required>
+              <span class = "error hidden">Please enter a username</span>
+              <input type="text" name="forgotemail" placeholder="john@gmail.com" required>
+              <span class = "error hidden">Email is invalid</span>
+              <button type="submit" name="forgot-check" id="forgot-check">Submit</button>
+            </div>
+            <div id="forgotChange" class="manual-login">
+                <label for="forgotpassword">Password (at least 8 characters):</label>
+                <input name="forgotpassword" type="password" minlength="8" required>
+                <span class = "error hidden">Please enter valid password</span>
+                <meter max="4" id="forgotpassword-strength"></meter>
+                <p id="forgotpassword-strength-text"></p>
+                <label for="fogotconfirmpassword">Confirm Password:</label>
+                <input name="forgotconfirmpassword" type="password" minlength="8" required>
+                <span class = "error hidden">Passwords do not match</span>
+              <button type="submit" name="forgot-change" id="forgot-change">Submit</button>
             </div>
         </form>
     </div>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
   session_start();
 
@@ -8,11 +8,13 @@
     $user="";
   }
 
-  if(isset($_SESSION['user'])){
+  // If redirected to login page and already logged in
+  // Handle also if logout
+  if(isset($_SESSION['user']) && !isset($_POST['logout'])){
     header("Location: display_list.php");
     exit();
   }
-  
+
   /* require or include the library */
   require_once './includes/library.php';
 
@@ -21,6 +23,7 @@
   $usererror = false;
 
   /* ------ <from-the-last-lab> ------- */
+  // Handle login
   if(isset($_POST['login'])){
 
 
@@ -63,6 +66,7 @@
     }
   } // End if POST login
 
+  // Handle google-login
   if(isset($_POST['g-login'])){
     $email = $_POST['email'];
     $pass = $_POST['password'];
@@ -99,11 +103,14 @@
     exit();
   } // End google Login (or create)
 
+  // Handle logout
   if(isset($_POST['logout'])){
     session_unset($_SESSION['user']);
     echo "Logged Out";
     exit();
   }
+
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -115,8 +122,8 @@
       include "includes/meta.php"
     ?>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-
-
+    <script defer src="scripts/zxcvbn.js"></script>
+    
 </head>
 
 <body>
@@ -135,22 +142,10 @@
     <form id="login" action="<?= $_SERVER['PHP_SELF']; ?>" method = "post">
       <!-- col align logins -->
       <div class="login-methods">
-        <h3>Login with Social Media</h3>
-
         <!-- row align -->
         <div class="social-options">
-          <a href="#" class="fb btn">
-            <i class="fa fa-facebook fa-fw"></i>
-          </a>
-          <a href="#" class="twitter btn">
-            <i class="fa fa-twitter fa-fw"></i>
-          </a>
-
-
           <!-- REQUIRED FOR GOOGLE SIGN ON -->
           <div class="g-signin2" id="my-signin2" data-onsuccess="onSignIn"></div>
-
-
         </div >
 
         <h4>or Manually</h4>
@@ -181,7 +176,7 @@
           </div>
 
           <div id="forgot-pass">
-            <button onclick="document.getElementById('forgotpass').style.display='block'" class="modBtn" type="button">Forgot password?</button>
+            <button id="forgot" class="modBtn" type="button">Forgot password?</button>
           </div>
         </div>
 

@@ -1,7 +1,127 @@
 "use strict";
 
 window.addEventListener('DOMContentLoaded', () => {
+  const emailIsValid = string => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(string);
+
+
   // console.log(document);
+  if(document.title == "Login"){
+    document.getElementById("forgot").addEventListener("click", () => {
+      const checker = document.querySelector("#forgotCheck");
+      const changer = document.querySelector("#forgotChange");
+
+      // Set up the modal sections
+      checker.classList.remove("hidden");
+      changer.classList.add("hidden");
+
+      const username = document.querySelector("#forgotCheck>input");
+      const email = document.querySelector("#forgotCheck>input:last-of-type");
+      username.value = "";
+      email.value = "";
+
+      // Open Modal
+      document.getElementById('forgotpass').style.display='block';
+
+      // Process forgot-checker
+      document.getElementById("forgot-check").addEventListener("click", event => {
+
+        console.log("Checking for account...");
+        console.log(username.value);
+        console.log(email.value);
+        const userError = document.querySelector("#forgotCheck>span");
+        const emailError = document.querySelector("#forgotCheck>span:last-of-type");
+
+        userError.classList.add("hidden");
+        emailError.classList.add("hidden");
+
+        let valid = true;
+
+        if (username.value == "") {
+          userError.classList.remove("hidden");
+          valid = false;
+        }else if(email.value == ""){
+          emailError.classList.remove("hidden");
+          valid = false;
+        }else if(!emailIsValid(email.value)){
+          emailError.classList.remove("hidden");
+          valid = false;
+        }
+
+        if (valid){
+          event.preventDefault();
+          // Process POST
+          const XHR = new XMLHttpRequest();
+
+          let urlEncodeData = "", urlEncodeDataPairs = [];
+
+          urlEncodeDataPairs.push(encodeURIComponent("username") + '=' + encodeURIComponent(username.value));
+          urlEncodeDataPairs.push(encodeURIComponent("email") + '=' + encodeURIComponent(email.value));
+          urlEncodeDataPairs.push(encodeURIComponent("forgot-check") + '=' + encodeURIComponent(""));
+
+
+          urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+          XHR.addEventListener("load", function(event) {
+            if(event.target.responseText == "User Found"){
+              alert("User Found");
+              checker.classList.add("hidden");
+              changer.classList.remove("hidden");
+
+              var password = document.querySelector('#forgotChange>input');
+              var meter = document.getElementById('forgotpassword-strength');
+              var text = document.getElementById('forgotpassword-strength-text');
+
+              passwordStrength(password,meter,text);
+
+              // Process forgot-changer
+              document.getElementById("forgot-change").addEventListener("click", event => {
+
+                console.log("Changing Password..." + username.value);
+                const password = document.querySelector("#forgotChange>input");
+                const confpassword = document.querySelector("#forgotChange>input:last-of-type");
+                const passError = document.querySelector("#forgotChange>span");
+                const confError = document.querySelector("#forgotChange>span:last-of-type");
+
+                passError.classList.add("hidden");
+                confError.classList.add("hidden");
+                let valid = true;
+
+                if (password.value == "" || confpassword.value == "") {
+                  passError.classList.remove("hidden");
+                  confError.classList.remove("hidden");
+                  valid = false;
+                }else if(password.value != confpassword.value){
+                  confError.classList.remove("hidden");
+                  valid = false;
+                }
+
+                if(valid){
+                  event.preventDefault();
+                  let data = {username:username.value, password:password.value};
+                  processChangePass(data);
+                }
+              });
+            }
+            else
+            {
+              alert("Account not found.");
+            }
+          });
+
+          XHR.addEventListener("error", function(event){
+            alert('Oops! Something went wrong.');
+          });
+
+          XHR.open("POST", "process/process_forgotpass.php");
+
+          XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+          XHR.send(urlEncodeData);
+        }
+      });
+    });
+  }
+
   /*--------------------------------------
   |
   |           VIEW LIST PAGE
@@ -85,22 +205,22 @@ window.addEventListener('DOMContentLoaded', () => {
   if (document.title == "Lists") {
     document.querySelector("#addlist").addEventListener("click", () => {
       document.getElementById('create-modal').style.display = 'block';
-  
+
       document.getElementById("addListToDB").addEventListener("click", event => {
         const listName = document.getElementById("listName");
         const listError = document.querySelector("#listName~span");
-  
+
         listError.classList.add("hidden");
         let valid = true;
-  
+
         if (listName.value == "") {
           listError.classList.remove("hidden");
           valid = false;
         }
-  
+
         if (!valid)
           event.preventDefault();
-  
+
       });
     });
   } // END OF LIST PAGE
@@ -108,7 +228,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /*--------------------------------------
   |
-  |           SAMPLE LIST PAGE 
+  |           SAMPLE LIST PAGE
   |            VIEW LIST PAGE
   |             VIEW BUTTONS
   |
@@ -177,12 +297,28 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     today = yyyy + '-' + mm + '-' + dd;
-    
+
     if(complete != null)
       complete.setAttribute("max", today);
 
     else
       birthdate.setAttribute("max", today);
+  }
+
+
+  // CHECKS PASSWORD STRENGTH
+  if (document.title == "Account Information"){
+    var password = document.getElementById('password');
+    var meter = document.getElementById('password-strength');
+    var text = document.getElementById('password-strength-text');
+    if(password == null){
+      password = document.getElementById('new_password');
+      meter = document.getElementById('newpassword-strength');
+      text = document.getElementById('newpassword-strength-text');
+    }
+
+    passwordStrength(password,meter,text);
+
   }
 
   /*--------------------------------------
@@ -222,16 +358,72 @@ window.addEventListener('DOMContentLoaded', () => {
   --------------------------------------*/
   // Enable close on all modal windows
   const close = document.querySelectorAll(".close");
-  console.log(close);
-
   close.forEach(close => {
     close.addEventListener("click", (ev) => {
-      console.log(ev.target.parentElement.parentElement.parentElement);
+      // console.log(ev.target.parentElement.parentElement.parentElement);
       ev.target.parentElement.parentElement.parentElement.style.display = 'none';
     });
   }); // End close foreach
 
 });
+
+function processChangePass(data){
+  const XHR = new XMLHttpRequest();
+
+  let urlEncodeData = "", urlEncodeDataPairs = [];
+
+  urlEncodeDataPairs.push(encodeURIComponent("username") + '=' + encodeURIComponent(data['username']));
+  urlEncodeDataPairs.push(encodeURIComponent("new_password") + '=' + encodeURIComponent(data['password']));
+  urlEncodeDataPairs.push(encodeURIComponent("forgot-change") + '=' + encodeURIComponent(""));
+
+
+  urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+  XHR.addEventListener("load", function(event) {
+    if(event.target.responseText == "Success"){
+      alert("Password Changed");
+      location.href="login.php";
+    }
+    else {
+      alert("Information Passed, password not changed");
+    }
+  });
+
+  XHR.addEventListener("error", function(event){
+    alert('Oops! Something went wrong.');
+  });
+
+  XHR.open("POST", "process/process_forgotpass.php");
+
+  XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  XHR.send(urlEncodeData);
+}
+
+function passwordStrength(password, meter, text){
+  var strength = {
+    0: "Weakest",
+    1: "Weak",
+    2: "OK",
+    3: "Good",
+    4: "Strong"
+  }
+
+  password.addEventListener('keyup', () => {
+    var val = password.value;
+    var result = zxcvbn(val);
+
+    // This updates the password strength meter
+    meter.value = result.score;
+
+    // This updates the password meter text
+    if (val !== "") {
+      text.innerHTML = "Password Strength: " + strength[result.score];
+    } else {
+      text.innerHTML = "";
+    }
+  });
+}
 
 
 /* -------------------------------------------------
@@ -289,7 +481,6 @@ function onSignIn(googleUser) {
 function createnew(data){
   console.log(data);
   const XHR = new XMLHttpRequest();
-  // let formElement = document.querySelector("#login");
 
   let urlEncodeData = "", urlEncodeDataPairs = [];
 
@@ -335,38 +526,37 @@ var signOutLink = document.querySelector("#signOut");
 if(signOutLink != null){
   signOutLink.addEventListener("click", event => {
     event.preventDefault();
+
     signOut();
 
     const XHR = new XMLHttpRequest();
-  // let formElement = document.querySelector("#login");
 
-  let urlEncodeData = "", urlEncodeDataPairs = [];
+    let urlEncodeData = "", urlEncodeDataPairs = [];
 
-  
-  urlEncodeDataPairs.push(encodeURIComponent("logout") + '=' + encodeURIComponent(""));
+    urlEncodeDataPairs.push(encodeURIComponent("logout") + '=' + encodeURIComponent(""));
 
+    urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
 
-  urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+    XHR.addEventListener("load", function(event) {
+      console.log(event.target.responseText);
+      if(event.target.responseText == "Logged Out"){
+        alert("Successfully Logged Out");
+        location.href="login.php";
+      }
+      else {
+        alert("Information Passed, but not logged out");
+      }
+    });
 
-  XHR.addEventListener("load", function(event) {
-    if(event.target.responseText == "Logged Out"){
-      alert("Successfully Logged Out");
-      location.href="login.php";
-    }
-    else {
-      alert("Information Passed, but not logged out");
-    }
-  });
+    XHR.addEventListener("error", function(event){
+      alert('Oops! Something went wrong.');
+    });
 
-  XHR.addEventListener("error", function(event){
-    alert('Oops! Something went wrong.');
-  });
+    XHR.open("POST", "login.php");
 
-  XHR.open("POST", "login.php");
+    XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-  XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-  XHR.send(urlEncodeData);
+    XHR.send(urlEncodeData);
   });
 }
 
