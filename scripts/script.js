@@ -2,13 +2,12 @@
 
 window.addEventListener('DOMContentLoaded', () => {
   // console.log(document);
-
   /*--------------------------------------
   |
-  |           MANAGE LIST PAGE
+  |           VIEW LIST PAGE
   |
   --------------------------------------*/
-  if (document.title == "Manage List") {
+  if (document.title == "View List") {
     console.log(document.title);
 
     // ADD AN ITEM TO A LIST
@@ -75,33 +74,46 @@ window.addEventListener('DOMContentLoaded', () => {
       var list = document.querySelector("main span").textContent;
       location.href = 'view_list.php?list=' + list;
     });
-
-
-    // <!-- SET MAXIMUM DATE THAT LIST ITEM CAN BE COMPLETED -->
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();
-    if (dd < 10) {
-      dd = '0' + dd
-    }
-    if (mm < 10) {
-      mm = '0' + mm
-    }
-
-    today = yyyy + '-' + mm + '-' + dd;
-    document.getElementById("complete").setAttribute("max", today);
   } // END OF EDIT LIST ITEM PAGE
 
 
   /*--------------------------------------
   |
+  |               LIST PAGE
+  |
+  --------------------------------------*/
+  if (document.title == "Lists") {
+    document.querySelector("#addlist").addEventListener("click", () => {
+      document.getElementById('create-modal').style.display = 'block';
+  
+      document.getElementById("addListToDB").addEventListener("click", event => {
+        const listName = document.getElementById("listName");
+        const listError = document.querySelector("#listName~span");
+  
+        listError.classList.add("hidden");
+        let valid = true;
+  
+        if (listName.value == "") {
+          listError.classList.remove("hidden");
+          valid = false;
+        }
+  
+        if (!valid)
+          event.preventDefault();
+  
+      });
+    });
+  } // END OF LIST PAGE
+
+
+  /*--------------------------------------
+  |
   |           SAMPLE LIST PAGE 
-  |           MANAGE LIST PAGE
+  |            VIEW LIST PAGE
   |             VIEW BUTTONS
   |
   --------------------------------------*/
-  if (document.title == "Sample List" || document.title == "Manage List") {
+  if (document.title == "Sample List" || document.title == "View List") {
     // VIEW A LIST ITEM
     const view_button = document.querySelectorAll(".viewbutton");
 
@@ -136,8 +148,42 @@ window.addEventListener('DOMContentLoaded', () => {
         };
         xhttp.send();
       })); // END OF VIEW ITEM
+
+    if(document.title == "Sample List"){
+      const redirect = document.getElementById("additem");
+
+      redirect.addEventListener("click", ev =>{
+        location.href="login.php";
+      });
+    }
   }// END OF SAMPLE LIST AND MANAGE LIST PAGE
 
+
+  // MAX DATE
+  var complete = document.getElementById("complete");
+  var birthdate = document.getElementById("birthdate");
+
+  if(complete != null || birthdate != null){
+    // <!-- SET MAXIMUM DATE THAT LIST ITEM CAN BE COMPLETED -->
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd
+    }
+    if (mm < 10) {
+      mm = '0' + mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    
+    if(complete != null)
+      complete.setAttribute("max", today);
+
+    else
+      birthdate.setAttribute("max", today);
+  }
 
   /*--------------------------------------
   |
@@ -232,7 +278,7 @@ function onSignIn(googleUser) {
     alert('Oops! Something went wrong.');
   });
 
-  XHR.open("POST", "https://loki.trentu.ca/~stevenki/3420/project/login.php");
+  XHR.open("POST", "login.php");
 
   XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -271,7 +317,7 @@ function createnew(data){
     alert('Oops! Something went wrong.');
   });
 
-  XHR.open("POST", "https://loki.trentu.ca/~stevenki/3420/project/accounts.php");
+  XHR.open("POST", "accounts.php");
 
   XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -290,7 +336,37 @@ if(signOutLink != null){
   signOutLink.addEventListener("click", event => {
     event.preventDefault();
     signOut();
-    location.href="~logout.php";
+
+    const XHR = new XMLHttpRequest();
+  // let formElement = document.querySelector("#login");
+
+  let urlEncodeData = "", urlEncodeDataPairs = [];
+
+  
+  urlEncodeDataPairs.push(encodeURIComponent("logout") + '=' + encodeURIComponent(""));
+
+
+  urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+  XHR.addEventListener("load", function(event) {
+    if(event.target.responseText == "Logged Out"){
+      alert("Successfully Logged Out");
+      location.href="login.php";
+    }
+    else {
+      alert("Information Passed, but not logged out");
+    }
+  });
+
+  XHR.addEventListener("error", function(event){
+    alert('Oops! Something went wrong.');
+  });
+
+  XHR.open("POST", "login.php");
+
+  XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  XHR.send(urlEncodeData);
   });
 }
 

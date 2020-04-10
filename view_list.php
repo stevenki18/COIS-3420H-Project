@@ -88,7 +88,7 @@
 
     <head>
         <?php
-            $PAGE_TITLE = "Manage List";
+            $PAGE_TITLE = "View List";
             include "includes/meta.php";
         ?>
     </head>
@@ -163,9 +163,6 @@
                 <!-- BUTTON TO ADD ITEMS -->
                 <?php if($list['fk_userid'] == $_SESSION['id']):?>
                     <li><button id = "additem"><i class="fa fa-plus"></i></button></li>
-                <?php else: ?>
-                <!-- SOLVE JAVASCRIPT ISSUES -->
-                    <li><button id = "additem" class = "hidden"><i class="fa fa-plus"></i></button></li>
                 <?php endif ?>
                 <li>
                     <button type="button" name="Return" ><a href="display_list.php">Return</a></button>
@@ -191,7 +188,7 @@
                             <button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
                             <?php if($list['fk_userid'] == $_SESSION['id']):?>
                                 <button type="button" name="edititem" value="<?= $row['id']?>" class="editbutton"><i class="fa fa-edit"></i></button>
-                                <button type="button" name="deleteitem" value="<?= $row['id']?>" class="delete deletebutton"><i class="fa fa-trash"></i></button>
+                                <button type="button" name="deleteitem" value="<?= $row['id']?>" class="delete removebutton"><i class="fa fa-trash"></i></button>
                             <?php endif ?>
                         </div>
                     </li>

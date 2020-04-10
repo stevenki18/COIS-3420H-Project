@@ -10,7 +10,7 @@
     </li>
     <li class="dropdown">Lists
       <ul class="dropdown-content">
-        <li><a href="display_list.php">View Lists</a></li>
+        <li><a href="display_list.php">All Lists</a></li>
         <!-- <li><a href="display_list.php">Public Lists</a></li> -->
         <li><a href="sample_list.php">Our Sample List</a></li>
         <?php if(isset($_SESSION['user'])): ?>
@@ -31,7 +31,7 @@
     <?php if(isset($_SESSION['user'])): ?>
       <li class="dropdown"><?= $_SESSION['user'] ?>
           <ul class="dropdown-content">
-            <li><a href="logout.php">Sign Out</a></li>
+            <li><a id="signOut" href="logout.php">Sign Out</a></li>
             <li><a href="accounts.php">Edit Account</a></li>
           </ul>
         </li>

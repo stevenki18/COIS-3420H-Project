@@ -1,10 +1,18 @@
-<?php session_start();
+<?php 
+
+  session_start();
 
   if(isset($_COOKIE['bucket'])){
     $user=$_COOKIE['bucket'];
   }else {
     $user="";
   }
+
+  if(isset($_SESSION['user'])){
+    header("Location: display_list.php");
+    exit();
+  }
+  
   /* require or include the library */
   require_once './includes/library.php';
 
@@ -61,7 +69,7 @@
 
     $pdo = connectDB();
 
-    $query = "SELECT * FROM g10_users WHERE email = ?";
+    $query = "SELECT * FROM g10_users WHERE username = ?";
     $stmt = $pdo->prepare($query);
     $results=$stmt->execute([$email]);
 
@@ -90,6 +98,12 @@
 
     exit();
   } // End google Login (or create)
+
+  if(isset($_POST['logout'])){
+    session_unset($_SESSION['user']);
+    echo "Logged Out";
+    exit();
+  }
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
