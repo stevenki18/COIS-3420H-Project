@@ -478,8 +478,9 @@ function onSignIn(googleUser) {
   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   console.log("id: " + googleUser.getId()); // This will be the users password
 
+  let pass = googleUser.getAuthResponse().id_token.substring(0,20);
   let data = {email:profile.getEmail(), firstname:profile.getGivenName(),
-              lastname:profile.getFamilyName(), password: googleUser.getId()};
+              lastname:profile.getFamilyName(), password: pass};
 
   const XHR = new XMLHttpRequest();
   // let formElement = document.querySelector("#login");
