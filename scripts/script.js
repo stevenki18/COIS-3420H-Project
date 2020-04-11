@@ -3,8 +3,12 @@
 window.addEventListener('DOMContentLoaded', () => {
   const emailIsValid = string => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(string);
 
-
-  // console.log(document);
+  /*--------------------------------------
+  |
+  |           LOGIN PAGE
+  |     FORGOT PASSWORD HANDLER
+  |
+  --------------------------------------*/
   if(document.title == "Login"){
     document.getElementById("forgot").addEventListener("click", () => {
       const checker = document.querySelector("#forgotCheck");
@@ -125,6 +129,8 @@ window.addEventListener('DOMContentLoaded', () => {
   /*--------------------------------------
   |
   |           VIEW LIST PAGE
+  |   REMOVE LIST
+  |   ADD/EDIT/REMOVE ITEM
   |
   --------------------------------------*/
   if (document.title == "View List") {
@@ -187,6 +193,7 @@ window.addEventListener('DOMContentLoaded', () => {
   /*--------------------------------------
   |
   |           EDIT LIST ITEM PAGE
+  |   CANCEL BUTTON
   |
   --------------------------------------*/
   if (document.title == "Edit List Item") {
@@ -200,29 +207,33 @@ window.addEventListener('DOMContentLoaded', () => {
   /*--------------------------------------
   |
   |               LIST PAGE
+  |   ADD LIST
   |
   --------------------------------------*/
   if (document.title == "Lists") {
-    document.querySelector("#addlist").addEventListener("click", () => {
-      document.getElementById('create-modal').style.display = 'block';
+    var addlist = document.querySelector("#addlist");
+    if(addlist != null){
+      addlist.addEventListener("click", () => {
+        document.getElementById('create-modal').style.display = 'block';
 
-      document.getElementById("addListToDB").addEventListener("click", event => {
-        const listName = document.getElementById("listName");
-        const listError = document.querySelector("#listName~span");
+        // ADD LIST
+        document.getElementById("addListToDB").addEventListener("click", event => {
+          const listName = document.getElementById("listName");
+          const listError = document.querySelector("#listName~span");
 
-        listError.classList.add("hidden");
-        let valid = true;
+          listError.classList.add("hidden");
+          let valid = true;
 
-        if (listName.value == "") {
-          listError.classList.remove("hidden");
-          valid = false;
-        }
+          if (listName.value == "") {
+            listError.classList.remove("hidden");
+            valid = false;
+          }
 
-        if (!valid)
-          event.preventDefault();
+          if (!valid)
+            event.preventDefault();
 
-      });
-    });
+        });
+      });}
   } // END OF LIST PAGE
 
 
@@ -230,10 +241,11 @@ window.addEventListener('DOMContentLoaded', () => {
   |
   |           SAMPLE LIST PAGE
   |            VIEW LIST PAGE
-  |             VIEW BUTTONS
+  |  VIEW ITEM
+  |  SAMPLE ADD ITEM REDIRECT
   |
   --------------------------------------*/
-  if (document.title == "Sample List" || document.title == "View List") {
+  if (document.title == "Sample List" || document.title == "View List" || document.title == "Results") {
     // VIEW A LIST ITEM
     const view_button = document.querySelectorAll(".viewbutton");
 
@@ -279,6 +291,13 @@ window.addEventListener('DOMContentLoaded', () => {
   }// END OF SAMPLE LIST AND MANAGE LIST PAGE
 
 
+  /*--------------------------------------
+  |
+  |            GLOBAL FUNCTIONS
+  |   SET MAX DATE
+  |   PASSWORD STRENGTH
+  |
+  --------------------------------------*/
   // MAX DATE
   var complete = document.getElementById("complete");
   var birthdate = document.getElementById("birthdate");
@@ -311,6 +330,7 @@ window.addEventListener('DOMContentLoaded', () => {
     var password = document.getElementById('password');
     var meter = document.getElementById('password-strength');
     var text = document.getElementById('password-strength-text');
+    // If user is logged in (Change password in edit accoutn)
     if(password == null){
       password = document.getElementById('new_password');
       meter = document.getElementById('newpassword-strength');
@@ -323,7 +343,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /*--------------------------------------
   |
-  |           Once NAV has add list
+  |           ALL PAGES (NAV)
+  |   ADD LIST
   |
   --------------------------------------*/
   var addlistlink = document.querySelector("#add-list-nav");
@@ -365,8 +386,16 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }); // End close foreach
 
-});
+}); // END OF DOMContentLoaded
 
+/*--------------------------- ADDITIONAL FUNCTIONS ---------------------------*/
+
+/*--------------------------------------
+|
+|        processChangePass(data)
+| Changes password for forgot password
+|
+--------------------------------------*/
 function processChangePass(data){
   const XHR = new XMLHttpRequest();
 
@@ -400,6 +429,13 @@ function processChangePass(data){
   XHR.send(urlEncodeData);
 }
 
+/*--------------------------------------
+|
+|    passwordStrength(password, meter, text)
+| Live update of password strength
+| Applies to Acccount information, Forgot Password
+|
+--------------------------------------*/
 function passwordStrength(password, meter, text){
   var strength = {
     0: "Weakest",
@@ -425,13 +461,15 @@ function passwordStrength(password, meter, text){
   });
 }
 
+function viewItemButton(){
 
+}
 /* -------------------------------------------------
 |
 |       GOOGLE SCRIPT STUFF (MODIFIED FOR USE)
 |
 ---------------------------------------------------*/
-
+// Google Sign in (gets basic profile and creates account if not exists)
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
   console.log('Full Name: ' + profile.getName());
@@ -478,6 +516,7 @@ function onSignIn(googleUser) {
 
 } // END GOOGLE onSignIn
 
+// Create a new account from the google signin
 function createnew(data){
   console.log(data);
   const XHR = new XMLHttpRequest();
@@ -515,6 +554,7 @@ function createnew(data){
   XHR.send(urlEncodeData);
 } // END CREATE NEW ACCOUNT OFF GOOGLE SIGN IN
 
+// REQUIRED to log out googleUser (Needs to run on every page)
 function onLoad() {
   console.log("onLoad");
   gapi.load('auth2', function(){
@@ -522,44 +562,48 @@ function onLoad() {
   });
 }
 
-var signOutLink = document.querySelector("#signOut");
-if(signOutLink != null){
-  signOutLink.addEventListener("click", event => {
-    event.preventDefault();
+// Signout button
+document.addEventListener("DOMContentLoaded", () =>{
+  var signOutLink = document.querySelector("#signOut");
+  if(signOutLink != null){
+    signOutLink.addEventListener("click", event => {
+      event.preventDefault();
 
-    signOut();
+      signOut();
 
-    const XHR = new XMLHttpRequest();
+      const XHR = new XMLHttpRequest();
 
-    let urlEncodeData = "", urlEncodeDataPairs = [];
+      let urlEncodeData = "", urlEncodeDataPairs = [];
 
-    urlEncodeDataPairs.push(encodeURIComponent("logout") + '=' + encodeURIComponent(""));
+      urlEncodeDataPairs.push(encodeURIComponent("logout") + '=' + encodeURIComponent(""));
 
-    urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+      urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
 
-    XHR.addEventListener("load", function(event) {
-      console.log(event.target.responseText);
-      if(event.target.responseText == "Logged Out"){
-        alert("Successfully Logged Out");
-        location.href="login.php";
-      }
-      else {
-        alert("Information Passed, but not logged out");
-      }
+      XHR.addEventListener("load", function(event) {
+        console.log(event.target.responseText);
+        if(event.target.responseText == "Logged Out"){
+          alert("Successfully Logged Out");
+          location.href="login.php";
+        }
+        else {
+          alert("Information Passed, but not logged out");
+        }
+      });
+
+      XHR.addEventListener("error", function(event){
+        alert('Oops! Something went wrong.');
+      });
+
+      XHR.open("POST", "login.php");
+
+      XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      XHR.send(urlEncodeData);
     });
+  } // END if signout !=null
+}); // ONLY if DOMContent is loaded
 
-    XHR.addEventListener("error", function(event){
-      alert('Oops! Something went wrong.');
-    });
-
-    XHR.open("POST", "login.php");
-
-    XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-    XHR.send(urlEncodeData);
-  });
-}
-
+// Google Signout
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {

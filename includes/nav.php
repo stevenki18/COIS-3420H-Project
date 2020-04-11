@@ -22,9 +22,9 @@
       </ul>
     </li>
     <li>
-        <form action="searchresults.php" id="search-container">
-          <input type="text" placeholder="Search.." name="search" maxlength="20">
-          <button id="search-btn" type="submit"><i class="fa fa-search"></i></button>
+        <form method="post" action="searchresults.php" id="search-container">
+          <input type="text" placeholder="Search.." name="searchData" maxlength="20" required>
+          <button id="search-btn" type="submit" name="search"><i class="fa fa-search"></i></button>
         </form>
     </li>
 
