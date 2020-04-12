@@ -11,10 +11,23 @@
             response(200, $item);
     }
 
+    else if(!empty($_GET['randid'])){
+      if($_GET['randid'] >= 0){
+        $itemid = getRandomPublicItem();
+        $item = getItemDetails($itemid);
+
+        if(empty($item))
+            response(200, NULL);
+        else
+            response(200, $item);
+      };
+
+    }
+
     // INVALID REQUEST
     else
         response(400, NULL);
-        
+
     function response($status, $data){
         // SEND APPROPRIATE HEADERS
         // JSON
@@ -27,5 +40,5 @@
         $json_response = json_encode($data);
         echo $json_response;
     }
-    
+
 ?>

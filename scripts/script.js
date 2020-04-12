@@ -158,6 +158,32 @@ window.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
         });
+
+        document.getElementById("feelingLucky").addEventListener("click", event => {
+          event.preventDefault();
+          
+          var xhttp = new XMLHttpRequest();
+          xhttp.open("GET", "api/formfill.php?randid=1");
+
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              let data = JSON.parse(this.responseText);
+
+              document.getElementById("itemname").value = data.name;
+              document.getElementById("luckydescription").value = data.description;
+
+              if (data != null) {
+                document.getElementById("luckydescription").parentElement.classList.remove("hidden");
+              } else {
+                document.getElementById("luckydescription").parentElement.classList.add("hidden");
+              }
+
+            }
+          };
+          xhttp.send();
+
+        });
+
       }); // END OF ADD ITEM
     }
 
@@ -188,12 +214,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if(response){
           var post = new XMLHttpRequest();
-          
+
           let urlEncodeData = "", urlEncodeDataPairs = [];
 
           urlEncodeDataPairs.push(encodeURIComponent("deleteItem") + '=' + encodeURIComponent(""));
           urlEncodeDataPairs.push(encodeURIComponent("itemDeleted") + '=' + encodeURIComponent(listItemId));
           urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+          post.addEventListener("load", function(event) {
+            console.log("Item " + listItemId + "removed.")
+            location.href= window.location.href;
+          });
 
           post.open("POST", window.location.href);
           post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -475,9 +506,6 @@ function passwordStrength(password, meter, text){
   });
 }
 
-function viewItemButton(){
-
-}
 /* -------------------------------------------------
 |
 |       GOOGLE SCRIPT STUFF (MODIFIED FOR USE)
@@ -496,6 +524,11 @@ function onSignIn(googleUser) {
   let data = {email:profile.getEmail(), firstname:profile.getGivenName(),
               lastname:profile.getFamilyName(), password: pass};
 
+  googleSignin(data);
+
+} // END GOOGLE onSignIn
+
+function googleSignin(data){
   const XHR = new XMLHttpRequest();
   // let formElement = document.querySelector("#login");
 
@@ -528,8 +561,7 @@ function onSignIn(googleUser) {
   XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
   XHR.send(urlEncodeData);
-
-} // END GOOGLE onSignIn
+}
 
 // Create a new account from the google signin
 function createnew(data){
@@ -569,14 +601,6 @@ function createnew(data){
   XHR.send(urlEncodeData);
 } // END CREATE NEW ACCOUNT OFF GOOGLE SIGN IN
 
-// REQUIRED to log out googleUser (Needs to run on every page)
-function onLoad() {
-  console.log("onLoad");
-  gapi.load('auth2', function(){
-    gapi.auth2.init();
-  });
-}
-
 // Signout button
 document.addEventListener("DOMContentLoaded", () =>{
   var signOutLink = document.querySelector("#signOut");
@@ -584,7 +608,12 @@ document.addEventListener("DOMContentLoaded", () =>{
     signOutLink.addEventListener("click", event => {
       event.preventDefault();
 
-      signOut();
+      try{
+        signOut();
+      }
+      catch(err){
+        console.log(err);
+      }
 
       const XHR = new XMLHttpRequest();
 
@@ -618,10 +647,19 @@ document.addEventListener("DOMContentLoaded", () =>{
   } // END if signout !=null
 }); // ONLY if DOMContent is loaded
 
+// REQUIRED to log out googleUser (Needs to run on every page)
+// SOMETIMES DOES NOT LOAD AND WILL NOT SIGN OUT GOOGLE USE (HORRIBLE LOOP)
+function onLoad() {
+  console.log("onLoad");
+  gapi.load('auth2', function(){
+    gapi.auth2.init();
+  });
+}
+
 // Google Signout
 function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
+    var auth2 = window.gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
   });
 }

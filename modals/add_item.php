@@ -25,13 +25,20 @@
                         <span class = "error hidden">Please Enter An Item Name</span>
                     </div>
 
+                    <!-- ITEM DESCRIPTION (only show during feeling lucky) -->
+                    <div class="hidden">
+                        <label for="luckydescription">Description:</label>
+                        <textarea id="luckydescription" name="lukcydescription" rows="5" cols="30" readonly></textarea>
+                    </div>
+
                     <div>
                         <label for="viewable">Publicly Viewable?</label>
                         <input id="viewable" type="checkbox" name="viewable">
                     </div>
-                    
+
                     <!-- SUBMIT -->
                     <button id="addItemToDB" name="add_item">Add Item</button>
+                    <button id="feelingLucky" name="feel_lucky">I Feel Lucky</button>
                 </form>
             </div>
         </div>

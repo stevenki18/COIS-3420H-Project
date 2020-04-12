@@ -55,13 +55,13 @@
         $query = "DELETE FROM `g10_listitems` WHERE id = ?";
         $statement = $pdo->prepare($query);
         $statement->execute([$_POST['itemDeleted']]);
-  
+
         //unset($_POST);
         header("Location: index.php");
         exit();
     }
 
-    
+
     // ADD LIST ITEM
     if(isset($_POST['add_item'])){
         $listitem = $_POST['itemname'];
@@ -72,11 +72,14 @@
         if(isset($_POST['viewable']))
             $viewable = 0;
 
+        if(isset($_POST['lukcydescription']))
+          $desc = $_POST['lukcydescription'];
+
         if(sizeof($errors == 0)){
             $pdo = connectDB();
-            $query = "INSERT INTO `g10_listitems` (id, fk_listid, name, private) VALUES (NULL, ?, ?, ?)";
+            $query = "INSERT INTO `g10_listitems` (id, fk_listid, name, description, private) VALUES (NULL, ?, ?, ?, ?)";
             $statement = $pdo->prepare($query);
-            $statement->execute([$listid, $listitem, $viewable]);
+            $statement->execute([$listid, $listitem, $desc, $viewable]);
             $last_id = $pdo->lastInsertId();
 
             unset($_POST);
@@ -204,7 +207,7 @@
 
             <?php include 'modals/add_item.php' ?>
             <?php include 'modals/view_item.php' ?>
-            <?php include 'modals/remove_item.php' ?>
+            <?php //include 'modals/remove_item.php' ?>
             <?php include 'modals/remove_list.php' ?>
 
             <?php //include 'delete_item.php' ?>

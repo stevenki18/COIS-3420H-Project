@@ -119,11 +119,11 @@
 
   <?php
       $PAGE_TITLE = "Login";
-      include "includes/meta.php"
+      require "includes/meta.php"
     ?>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <script defer src="scripts/zxcvbn.js"></script>
-    
+
 </head>
 
 <body>
@@ -146,11 +146,14 @@
         <div class="social-options">
           <!-- REQUIRED FOR GOOGLE SIGN ON -->
           <div class="g-signin2" id="my-signin2" data-onsuccess="onSignIn"></div>
+          <a href="#" class="hidden" id="g-signout">Sign out</a>
+          <a href="#" class="hidden" id="g-login">Continue as ...</a>
         </div >
 
-        <h4>or Manually</h4>
 
         <div class="manual-login">
+          <h4>or Manually</h4>
+
           <input type="text" name="username" placeholder="Username" value="<?= $user ?>" required>
           <input type="password" name="password" placeholder="Password" required>
           <!--notice variable which triggers output of error message if sticky processing fails-->
