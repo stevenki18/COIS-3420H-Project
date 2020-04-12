@@ -183,8 +183,22 @@ window.addEventListener('DOMContentLoaded', () => {
     remove_button.forEach(remove_button =>
       remove_button.addEventListener("click", function () {
         var listItemId = remove_button.value;
-        document.getElementById('removeitem-modal').style.display = 'block';
-        document.getElementById('listItemNo').value = listItemId;
+
+        var response = confirm("This will permanently delete this item from your list");
+
+        if(response){
+          var post = new XMLHttpRequest();
+          
+          let urlEncodeData = "", urlEncodeDataPairs = [];
+
+          urlEncodeDataPairs.push(encodeURIComponent("deleteItem") + '=' + encodeURIComponent(""));
+          urlEncodeDataPairs.push(encodeURIComponent("itemDeleted") + '=' + encodeURIComponent(listItemId));
+          urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+          post.open("POST", window.location.href);
+          post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          post.send(urlEncodeData);
+        }
       })); // END OF EDIT ITEM
 
   } // END OF MANAGE LIST PAGE

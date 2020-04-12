@@ -14,7 +14,6 @@
     $user = $_SESSION['id'];
     $listid = $_GET['list'];
 
-
     $pdo = connectDB();
 
     // GET LIST INFO
@@ -48,13 +47,17 @@
     }
 
     // DELETE LIST ITEM
-    if(isset($_POST['remove_item'])) {
+    if(isset($_POST['deleteItem'])) {
+        $id = $_POST['itemDeleted'];
+
+        echo $id;
+
         $query = "DELETE FROM `g10_listitems` WHERE id = ?";
         $statement = $pdo->prepare($query);
-        $statement->execute([$_POST['itemNo']]);
+        $statement->execute([$_POST['itemDeleted']]);
   
-        unset($_POST);
-        header("Location: view_list.php?list=".$listid);
+        //unset($_POST);
+        header("Location: index.php");
         exit();
     }
 
