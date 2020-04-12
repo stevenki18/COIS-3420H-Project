@@ -36,7 +36,7 @@
     $listitems = $stmt->fetchAll();
 
     // DELETE LIST
-    if(isset($_POST['remove_list'])) {
+    if(isset($_POST['deleteList'])) {
       $query = "DELETE FROM `g10_lists` WHERE id = ?";
       $statement = $pdo->prepare($query);
       $statement->execute([$listid]);
@@ -56,8 +56,8 @@
         $statement = $pdo->prepare($query);
         $statement->execute([$_POST['itemDeleted']]);
 
-        //unset($_POST);
-        header("Location: index.php");
+        unset($_POST);
+        header("Location: view_list.php?list=".$listid);
         exit();
     }
 
@@ -207,11 +207,6 @@
 
             <?php include 'modals/add_item.php' ?>
             <?php include 'modals/view_item.php' ?>
-            <?php //include 'modals/remove_item.php' ?>
-            <?php include 'modals/remove_list.php' ?>
-
-            <?php //include 'delete_item.php' ?>
-            <!-- Self process delete item -->
 
         </main>
 

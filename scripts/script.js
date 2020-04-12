@@ -135,6 +135,36 @@ window.addEventListener('DOMContentLoaded', () => {
   --------------------------------------*/
   if (document.title == "View List") {
     console.log(document.title);
+    
+    // REMOVE A LIST
+    let remove_list_button = document.getElementById("removeList");
+    if(remove_list_button != null){
+      remove_list_button.addEventListener("click", event => {
+        var url = new URL(window.location.href);
+        var listNo = url.searchParams.get("list");
+
+        var response = confirm("This will permanently delete this list and all list items associated with it");
+
+        if(response){
+          var post = new XMLHttpRequest();
+
+          let urlEncodeData = "", urlEncodeDataPairs = [];
+
+          urlEncodeDataPairs.push(encodeURIComponent("deleteList") + '=' + encodeURIComponent(""));
+          urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+          post.addEventListener("load", function(event) {
+            console.log("List " + listNo + "removed.")
+            location.href= "display_list.php";
+          });
+
+          post.open("POST", window.location.href);
+          post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          post.send(urlEncodeData);
+        }
+      }); // END OF REMOVE LIST
+    }
+
 
     // ADD AN ITEM TO A LIST
     let add_item_button = document.getElementById("additem");
@@ -159,6 +189,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         });
 
+        // I FEEL LUCKY
         document.getElementById("feelingLucky").addEventListener("click", event => {
           event.preventDefault();
           
@@ -185,14 +216,6 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
       }); // END OF ADD ITEM
-    }
-
-    // REMOVE A LIST
-    let remove_list_button = document.getElementById("removeList");
-    if(remove_list_button != null){
-      remove_list_button.addEventListener("click", event => {
-        document.getElementById('removelist-modal').style.display = 'block';
-      }); // END OF REMOVE ITEM
     }
 
     // EDIT A LIST ITEM
@@ -383,6 +406,59 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     passwordStrength(password,meter,text);
+
+    const deleteAccount = document.querySelector("button[name=deleteAccount]");
+
+    deleteAccount.addEventListener("click", event => {
+      var response = confirm("This will permanently delete your account. You will have no way to restore your account or retrieve list/list items after this process");
+
+      if(response){
+        var post = new XMLHttpRequest();
+
+        let urlEncodeData = "", urlEncodeDataPairs = [];
+
+        urlEncodeDataPairs.push(encodeURIComponent("deleteAccount") + '=' + encodeURIComponent(""));
+        urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+        post.addEventListener("load", function(event) {
+          console.log("Account Deleted.")
+          const XHR = new XMLHttpRequest();
+
+          let urlEncodeData = "", urlEncodeDataPairs = [];
+
+          urlEncodeDataPairs.push(encodeURIComponent("logout") + '=' + encodeURIComponent(""));
+
+          urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+          XHR.addEventListener("load", function(event) {
+            console.log(event.target.responseText);
+            if(event.target.responseText == "Logged Out"){
+              alert("Successfully Logged Out");
+              location.href="login.php";
+            }
+            else {
+              alert("Information Passed, but not logged out");
+            }
+          });
+
+          XHR.addEventListener("error", function(event){
+            alert('Oops! Something went wrong.');
+          });
+
+          XHR.open("POST", "login.php");
+
+          XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+          XHR.send(urlEncodeData);
+          location.href= "login.php";
+        });
+
+        post.open("POST", window.location.href);
+        post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        post.send(urlEncodeData);
+      }
+
+    });
 
   }
 

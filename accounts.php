@@ -19,7 +19,11 @@
   /* $errors starts as an empty array */
   $errors = [];
 
-  // REGISTER
+  /*---------------------------
+  |
+  |       REGISTRATION
+  | 
+  ---------------------------*/
   if (isset($_POST['register'])){
     /* Redirect if $_POST has nothing in it */
     if (!isset($_POST) || count($_POST) <= 0) {
@@ -94,7 +98,11 @@
     }
   }
 
-  // EDIT ACCOUNT
+  /*---------------------------
+  |
+  |       EDIT ACCOUNT
+  | 
+  ---------------------------*/
   if(isset($_POST['update'])){
 
     /* Error Validation */
@@ -163,6 +171,12 @@
     }
   }
 
+
+  /*---------------------------
+  |
+  |       GOOGLE ACCOUNT
+  | 
+  ---------------------------*/
   if(isset($_POST['g-create'])){
     // Get all POST data (passed by java and google)
     $username = $_POST['username'];
@@ -198,15 +212,30 @@
 
   }
 
+
+
+  if(isset($_POST['deleteAccount'])){
+    $pdo = connectDB();
+
+    $query = "DELETE FROM g10_users WHERE id = ?";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$_SESSION['id']]);
+
+    unset($_SESSION['id']);
+    unset($_SESSION['user']);
+
+    header("Location: login.php");
+    exit();
+  }
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
 
 <head>
   <?php
-      $PAGE_TITLE = "Account Information";
-      include "includes/meta.php"
-    ?>
+    $PAGE_TITLE = "Account Information";
+    include "includes/meta.php"
+  ?>
     <!-- Source https://github.com/dropbox/zxcvbn -->
     <script defer src="scripts/zxcvbn.js"></script>
 </head>
@@ -331,7 +360,7 @@
         </div>
 
         <button id="update" name="update"> Save Changes</button>
-        <button type="button" name="delete"> Delete Account</button>
+        <button type="button" name="deleteAccount"> Delete Account</button>
       <!-- register -->
       <?php else: ?>
         <div>
