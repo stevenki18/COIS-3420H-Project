@@ -33,4 +33,26 @@
         }
     }
 
+    // EDIT LIST
+    if(isset($_POST['edit_list'])){
+        $listname = $_POST['listName'];
+
+        if($listname == null || strlen($listname) == 0)
+            array_push($errors, "Please Enter A List Name");
+
+        if(isset($_POST['viewableList']))
+            $viewable = 0;
+
+        if(sizeof($errors == 0)){
+            $pdo = connectDB();
+            $query = "UPDATE `g10_lists` SET listname = ?, private = ? WHERE id = ?";
+            $statement = $pdo->prepare($query);
+            $statement->execute([$listname, $viewable, $listid]);
+
+            //unset($_POST);
+            header("Location: ../view_list.php?list=".$listid);
+            exit();
+        }
+    }
+
 ?>

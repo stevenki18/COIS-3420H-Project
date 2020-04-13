@@ -129,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
   /*--------------------------------------
   |
   |           VIEW LIST PAGE
-  |   REMOVE LIST
+  |   EDIT/REMOVE LIST
   |   ADD/EDIT/REMOVE ITEM
   |
   --------------------------------------*/
@@ -165,6 +165,25 @@ window.addEventListener('DOMContentLoaded', () => {
       }); // END OF REMOVE LIST
     }
 
+    // EDIT A LIST
+    let edit_list_button = document.getElementById("editList");
+    if(edit_list_button != null){
+      edit_list_button.addEventListener("click", event => {
+        let listName = document.querySelector("h1").innerText;
+        let listView = document.querySelector("h1 i");
+
+        document.getElementById('create-modal').style.display = 'block';
+        document.querySelector("label[for=listName]").innerHTML = "List Name";
+        document.getElementById("listName").value = listName;
+        if(listView.classList == "fa fa-unlock")
+          document.getElementById("viewableList").checked = true;
+
+        document.getElementById("addListToDB").name = "edit_list";
+        document.getElementById("addListToDB").innerHTML = "Edit List";
+
+        
+      });
+    }
 
     // ADD AN ITEM TO A LIST
     let add_item_button = document.getElementById("additem");
@@ -363,7 +382,6 @@ window.addEventListener('DOMContentLoaded', () => {
   |
   |            GLOBAL FUNCTIONS
   |   SET MAX DATE
-  |   PASSWORD STRENGTH
   |
   --------------------------------------*/
   // MAX DATE
@@ -393,22 +411,29 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // CHECKS PASSWORD STRENGTH
+  /*--------------------------------------
+  |
+  |              ACCOUNT PAGE
+  |   PASSWORD STRENGTH
+  |   DELETE ACCOUNT
+  |
+  --------------------------------------*/
   if (document.title == "Account Information"){
+    // CHECKS PASSWORD STRENGTH
     var password = document.getElementById('password');
     var meter = document.getElementById('password-strength');
     var text = document.getElementById('password-strength-text');
-    // If user is logged in (Change password in edit accoutn)
+    // If user is logged in (Change password in edit account)
     if(password == null){
       password = document.getElementById('new_password');
       meter = document.getElementById('newpassword-strength');
       text = document.getElementById('newpassword-strength-text');
     }
-
     passwordStrength(password,meter,text);
 
-    const deleteAccount = document.querySelector("button[name=deleteAccount]");
 
+    // DELETE ACCOUNT
+    const deleteAccount = document.querySelector("button[name=deleteAccount]");
     deleteAccount.addEventListener("click", event => {
       var response = confirm("This will permanently delete your account. You will have no way to restore your account or retrieve list/list items after this process");
 

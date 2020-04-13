@@ -61,7 +61,6 @@
         exit();
     }
 
-
     // ADD LIST ITEM
     if(isset($_POST['add_item'])){
         $listitem = $_POST['itemname'];
@@ -87,6 +86,8 @@
             exit();
         }
     }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -135,7 +136,7 @@
                 <!-- EDIT LIST -->
                 <?php if($list['fk_userid'] == $_SESSION['id']):?>
                     <div>
-                        <button type="button"><i class="fa fa-edit"></i></button>
+                        <button type="button" id = "editList"><i class="fa fa-edit"></i></button>
                         <button type="button" class="delete" id = "removeList"><i class="fa fa-trash"></i></button>
                     </div>
                 <?php endif ?>
