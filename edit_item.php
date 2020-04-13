@@ -32,6 +32,64 @@
     }
 
 
+
+    //defines function to create filename
+    function createFilename($file, $path, $prefix,$uniqueID){
+        $filename=$_FILES[$file]['name'];
+        $exts=explode(".", $filename);
+        $ext=$exts[count($exts)-1];
+        $filename=$prefix.$uniqueID.".".$ext;
+        $newname=$path.$filename;
+        return $newname;
+    }
+
+    //defines function to check and move file
+    function checkAndMoveFile($file, $limit, $newname){
+        //modified from http://www.php.net/manual/en/features.file-upload.php
+        try{
+          // Undefined | Multiple Files | $_FILES Corruption Attack
+          // If this request falls under any of them, treat it invalid.
+          if(!isset($_FILES[$file]['error']) || is_array($_FILES[$file]['error'])) {
+             thrownewRuntimeException('Invalid parameters.');
+           }
+
+          // Check Error value.
+          switch ($_FILES[$file]['error']) {
+            case UPLOAD_ERR_OK:
+              break;
+            case UPLOAD_ERR_NO_FILE:
+              thrownewRuntimeException('No file sent.');
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE:
+              thrownewRuntimeException('Exceeded filesize limit.');
+            default: thrownewRuntimeException('Unknown errors.');
+          }
+
+          // You should also check filesize here.
+          if ($_FILES[$file]['size'] >$limit) {
+             thrownewRuntimeException('Exceeded filesize limit.');
+           }
+
+           // Check the File type
+           if (exif_imagetype( $_FILES[$file]['tmp_name']) != IMAGETYPE_GIF
+           and exif_imagetype( $_FILES[$file]['tmp_name']) != IMAGETYPE_JPEG
+           and exif_imagetype( $_FILES[$file]['tmp_name']) != IMAGETYPE_PNG){
+              thrownewRuntimeException('Invalid file format.');
+            }
+
+            // $newname should be unique and tested
+            if (!move_uploaded_file($_FILES[$file]['tmp_name'], $newname)){
+              thrownewRuntimeException('Failed to move uploaded file.');
+            }
+
+            echo'File is uploaded successfully.';
+
+          } catch (RuntimeException $e) {
+            echo $e->getMessage();
+          }
+    }
+
+
     if(isset($_POST['save'])){
         if(!isset($_POST['itemname']) || strlen($_POST['itemname']) == 0){
             array_push($errors, "Please enter an item name");
@@ -40,13 +98,20 @@
         if(isset($_POST['viewable']))
             $viewable = 0;
 
+            //creates new file name for 1 uploaded image, and copies it to loki
+            $dbID=uniqid();  //database id for item
+            if(is_uploaded_file($_FILES['fileToProcess']['tmp_name'])){
+               $newname=createFilename('fileToProcess','../../www_data/', 'img', $dbID);
+               checkAndMoveFile('fileToProcess', 1000000, $newname);
+             }
+
         if(sizeof($errors) == 0){
-            $query = "UPDATE `g10_listitems` SET name = ?, description = ?, completion = ?, private = ? WHERE id = ?";
+            $query = "UPDATE `g10_listitems` SET name = ?, description = ?, picpath = ?, completion = ?, private = ? WHERE id = ?";
             $stmt = $pdo->prepare($query);
             if(strlen($_POST['complete']) == 0)
-                $stmt->execute([$_POST['itemname'], $_POST['description'], null, $viewable, $itemid]);
+                $stmt->execute([$_POST['itemname'], $_POST['description'], $newname, null, $viewable, $itemid]);
             else
-                $stmt->execute([$_POST['itemname'], $_POST['description'], $_POST['complete'], $viewable, $itemid]);
+                $stmt->execute([$_POST['itemname'], $_POST['description'], $newname, $_POST['complete'], $viewable, $itemid]);
 
             header("Location: view_list.php?list=".$result['fk_listid']);
             exit();
@@ -54,6 +119,7 @@
 
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -108,7 +174,7 @@
                 <div>
                     <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
                     <label for="file">File Name:</label>
-                    <input type="file" name="my_file[]" id="file" multiple/>
+                    <input type="file" name="fileToProcess" id="file" multiple/>
                 </div>
 
                 <span class="hidden"><?= $result['fk_listid']?></span>
