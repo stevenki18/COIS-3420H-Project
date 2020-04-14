@@ -171,6 +171,12 @@ window.addEventListener('DOMContentLoaded', () => {
       edit_list_button.addEventListener("click", event => {
         let listName = document.querySelector("h1").innerText;
         let listView = document.querySelector("h1 i");
+        let editButton = document.getElementById("addListToDB");
+        let listNumber = document.createElement("input");
+
+        // GET ADDITIONAL INFO FROM URL (?LIST=##)
+        let urlParam = new URLSearchParams(window.location.search);
+        let list = urlParam.get('list');
 
         document.getElementById('create-modal').style.display = 'block';
         document.querySelector("label[for=listName]").innerHTML = "List Name";
@@ -178,10 +184,14 @@ window.addEventListener('DOMContentLoaded', () => {
         if(listView.classList == "fa fa-unlock")
           document.getElementById("viewableList").checked = true;
 
-        document.getElementById("addListToDB").name = "edit_list";
-        document.getElementById("addListToDB").innerHTML = "Edit List";
-
+        editButton.name = "edit_list";
+        editButton.innerHTML = "Edit List";
         
+        listNumber.classList.add("hidden");
+        listNumber.name = "listNo";
+        listNumber.value = list;
+
+        editButton.parentElement.appendChild(listNumber);
       });
     }
 

@@ -47,7 +47,7 @@
             $pdo = connectDB();
             $query = "UPDATE `g10_lists` SET listname = ?, private = ? WHERE id = ?";
             $statement = $pdo->prepare($query);
-            $statement->execute([$listname, $viewable, $listid]);
+            $statement->execute([$listname, $viewable, $_POST['listNo']]);
 
             //unset($_POST);
             header("Location: ../view_list.php?list=".$listid);
