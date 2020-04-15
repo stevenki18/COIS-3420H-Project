@@ -37,28 +37,37 @@
 
     // DELETE LIST
     if(isset($_POST['deleteList'])) {
-      $query = "DELETE FROM `g10_lists` WHERE id = ?";
-      $statement = $pdo->prepare($query);
-      $statement->execute([$listid]);
+        if($_POST['listName'] == $list['listname']){
+            $query = "DELETE FROM `g10_lists` WHERE id = ?";
+            $statement = $pdo->prepare($query);
+            $statement->execute([$listid]);
 
-      unset($_POST);
-      header("Location: display_list.php");
-      exit();
+            unset($_POST);
+            header("Location: display_list.php");
+            exit();
+        }
+      
     }
 
     // DELETE LIST ITEM
     if(isset($_POST['deleteItem'])) {
         $id = $_POST['itemDeleted'];
 
-        echo $id;
+        $query = "SELECT name FROM `g10_listitems` WHERE id = ?";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([$id]);
+        $itemName = $stmt->fetch();
 
-        $query = "DELETE FROM `g10_listitems` WHERE id = ?";
-        $statement = $pdo->prepare($query);
-        $statement->execute([$_POST['itemDeleted']]);
+        if($_POST['itemName'] == $itemName['name']){
+            $query = "DELETE FROM `g10_listitems` WHERE id = ?";
+            $statement = $pdo->prepare($query);
+            $statement->execute([$_POST['itemDeleted']]);
 
-        unset($_POST);
-        header("Location: view_list.php?list=".$listid);
-        exit();
+            unset($_POST);
+            header("Location: view_list.php?list=".$listid);
+            exit();
+        }
+        
     }
 
     // ADD LIST ITEM

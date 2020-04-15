@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- SCRIPTS -->
 <script defer src="scripts/script.js"></script>
+<script defer src="scripts/google.js"></script>
 <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 <!-- PAGE TITLE -->
 <title><?= $PAGE_TITLE ?></title>

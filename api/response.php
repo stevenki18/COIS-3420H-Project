@@ -24,6 +24,16 @@
 
     }
 
+    else if(!empty($_GET['username'])){
+        $param = $_GET['username'];
+        $user = checkUsername($param);
+
+        if(empty($user))
+            response(200, NULL);
+        else
+            response(200, $user);
+    }
+
     // INVALID REQUEST
     else
         response(400, NULL);

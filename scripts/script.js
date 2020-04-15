@@ -143,7 +143,7 @@ window.addEventListener('DOMContentLoaded', () => {
         var url = new URL(window.location.href);
         var listNo = url.searchParams.get("list");
 
-        var response = confirm("This will permanently delete this list and all list items associated with it");
+        var response = prompt("Enter the list name to delete it", "");
 
         if(response){
           var post = new XMLHttpRequest();
@@ -151,6 +151,7 @@ window.addEventListener('DOMContentLoaded', () => {
           let urlEncodeData = "", urlEncodeDataPairs = [];
 
           urlEncodeDataPairs.push(encodeURIComponent("deleteList") + '=' + encodeURIComponent(""));
+          urlEncodeDataPairs.push(encodeURIComponent("listName") + '=' + encodeURIComponent(response));
           urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
 
           post.addEventListener("load", function(event) {
@@ -223,7 +224,7 @@ window.addEventListener('DOMContentLoaded', () => {
           event.preventDefault();
           
           var xhttp = new XMLHttpRequest();
-          xhttp.open("GET", "api/formfill.php?randid=1");
+          xhttp.open("GET", "api/response.php?randid=1");
 
           xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -262,7 +263,7 @@ window.addEventListener('DOMContentLoaded', () => {
       remove_button.addEventListener("click", function () {
         var listItemId = remove_button.value;
 
-        var response = confirm("This will permanently delete this item from your list");
+        var response = prompt("Enter the item name to delete it", "");
 
         if(response){
           var post = new XMLHttpRequest();
@@ -271,6 +272,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
           urlEncodeDataPairs.push(encodeURIComponent("deleteItem") + '=' + encodeURIComponent(""));
           urlEncodeDataPairs.push(encodeURIComponent("itemDeleted") + '=' + encodeURIComponent(listItemId));
+          urlEncodeDataPairs.push(encodeURIComponent("itemName") + '=' + encodeURIComponent(response));
           urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
 
           post.addEventListener("load", function(event) {
@@ -355,7 +357,7 @@ window.addEventListener('DOMContentLoaded', () => {
         document.getElementById('view-modal').style.display = 'block';
 
         var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "api/formfill.php?itemid=" + itemid);
+        xhttp.open("GET", "api/response.php?itemid=" + itemid);
 
         xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
@@ -429,10 +431,90 @@ window.addEventListener('DOMContentLoaded', () => {
   |
   --------------------------------------*/
   if (document.title == "Account Information"){
-    // CHECKS PASSWORD STRENGTH
-    var password = document.getElementById('password');
+    
+    let header = document.querySelector("h1").innerHTML;
+    
+    let userField = document.getElementById('username');
+    let userError = document.querySelector("#username~span");
+
     var meter = document.getElementById('password-strength');
     var text = document.getElementById('password-strength-text');
+    let passwordConf = document.getElementById('password_confirm');
+    let passError = document.querySelector("#password_confirm~span");
+
+    let first = document.getElementById('firstname');
+    let firstError = document.querySelector("#firstname~span");
+
+    let last = document.getElementById('lastname');
+    let lastError = document.querySelector("#lastname~span");
+
+    let email = document.getElementById('email');
+    let emailError = document.querySelector("#email~span");
+
+    let dob = document.getElementById('birthdate');
+    let dobError = document.querySelector("#birthdate~span");
+
+    let valid = true;
+
+    if(header == "Register"){
+      var password = document.getElementById('password');
+      var tac = document.getElementById('agreebox');
+      var tacError = document.querySelector("#agreebox~span");
+      var addAccount = document.getElementById('register');
+
+      // USERNAME FOCUS
+      userField.addEventListener("focus", event => {
+        userError.classList.add("hidden");
+        userField.style.borderColor = "";
+      });
+
+      // USERNAME BLUR
+      userField.addEventListener("blur", event => {
+        let username = userField.value;
+
+        if(username != ""){
+          var xhttp = new XMLHttpRequest();
+          xhttp.open("GET", "api/response.php?username=" + username);
+
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              var data = JSON.parse(this.responseText);
+
+              if(data['username'] == username){ 
+                userError.innerHTML = "Sorry that username is already taken";             
+                userError.classList.remove("hidden");
+                userField.style.borderColor = "red";
+                valid = false;
+              }
+              else{
+                userError.classList.add("hidden");
+                userField.style.borderColor = "black";
+                valid = true;
+              }
+
+            }
+          };
+          xhttp.send();
+        }
+
+        else{
+          userError.innerHTML = "Please enter a username";
+          userError.classList.remove("hidden");
+          userField.style.borderColor = "red";
+          valid = false;
+        }
+        
+      });
+    }
+
+    if(header == "Edit Account"){
+      var password = document.getElementById('new_password');
+      var updateAccount = document.getElementById("update");
+      var deleteAccount = document.querySelector("button[name=deleteAccount]");
+
+      password.value = null;
+    }
+
     // If user is logged in (Change password in edit account)
     if(password == null){
       password = document.getElementById('new_password');
@@ -441,9 +523,61 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     passwordStrength(password,meter,text);
 
+    // REGISTRATION VALIDATION
+    addAccount.addEventListener("click", event => {
+       
+      // CHECK PASSWORDS
+      if(password.value == "" || password.value != passwordConf.value){
+        password.style.borderColor = "red";
+        passError.classList.remove("hidden");
+        valid = false;
+      }
+      
+      // CHECK FIRST NAME
+      if(firstname.value == ""){
+        firstname.style.borderColor = "red";
+        firstError.classList.remove("hidden");
+        valid = false;
+      }
+      
+      // CHECK LAST NAME
+      if(lastname.value == ""){
+        lastname.style.borderColor = "red";
+        lastError.classList.remove("hidden");
+        valid = false;
+      }
+
+      // CHECK EMAIL
+      if(email.value == "" || !emailIsValid(email.value)){
+        email.style.borderColor = "red";
+        emailError.classList.remove("hidden");
+        valid = false;
+      }
+
+      // CHECK BIRTHDAY
+      if(dob.value == ""){
+        dob.style.borderColor = "red";
+        dobError.classList.remove("hidden");
+        valid = false;
+      }
+
+      if(!tac.checked){
+        tac.style.borderColor = "red";
+        tacError.classList.remove("hidden");
+        valid = false;
+      }
+
+      if(!valid)
+        preventDefault();
+
+    });
+
+    // UPDATE VALIDATION
+    updateAccount.addEventListener("click", event => {
+      
+    });
 
     // DELETE ACCOUNT
-    const deleteAccount = document.querySelector("button[name=deleteAccount]");
     deleteAccount.addEventListener("click", event => {
       var response = confirm("This will permanently delete your account. You will have no way to restore your account or retrieve list/list items after this process");
 
@@ -617,160 +751,3 @@ function passwordStrength(password, meter, text){
   });
 }
 
-/* -------------------------------------------------
-|
-|       GOOGLE SCRIPT STUFF (MODIFIED FOR USE)
-|
----------------------------------------------------*/
-// Google Sign in (gets basic profile and creates account if not exists)
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('Full Name: ' + profile.getName());
-  console.log('Given Name: ' + profile.getGivenName()); // Do not send to your backend! Use an ID token instead.
-  console.log('Family Name: ' + profile.getFamilyName());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  console.log("id: " + googleUser.getId()); // This will be the users password
-
-  let pass = googleUser.getAuthResponse().id_token.substring(0,20);
-  let data = {email:profile.getEmail(), firstname:profile.getGivenName(),
-              lastname:profile.getFamilyName(), password: pass};
-
-  googleSignin(data);
-
-} // END GOOGLE onSignIn
-
-function googleSignin(data){
-  const XHR = new XMLHttpRequest();
-  // let formElement = document.querySelector("#login");
-
-  let urlEncodeData = "", urlEncodeDataPairs = [];
-
-  urlEncodeDataPairs.push(encodeURIComponent("email") + '=' + encodeURIComponent(data['email']));
-  urlEncodeDataPairs.push(encodeURIComponent("password") + '=' + encodeURIComponent(data['password']));
-  urlEncodeDataPairs.push(encodeURIComponent("g-login") + '=' + encodeURIComponent(""));
-
-
-  urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
-
-  XHR.addEventListener("load", function(event) {
-    if(event.target.responseText == "No Username"){
-      console.log("creating new user");
-      createnew(data);
-    }
-    else if(event.target.responseText == "Success") {
-      console.log("Account found, redirecting");
-      location.href="display_list.php";
-    }
-  });
-
-  XHR.addEventListener("error", function(event){
-    alert('Oops! Something went wrong.');
-  });
-
-  XHR.open("POST", "login.php");
-
-  XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-  XHR.send(urlEncodeData);
-}
-
-// Create a new account from the google signin
-function createnew(data){
-  console.log(data);
-  const XHR = new XMLHttpRequest();
-
-  let urlEncodeData = "", urlEncodeDataPairs = [];
-
-  urlEncodeDataPairs.push(encodeURIComponent("username") + '=' + encodeURIComponent(data['email']));
-  urlEncodeDataPairs.push(encodeURIComponent("password") + '=' + encodeURIComponent(data['password']));
-  urlEncodeDataPairs.push(encodeURIComponent("firstname") + '=' + encodeURIComponent(data['firstname']));
-  urlEncodeDataPairs.push(encodeURIComponent("lastname") + '=' + encodeURIComponent(data['lastname']));
-  urlEncodeDataPairs.push(encodeURIComponent("email") + '=' + encodeURIComponent(data['email']));
-  urlEncodeDataPairs.push(encodeURIComponent("g-create") + '=' + encodeURIComponent(""));
-
-
-  urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
-
-  XHR.addEventListener("load", function(event) {
-    if(event.target.responseText == "Success"){
-      alert("Account Created");
-      location.href="display_list.php";
-    }
-    else {
-      alert("Information Passed, but account not created");
-    }
-  });
-
-  XHR.addEventListener("error", function(event){
-    alert('Oops! Something went wrong.');
-  });
-
-  XHR.open("POST", "accounts.php");
-
-  XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-  XHR.send(urlEncodeData);
-} // END CREATE NEW ACCOUNT OFF GOOGLE SIGN IN
-
-// Signout button
-document.addEventListener("DOMContentLoaded", () =>{
-  var signOutLink = document.querySelector("#signOut");
-  if(signOutLink != null){
-    signOutLink.addEventListener("click", event => {
-      event.preventDefault();
-
-      try{
-        signOut();
-      }
-      catch(err){
-        console.log(err);
-      }
-
-      const XHR = new XMLHttpRequest();
-
-      let urlEncodeData = "", urlEncodeDataPairs = [];
-
-      urlEncodeDataPairs.push(encodeURIComponent("logout") + '=' + encodeURIComponent(""));
-
-      urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
-
-      XHR.addEventListener("load", function(event) {
-        console.log(event.target.responseText);
-        if(event.target.responseText == "Logged Out"){
-          alert("Successfully Logged Out");
-          location.href="login.php";
-        }
-        else {
-          alert("Information Passed, but not logged out");
-        }
-      });
-
-      XHR.addEventListener("error", function(event){
-        alert('Oops! Something went wrong.');
-      });
-
-      XHR.open("POST", "login.php");
-
-      XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-      XHR.send(urlEncodeData);
-    });
-  } // END if signout !=null
-}); // ONLY if DOMContent is loaded
-
-// REQUIRED to log out googleUser (Needs to run on every page)
-// SOMETIMES DOES NOT LOAD AND WILL NOT SIGN OUT GOOGLE USE (HORRIBLE LOOP)
-function onLoad() {
-  console.log("onLoad");
-  gapi.load('auth2', function(){
-    gapi.auth2.init();
-  });
-}
-
-// Google Signout
-function signOut() {
-    var auth2 = window.gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-  });
-}

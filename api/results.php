@@ -31,6 +31,17 @@
           return NULL;
     }
 
+    function checkUsername($username){
+        $pdo = connectDB();
+        $query = "SELECT username FROM `g10_users` WHERE username = ?";
+        $statement = $pdo->prepare($query);
+        $statement->execute([$username]);
+        $result = $statement->fetch();
 
+        if(isset($result))
+            return $result;
+        else
+            return NULL;
+    }
 
 ?>

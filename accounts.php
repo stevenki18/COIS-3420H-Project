@@ -259,7 +259,7 @@
     <!-- FORM -->
     <form id="register-form" action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
 
-    <!-- USERNAME -->
+      <!-- USERNAME -->
       <div>
         <label for="username">Username:</label>
         <input id="username" name="username" type="text"
@@ -268,6 +268,7 @@
         <?php else: ?>
           placeholder = "Thrillseeker99" required>
         <?php endif ?>
+        <span class = "error hidden">Please enter a username</span>
       </div>
 
       <!-- PASSWORDS -->
@@ -282,6 +283,7 @@
         <div>
           <label for="password_confirm">Confirm Password:</label>
           <input name="password_confirm" type="password" id="password_confirm" minlength="8">
+          <span class = "error hidden">Passwords do not match</span>
         </div>
       <!-- register -->
       <?php else: ?>
@@ -294,6 +296,7 @@
         <div>
           <label for="password_confirm">Confirm Password:</label>
           <input name="password_confirm" type="password" id="password_confirm" minlength="8" required>
+          <span class = "error hidden">Passwords do not match</span>
         </div>
       <?php endif ?>
 
@@ -306,6 +309,7 @@
         <?php else: ?>
           placeholder = "Mary" required>
         <?php endif ?>
+        <span class = "error hidden">Please enter a first name</span>
       </div>
 
       <!-- LAST NAME -->
@@ -317,6 +321,7 @@
         <?php else: ?>
           placeholder = "Sue" required>
         <?php endif ?>
+        <span class = "error hidden">Please enter a last name</span>
       </div>
 
       <!-- EMAIL -->
@@ -328,6 +333,7 @@
         <?php else: ?>
           placeholder = "mary.sue@gmail.com" required>
         <?php endif ?>
+        <span class = "error hidden">Please enter an email address</span>
       </div>
 
       <!-- BIRTHDATE -->
@@ -340,6 +346,7 @@
         <?php else: ?>
           required>
         <?php endif ?>
+        <span class = "error hidden">Please enter a birthdate</span>
       </div>
 
       <!-- edit -->
@@ -366,6 +373,7 @@
         <div>
           <input id="agreebox" type="checkbox" name="agreebox" required>
           <label for="agreebox">I agree to the <a href="terms.php">Terms and Conditions</a>.</label>
+          <span class = "error hidden">Please agree to terms and conditions</span>
         </div>
 
         <button id="register" name="register"> Create Account</button>
