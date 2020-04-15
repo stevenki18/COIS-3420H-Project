@@ -402,24 +402,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if(complete != null || birthdate != null){
     // <!-- SET MAXIMUM DATE THAT LIST ITEM CAN BE COMPLETED -->
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();
-    if (dd < 10) {
-      dd = '0' + dd
-    }
-    if (mm < 10) {
-      mm = '0' + mm
-    }
-
-    today = yyyy + '-' + mm + '-' + dd;
-
     if(complete != null)
-      complete.setAttribute("max", today);
+      complete.setAttribute("max", getTodaysDate());
 
     else
-      birthdate.setAttribute("max", today);
+      birthdate.setAttribute("max", getTodaysDate());
   }
 
 
@@ -555,10 +542,12 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       // CHECK BIRTHDAY
-      if(dob.value == ""){
-        dob.style.borderColor = "red";
-        dobError.classList.remove("hidden");
-        valid = false;
+      if(dob.value != ""){
+        if(dob.value < 1900-01-01 || dob.value > getTodaysDate()){
+          dob.style.borderColor = "red";
+          dobError.classList.remove("hidden");
+          valid = false;
+        }
       }
 
       if(!tac.checked){
@@ -574,7 +563,47 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // UPDATE VALIDATION
     updateAccount.addEventListener("click", event => {
+      // CHECK PASSWORDS
+      if(password.value != ""){
+        if(password.value != passwordConf.value){
+          password.style.borderColor = "red";
+          passError.classList.remove("hidden");
+          valid = false;
+        }
+      }
       
+      // CHECK FIRST NAME
+      if(firstname.value == ""){
+        firstname.style.borderColor = "red";
+        firstError.classList.remove("hidden");
+        valid = false;
+      }
+      
+      // CHECK LAST NAME
+      if(lastname.value == ""){
+        lastname.style.borderColor = "red";
+        lastError.classList.remove("hidden");
+        valid = false;
+      }
+
+      // CHECK EMAIL
+      if(email.value == "" || !emailIsValid(email.value)){
+        email.style.borderColor = "red";
+        emailError.classList.remove("hidden");
+        valid = false;
+      }
+
+      // CHECK BIRTHDAY
+      if(dob.value != ""){
+        if(dob.value < 1900-01-01 || dob.value > getTodaysDate()){
+          dob.style.borderColor = "red";
+          dobError.classList.remove("hidden");
+          valid = false;
+        }
+      }
+
+      if(!valid)
+        preventDefault();
     });
 
     // DELETE ACCOUNT
@@ -628,7 +657,6 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
     });
-
   }
 
   /*--------------------------------------
@@ -717,6 +745,30 @@ function processChangePass(data){
   XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
   XHR.send(urlEncodeData);
+}
+
+/*--------------------------------------
+|
+|           getTodaysDate()
+| Get the current date in the format
+| yyyy-mm-dd
+|
+--------------------------------------*/
+function getTodaysDate(){
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+
+  return today;
 }
 
 /*--------------------------------------

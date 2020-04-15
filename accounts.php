@@ -346,7 +346,7 @@
         <?php else: ?>
           required>
         <?php endif ?>
-        <span class = "error hidden">Please enter a birthdate</span>
+        <span class = "error hidden">Please enter a valid birthdate</span>
       </div>
 
       <!-- edit -->
