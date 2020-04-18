@@ -3,6 +3,12 @@
 window.addEventListener('DOMContentLoaded', () => {
   const emailIsValid = string => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(string);
 
+  var addlistlink = document.querySelector("#add-list-nav");
+  var addlist = document.querySelector("#addlist");
+  const close = document.querySelectorAll(".close");
+  var complete = document.getElementById("complete");
+  var birthdate = document.getElementById("birthdate");
+
   /*--------------------------------------
   |
   |           LOGIN PAGE
@@ -124,7 +130,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
-  }
+  }// END OF LOGIN PAGE
 
   /*--------------------------------------
   |
@@ -136,8 +142,13 @@ window.addEventListener('DOMContentLoaded', () => {
   if (document.title == "View List") {
     console.log(document.title);
     
-    // REMOVE A LIST
     let remove_list_button = document.getElementById("removeList");
+    let edit_list_button = document.getElementById("editList");
+    let add_item_button = document.getElementById("additem");
+    const edit_button = document.querySelectorAll(".editbutton");
+    const remove_button = document.querySelectorAll(".removebutton");
+
+    // REMOVE A LIST
     if(remove_list_button != null){
       remove_list_button.addEventListener("click", event => {
         var url = new URL(window.location.href);
@@ -167,7 +178,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     // EDIT A LIST
-    let edit_list_button = document.getElementById("editList");
     if(edit_list_button != null){
       edit_list_button.addEventListener("click", event => {
         let listName = document.querySelector("h1").innerText;
@@ -197,7 +207,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     // ADD AN ITEM TO A LIST
-    let add_item_button = document.getElementById("additem");
     if(add_item_button != null){
       add_item_button.addEventListener("click", event => {
         document.getElementById('add-modal').style.display = 'block';
@@ -249,42 +258,44 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     // EDIT A LIST ITEM
-    const edit_button = document.querySelectorAll(".editbutton");
-    edit_button.forEach(edit_button =>
+    if(edit_button != null){
+      edit_button.forEach(edit_button =>
       edit_button.addEventListener("click", function () {
         var id = edit_button.value;
         console.log("You are about to edit item: " + id);
         location.href = 'edit_item.php?item=' + id;
       })); // END OF EDIT ITEM
-
+    }
+    
     // REMOVE A LIST ITEM
-    const remove_button = document.querySelectorAll(".removebutton");
-    remove_button.forEach(remove_button =>
-      remove_button.addEventListener("click", function () {
-        var listItemId = remove_button.value;
-
-        var response = prompt("Enter the item name to delete it", "");
-
-        if(response){
-          var post = new XMLHttpRequest();
-
-          let urlEncodeData = "", urlEncodeDataPairs = [];
-
-          urlEncodeDataPairs.push(encodeURIComponent("deleteItem") + '=' + encodeURIComponent(""));
-          urlEncodeDataPairs.push(encodeURIComponent("itemDeleted") + '=' + encodeURIComponent(listItemId));
-          urlEncodeDataPairs.push(encodeURIComponent("itemName") + '=' + encodeURIComponent(response));
-          urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
-
-          post.addEventListener("load", function(event) {
-            console.log("Item " + listItemId + "removed.")
-            location.href= window.location.href;
-          });
-
-          post.open("POST", window.location.href);
-          post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-          post.send(urlEncodeData);
-        }
-      })); // END OF EDIT ITEM
+    if(remove_button != null){
+      remove_button.forEach(remove_button =>
+        remove_button.addEventListener("click", function () {
+          var listItemId = remove_button.value;
+  
+          var response = prompt("Enter the item name to delete it", "");
+  
+          if(response){
+            var post = new XMLHttpRequest();
+  
+            let urlEncodeData = "", urlEncodeDataPairs = [];
+  
+            urlEncodeDataPairs.push(encodeURIComponent("deleteItem") + '=' + encodeURIComponent(""));
+            urlEncodeDataPairs.push(encodeURIComponent("itemDeleted") + '=' + encodeURIComponent(listItemId));
+            urlEncodeDataPairs.push(encodeURIComponent("itemName") + '=' + encodeURIComponent(response));
+            urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+  
+            post.addEventListener("load", function(event) {
+              console.log("Item " + listItemId + "removed.")
+              location.href= window.location.href;
+            });
+  
+            post.open("POST", window.location.href);
+            post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            post.send(urlEncodeData);
+          }
+        })); // END OF REMOVE ITEM
+    }
 
   } // END OF MANAGE LIST PAGE
 
@@ -305,41 +316,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /*--------------------------------------
   |
-  |               LIST PAGE
-  |   ADD LIST
-  |
-  --------------------------------------*/
-  if (document.title == "Lists") {
-    var addlist = document.querySelector("#addlist");
-    if(addlist != null){
-      addlist.addEventListener("click", () => {
-        document.getElementById('create-modal').style.display = 'block';
-
-        // ADD LIST
-        document.getElementById("addListToDB").addEventListener("click", event => {
-          const listName = document.getElementById("listName");
-          const listError = document.querySelector("#listName~span");
-
-          listError.classList.add("hidden");
-          let valid = true;
-
-          if (listName.value == "") {
-            listError.classList.remove("hidden");
-            valid = false;
-          }
-
-          if (!valid)
-            event.preventDefault();
-
-        });
-      });}
-  } // END OF LIST PAGE
-
-
-  /*--------------------------------------
-  |
   |           SAMPLE LIST PAGE
   |            VIEW LIST PAGE
+  |             RESULTS PAGE
   |  VIEW ITEM
   |  SAMPLE ADD ITEM REDIRECT
   |
@@ -387,7 +366,7 @@ window.addEventListener('DOMContentLoaded', () => {
         location.href="login.php";
       });
     }
-  }// END OF SAMPLE LIST AND MANAGE LIST PAGE
+  }// END OF SAMPLE/VIEW/RESULTS PAGE
 
 
   /*--------------------------------------
@@ -637,15 +616,14 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
     });
-  }
+  }// END OF ACCOUTN PAGE
 
   /*--------------------------------------
   |
-  |           ALL PAGES (NAV)
-  |   ADD LIST
+  |               ADD LISTS
+  | FROM NAV OR ON MANAGE PAGE
   |
   --------------------------------------*/
-  var addlistlink = document.querySelector("#add-list-nav");
   if(addlistlink != null){
     addlistlink.addEventListener("click", event => {
       document.getElementById('create-modal').style.display = 'block';
@@ -669,6 +647,30 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }// end if addlistlink != null
 
+  if(addlist != null){
+    addlist.addEventListener("click", () => {
+      document.getElementById('create-modal').style.display = 'block';
+
+      // ADD LIST
+      document.getElementById("addListToDB").addEventListener("click", event => {
+        const listName = document.getElementById("listName");
+        const listError = document.querySelector("#listName~span");
+
+        listError.classList.add("hidden");
+        let valid = true;
+
+        if (listName.value == "") {
+          listError.classList.remove("hidden");
+          valid = false;
+        }
+
+        if (!valid)
+          event.preventDefault();
+
+      });
+    });
+  }// END OF ADD LIST
+
 
   /*--------------------------------------
   |
@@ -676,17 +678,38 @@ window.addEventListener('DOMContentLoaded', () => {
   |
   --------------------------------------*/
   // Enable close on all modal windows
-  const close = document.querySelectorAll(".close");
-  close.forEach(close => {
-    close.addEventListener("click", (ev) => {
-      // console.log(ev.target.parentElement.parentElement.parentElement);
-      ev.target.parentElement.parentElement.parentElement.style.display = 'none';
-    });
-  }); // End close foreach
+  if(close != null){
+    close.forEach(close => {
+      close.addEventListener("click", (ev) => {
+        ev.target.parentElement.parentElement.parentElement.style.display = 'none';
+      });
+    }); // End close foreach
+  }// END OF CLOSE
+  
+  /*--------------------------------------
+  |
+  |             SET MAX DATE
+  |
+  --------------------------------------*/
+  // MAX DATE
+  if(complete != null || birthdate != null){
+    // <!-- SET MAXIMUM DATE THAT LIST ITEM CAN BE COMPLETED -->
+    if(complete != null)
+      complete.setAttribute("max", getTodaysDate());
+
+    else
+      birthdate.setAttribute("max", getTodaysDate());
+  }// END OF MAX DATE
 
 }); // END OF DOMContentLoaded
 
+
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 /*--------------------------- ADDITIONAL FUNCTIONS ---------------------------*/
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+
 
 /*--------------------------------------
 |
@@ -725,7 +748,7 @@ function processChangePass(data){
   XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
   XHR.send(urlEncodeData);
-}
+}// END OF PROCESS CHANGE PASS
 
 /*--------------------------------------
 |
@@ -749,7 +772,7 @@ function getTodaysDate(){
   today = yyyy + '-' + mm + '-' + dd;
 
   return today;
-}
+}// END OF GET TODAYS DATE
 
 /*--------------------------------------
 |
@@ -781,38 +804,4 @@ function passwordStrength(password, meter, text){
       text.innerHTML = "";
     }
   });
-}
-
-
-/*--------------------------------------
-|
-|            GLOBAL FUNCTIONS
-|   SET MAX DATE
-|
---------------------------------------*/
-// MAX DATE
-var complete = document.getElementById("complete");
-var birthdate = document.getElementById("birthdate");
-
-if(complete != null || birthdate != null){
-  
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1; //January is 0!
-  var yyyy = today.getFullYear();
-  if (dd < 10) {
-    dd = '0' + dd
-  }
-  if (mm < 10) {
-    mm = '0' + mm
-  }
-
-  today = yyyy + '-' + mm + '-' + dd;
-
-  // <!-- SET MAXIMUM DATE THAT LIST ITEM CAN BE COMPLETED -->
-  if(complete != null)
-    complete.setAttribute("max", today);
-
-  else
-    birthdate.setAttribute("max", today);
-}
+}// END OF PASSWORD STRENGTH
