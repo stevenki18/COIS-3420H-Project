@@ -392,26 +392,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /*--------------------------------------
   |
-  |            GLOBAL FUNCTIONS
-  |   SET MAX DATE
-  |
-  --------------------------------------*/
-  // MAX DATE
-  var complete = document.getElementById("complete");
-  var birthdate = document.getElementById("birthdate");
-
-  if(complete != null || birthdate != null){
-    // <!-- SET MAXIMUM DATE THAT LIST ITEM CAN BE COMPLETED -->
-    if(complete != null)
-      complete.setAttribute("max", getTodaysDate());
-
-    else
-      birthdate.setAttribute("max", getTodaysDate());
-  }
-
-
-  /*--------------------------------------
-  |
   |              ACCOUNT PAGE
   |   PASSWORD STRENGTH
   |   DELETE ACCOUNT
@@ -543,7 +523,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       // CHECK BIRTHDAY
       if(dob.value != ""){
-        if(dob.value < 1900-01-01 || dob.value > getTodaysDate()){
+        if(dob.value < "1900-01-01" || dob.value > getTodaysDate()){
           dob.style.borderColor = "red";
           dobError.classList.remove("hidden");
           valid = false;
@@ -595,7 +575,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       // CHECK BIRTHDAY
       if(dob.value != ""){
-        if(dob.value < 1900-01-01 || dob.value > getTodaysDate()){
+        if(dob.value < "1900-01-01" || dob.value > getTodaysDate()){
           dob.style.borderColor = "red";
           dobError.classList.remove("hidden");
           valid = false;
@@ -803,3 +783,36 @@ function passwordStrength(password, meter, text){
   });
 }
 
+
+/*--------------------------------------
+|
+|            GLOBAL FUNCTIONS
+|   SET MAX DATE
+|
+--------------------------------------*/
+// MAX DATE
+var complete = document.getElementById("complete");
+var birthdate = document.getElementById("birthdate");
+
+if(complete != null || birthdate != null){
+  
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+
+  // <!-- SET MAXIMUM DATE THAT LIST ITEM CAN BE COMPLETED -->
+  if(complete != null)
+    complete.setAttribute("max", today);
+
+  else
+    birthdate.setAttribute("max", today);
+}
