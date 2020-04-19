@@ -111,6 +111,10 @@ form {
   width: 75%;
 }
 
+textarea{
+  resize: none;
+}
+
 ol {
   list-style-type: decimal;
   list-style-position: inside;
