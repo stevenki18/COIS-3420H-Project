@@ -1,3 +1,12 @@
+<?php
+
+  if(isset($_SESSION['user'])){    
+    $query = "SELECT listname, id FROM g10_lists WHERE fk_userid = ?";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$_SESSION['id']]);
+    $results = $stmt->fetchAll();
+  }
+?>
 <nav>
   <ul>
     <li>
@@ -14,6 +23,9 @@
         <!-- <li><a href="display_list.php">Public Lists</a></li> -->
         <li><a href="sample_list.php">Our Sample List</a></li>
         <?php if(isset($_SESSION['user'])): ?>
+        <?php foreach ($results as $row):?>
+            <li><a href="view_list.php?=<?= $row['id']?>"><?= $row['listname'] ?></a></li>
+        <?php endforeach ?>
         <li>
           <a href="#" id="add-list-nav">Add List</a>
           <!-- <a href = "#create_modal" id="create-btn" class="mod-btn">Add List</a> -->
