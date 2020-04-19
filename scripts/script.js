@@ -309,12 +309,68 @@ window.addEventListener('DOMContentLoaded', () => {
   |
   --------------------------------------*/
   if (document.title == "Edit List Item") {
+    var itemName = document.getElementById('itemname');
+    var filePath = document.getElementById('file');
+    var fileError = document.querySelector("#file~span");
+    var editButton = document.querySelector('button[name=save]');
+    var clearButton = document.querySelector("button[name=Clear]");
+    let valid = true;
+
     document.querySelector("button[name=Cancel]").addEventListener("click", () => {
       var list = document.querySelector("main span").textContent;
       location.href = 'view_list.php?list=' + list;
     });
 
+    itemName.addEventListener("focus", event => {
+      itemName.style.border = "";
+      document.querySelector("#itemname~span").classList.add("hidden");
+    });
+    
+    itemName.addEventListener("blur", event => {
+      if(itemName.value == ""){
+        itemName.style.border = "red";
+        fileError.classList.remove("hidden");
+        valid = false;
+      }
 
+      if(itemName.value != ""){
+        itemName.style.border = "";
+        fileError.classList.add("hidden");
+        valid = true;
+      }
+    });
+
+    if(filePath != null){
+      filePath.addEventListener("focus", event => {
+        fileError.classList.add("hidden");
+      });
+
+      filePath.addEventListener("blur", event =>{
+        if(filePath.files[0] != null && filePath.files[0].size > 1000000){
+          fileError.classList.remove("hidden");
+          valid = false;
+          clearButton.classList.remove("hidden");
+        }
+
+        else if(filePath.files[0] != null){
+          clearButton.classList.remove("hidden");
+        }
+      });
+    }
+
+    clearButton.addEventListener("click", event =>{
+      filePath.value = "";
+      document.querySelector("#file~span").classList.add("hidden");
+      clearButton.classList.add("hidden");
+    });
+    
+    
+    editButton.addEventListener("click", event => { 
+      if(!valid){
+        preventDefault();
+      }
+    });
+    
 
     document.querySelector("button[name=remove-image]").addEventListener("click", event =>{
       event.preventDefault();
@@ -650,7 +706,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
     });
-  }// END OF ACCOUTN PAGE
+  }// END OF ACCOUNT PAGE
 
   /*--------------------------------------
   |

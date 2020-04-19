@@ -113,6 +113,8 @@
             array_push($errors, "Please enter an item name");
         }
 
+        
+
         if(isset($_POST['viewable']))
             $viewable = 0;
 
@@ -181,6 +183,7 @@
                 <div>
                     <label for="itemname">Item Name:</label>
                     <input type="text" id="itemname" name="itemname" value= "<?= $result['name']?>" required/>
+                    <span class = "error hidden">Please enter an item name</span>
                 </div>
 
                 <div>
@@ -218,6 +221,8 @@
                     <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
                     <label for="file">File Name:</label>
                     <input type="file" name="fileToProcess" id="file"/>
+                    <button class = "hidden" type="button" name="Clear">&times;</button>
+                    <span class = "error hidden">Please select a smaller image</span>
                   <?php endif; ?>
                 </div>
 

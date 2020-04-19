@@ -98,10 +98,6 @@ h5 {
   font-size: 1.15em;
 }
 
-/* button[type="submit"]{
-    margin: 0 auto;
-} */
-
 form {
   border: 0.1em solid #818181;
   border-radius: 0.3em;
@@ -112,7 +108,10 @@ form {
 }
 
 textarea{
+  border-radius: inherit;
+  width:90%;
   resize: none;
+  overflow: auto;
 }
 
 ol {
@@ -421,7 +420,7 @@ main header~ul li:last-of-type, .lists>ul li:last-of-type{
 }
 
 /*------------------------------------------------------------------------------
-|                             MANAGE LIST STYLING
+|                             EDIT ITEM STYLING
 |-----------------------------------------------------------------------------*/
 #edit-item div:first-child input{
   width: 15em;
@@ -429,9 +428,10 @@ main header~ul li:last-of-type, .lists>ul li:last-of-type{
 
 #edit-item textarea{
   border-radius: inherit;
-  width:30em;
-  resize: none;
   overflow: auto;
+  resize: none;
+  width:30em;
+  vertical-align: top;
 }
 
 #edit-item div:nth-child(2){
@@ -441,6 +441,10 @@ main header~ul li:last-of-type, .lists>ul li:last-of-type{
 #edit-item div:nth-child(2) label{
   align-self: flex-start;
   padding-right: 1em;
+}
+
+#file{
+  border: 0.1rem solid black;
 }
 
 /*------------------------------------------------------------------------------
@@ -492,8 +496,3 @@ main header~ul li:last-of-type, .lists>ul li:last-of-type{
 .hidden{
   display: none;
 }
-
-
-/*------------------------------------------------------------------------------
-|                               MOBILE STYLING
-|-----------------------------------------------------------------------------*/
