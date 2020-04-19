@@ -8,6 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const close = document.querySelectorAll(".close");
   var complete = document.getElementById("complete");
   var birthdate = document.getElementById("birthdate");
+  var imagelink = document.getElementById("image");
 
   /*--------------------------------------
   |
@@ -141,7 +142,7 @@ window.addEventListener('DOMContentLoaded', () => {
   --------------------------------------*/
   if (document.title == "View List") {
     console.log(document.title);
-    
+
     let remove_list_button = document.getElementById("removeList");
     let edit_list_button = document.getElementById("editList");
     let add_item_button = document.getElementById("additem");
@@ -196,8 +197,8 @@ window.addEventListener('DOMContentLoaded', () => {
           document.getElementById("viewableList").checked = true;
 
         editButton.name = "edit_list";
-        editButton.innerHTML = "Edit List";
-        
+        editButton.innerHTML = "Update List";
+
         listNumber.classList.add("hidden");
         listNumber.name = "listNo";
         listNumber.value = list;
@@ -231,7 +232,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // I FEEL LUCKY
         document.getElementById("feelingLucky").addEventListener("click", event => {
           event.preventDefault();
-          
+
           var xhttp = new XMLHttpRequest();
           xhttp.open("GET", "api/response.php?randid=1");
 
@@ -266,30 +267,30 @@ window.addEventListener('DOMContentLoaded', () => {
         location.href = 'edit_item.php?item=' + id;
       })); // END OF EDIT ITEM
     }
-    
+
     // REMOVE A LIST ITEM
     if(remove_button != null){
       remove_button.forEach(remove_button =>
         remove_button.addEventListener("click", function () {
           var listItemId = remove_button.value;
-  
+
           var response = prompt("Enter the item name to delete it", "");
-  
+
           if(response){
             var post = new XMLHttpRequest();
-  
+
             let urlEncodeData = "", urlEncodeDataPairs = [];
-  
+
             urlEncodeDataPairs.push(encodeURIComponent("deleteItem") + '=' + encodeURIComponent(""));
             urlEncodeDataPairs.push(encodeURIComponent("itemDeleted") + '=' + encodeURIComponent(listItemId));
             urlEncodeDataPairs.push(encodeURIComponent("itemName") + '=' + encodeURIComponent(response));
             urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
-  
+
             post.addEventListener("load", function(event) {
               console.log("Item " + listItemId + "removed.")
               location.href= window.location.href;
             });
-  
+
             post.open("POST", window.location.href);
             post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             post.send(urlEncodeData);
@@ -310,6 +311,32 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector("button[name=Cancel]").addEventListener("click", () => {
       var list = document.querySelector("main span").textContent;
       location.href = 'view_list.php?list=' + list;
+    });
+
+
+
+    document.querySelector("button[name=remove-image]").addEventListener("click", event =>{
+      event.preventDefault();
+
+      var response = confirm("Are you sure you want to delete the image?");
+
+      if(response){
+        var post = new XMLHttpRequest();
+
+        let urlEncodeData = "", urlEncodeDataPairs = [];
+
+        urlEncodeDataPairs.push(encodeURIComponent("remove-image") + '=' + encodeURIComponent(""));
+        urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+
+        post.addEventListener("load", function(event) {
+          console.log("Image removed.")
+          location.href= window.location.href;
+        });
+
+        post.open("POST", window.location.href);
+        post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        post.send(urlEncodeData);
+      }
     });
   } // END OF EDIT LIST ITEM PAGE
 
@@ -344,6 +371,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
             document.getElementById("item").value = data.name;
             document.getElementById("description").value = data.description;
+            if(data.picpath != null){
+              imagelink.classList.remove("hidden");
+              imagelink.setAttribute("src",data.picpath);
+            }else{
+              imagelink.classList.add("hidden");
+            }
 
             let datefield = document.getElementById("complete");
 
@@ -377,9 +410,9 @@ window.addEventListener('DOMContentLoaded', () => {
   |
   --------------------------------------*/
   if (document.title == "Account Information"){
-    
+
     let header = document.querySelector("h1").innerHTML;
-    
+
     let userField = document.getElementById('username');
     let userError = document.querySelector("#username~span");
 
@@ -426,8 +459,8 @@ window.addEventListener('DOMContentLoaded', () => {
             if (this.readyState == 4 && this.status == 200) {
               var data = JSON.parse(this.responseText);
 
-              if(data['username'] == username){ 
-                userError.innerHTML = "Sorry that username is already taken";             
+              if(data['username'] == username){
+                userError.innerHTML = "Sorry that username is already taken";
                 userError.classList.remove("hidden");
                 userField.style.borderColor = "red";
                 valid = false;
@@ -449,7 +482,7 @@ window.addEventListener('DOMContentLoaded', () => {
           userField.style.borderColor = "red";
           valid = false;
         }
-        
+
       });
     }
 
@@ -471,21 +504,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // REGISTRATION VALIDATION
     addAccount.addEventListener("click", event => {
-       
+
       // CHECK PASSWORDS
       if(password.value == "" || password.value != passwordConf.value){
         password.style.borderColor = "red";
         passError.classList.remove("hidden");
         valid = false;
       }
-      
+
       // CHECK FIRST NAME
       if(firstname.value == ""){
         firstname.style.borderColor = "red";
         firstError.classList.remove("hidden");
         valid = false;
       }
-      
+
       // CHECK LAST NAME
       if(lastname.value == ""){
         lastname.style.borderColor = "red";
@@ -530,14 +563,14 @@ window.addEventListener('DOMContentLoaded', () => {
           valid = false;
         }
       }
-      
+
       // CHECK FIRST NAME
       if(firstname.value == ""){
         firstname.style.borderColor = "red";
         firstError.classList.remove("hidden");
         valid = false;
       }
-      
+
       // CHECK LAST NAME
       if(lastname.value == ""){
         lastname.style.borderColor = "red";
@@ -626,11 +659,18 @@ window.addEventListener('DOMContentLoaded', () => {
   --------------------------------------*/
   if(addlistlink != null){
     addlistlink.addEventListener("click", event => {
+      let addButton = document.getElementById("addListToDB");
+      document.getElementById("listName").value = "";
+
+      addButton.name = "submitList";
+      addButton.innerHTML = "Add List";
+
       document.getElementById('create-modal').style.display = 'block';
 
       document.getElementById("addListToDB").addEventListener("click", event => {
         const listName = document.getElementById("listName");
         const listError = document.querySelector("#listName~span");
+
 
         listError.classList.add("hidden");
         let valid = true;
@@ -649,6 +689,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if(addlist != null){
     addlist.addEventListener("click", () => {
+      let addButton = document.getElementById("addListToDB");
+      document.getElementById("listName").value = "";
+
+      addButton.name = "submitList";
+      addButton.innerHTML = "Add List";
+
       document.getElementById('create-modal').style.display = 'block';
 
       // ADD LIST
@@ -671,6 +717,27 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }// END OF ADD LIST
 
+  /*--------------------------------------
+  |
+  |        OPEN IMAGE IN MODAL
+  |
+  --------------------------------------*/
+  // Enable close on all modal windows
+  if(imagelink != null){
+    imagelink.addEventListener("click", function() {
+      document.getElementById('image-modal').style.display = 'block';
+
+      // Get the image and insert it inside the modal - use its "alt" text as a caption
+      var img = document.getElementById("myImg");
+      var modalImg = document.getElementById("img01");
+      var captionText = document.getElementById("caption");
+      modalImg.src = this.src;
+      captionText.innerHTML = this.alt;
+
+      });
+  }// END OF IMAGE CLICK
+
+
 
   /*--------------------------------------
   |
@@ -685,7 +752,7 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }); // End close foreach
   }// END OF CLOSE
-  
+
   /*--------------------------------------
   |
   |             SET MAX DATE

@@ -11,6 +11,7 @@
     $errors = [];
     $itemid = $_GET['item'];
     $viewable = 1;
+    $img = 0;
 
     $pdo = connectDB();
 
@@ -19,6 +20,11 @@
     $stmt = $pdo->prepare($query);
     $stmt->execute([$itemid]);
     $result = $stmt->fetch();
+
+    // CHECK FOR IMAGE
+    if($result['picpath'] != null){
+      $img = 1;
+    }
 
     // Get List information (PREVENT UNAUTHORIZED ACCESS TO EDIT)
     $query2 = "SELECT fk_userid FROM `g10_lists` WHERE id = ? AND fk_userid = ?";
@@ -89,6 +95,15 @@
           }
     }
 
+    if(isset($_POST['remove-image'])){
+        $query = "UPDATE `g10_listitems` SET picpath = ? WHERE id = ?";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([null, $itemid]);
+
+        if($stmt->rowCount() > 0)
+          $img = 0;
+    }
+
 
     if(isset($_POST['save'])){
         if(!isset($_POST['itemname']) || strlen($_POST['itemname']) == 0){
@@ -98,14 +113,18 @@
         if(isset($_POST['viewable']))
             $viewable = 0;
 
+        if($img == 0){
             //creates new file name for 1 uploaded image, and copies it to loki
-            $dbID=uniqid();  //database id for item
-            if(is_uploaded_file($_FILES['fileToProcess']['tmp_name'])){
-               $newname=createFilename('fileToProcess','../../www_data/', 'img', $dbID);
-               checkAndMoveFile('fileToProcess', 1000000, $newname);
-             }
+          $dbID=uniqid();  //database id for item
+          if(is_uploaded_file($_FILES['fileToProcess']['tmp_name'])){
+             $newname=createFilename('fileToProcess','../../www_data/', 'img', $dbID);
+             checkAndMoveFile('fileToProcess', 1000000, $newname);
+           }
+         }
 
         if(sizeof($errors) == 0){
+          // Set image path
+          if($img == 0){
             $query = "UPDATE `g10_listitems` SET name = ?, description = ?, picpath = ?, completion = ?, private = ? WHERE id = ?";
             $stmt = $pdo->prepare($query);
             if(strlen($_POST['complete']) == 0)
@@ -115,6 +134,19 @@
 
             header("Location: view_list.php?list=".$result['fk_listid']);
             exit();
+          }
+          else // Leave image path alone
+          {
+            $query = "UPDATE `g10_listitems` SET name = ?, description = ?, completion = ?, private = ? WHERE id = ?";
+            $stmt = $pdo->prepare($query);
+            if(strlen($_POST['complete']) == 0)
+                $stmt->execute([$_POST['itemname'], $_POST['description'], null, $viewable, $itemid]);
+            else
+                $stmt->execute([$_POST['itemname'], $_POST['description'], $_POST['complete'], $viewable, $itemid]);
+
+            header("Location: view_list.php?list=".$result['fk_listid']);
+            exit();
+          }
         }
 
     }
@@ -172,9 +204,18 @@
 
                 <!-- IMAGES -->
                 <div>
+                  <?php if($img != 0): ?>
+                    <!-- ITEM PHOTO -->
+                    <figure class="sampleImage">
+                      <img id="image" src="<?= $result['picpath'] ?>" alt="<?= $result['name'] ?>-image"/>
+                    </figure>
+                    <button type="button" class="delete" name="remove-image">Remove Image</a>
+                    
+                  <?php else: ?>
                     <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
                     <label for="file">File Name:</label>
                     <input type="file" name="fileToProcess" id="file" multiple/>
+                  <?php endif; ?>
                 </div>
 
                 <span class="hidden"><?= $result['fk_listid']?></span>
@@ -182,6 +223,9 @@
                 <button type="submit" name="save">Save</button>
                 <button type="button" name="Cancel">Cancel</button>
             </form>
+
+            <?php include 'modals/image_view.php' ?>
+
         </main>
 
         <!-- FOOTER -->

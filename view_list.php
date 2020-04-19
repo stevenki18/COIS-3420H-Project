@@ -46,7 +46,7 @@
             header("Location: display_list.php");
             exit();
         }
-      
+
     }
 
     // DELETE LIST ITEM
@@ -67,7 +67,7 @@
             header("Location: view_list.php?list=".$listid);
             exit();
         }
-        
+
     }
 
     // ADD LIST ITEM
@@ -217,6 +217,7 @@
 
             <?php include 'modals/add_item.php' ?>
             <?php include 'modals/view_item.php' ?>
+            <?php include 'modals/image_view.php' ?>
 
         </main>
 

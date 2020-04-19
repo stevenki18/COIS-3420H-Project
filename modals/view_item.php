@@ -31,6 +31,12 @@
                         <textarea id="description" name="description" rows="5" cols="30" readonly></textarea>
                     </div>
 
+                    <!-- ITEM PHOTO -->
+                    <figure class="sampleImage">
+                      <img id="image" src="<?= $result['picpath'] ?>" alt="item-image"/>
+                    </figure>
+
+
                     <!-- DATE OF COMPLETION -->
                     <div>
                         <label for="complete">Date of Completion:</label>

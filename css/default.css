@@ -308,6 +308,59 @@ input[name$="search"] {
   color: white;
 }
 
+/* SPECIFIC FOR IMAGE MODAL (w3schools) */
+/* Style the Image Used to Trigger the Modal */
+#image {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  height:30%;
+  width: 90%;
+  max-width: 20em;
+}
+
+#image:hover {opacity: 0.7;}
+
+
+/* Modal Content (Image) */
+.modal-contentimg {
+  margin: auto;
+  display: block;
+  width: 95%;
+  max-width: 50em;
+  background-color: #fefefe;
+  text-align: center;
+}
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-contentimg, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+
 
 /*------------------------------------------------------------------------------
 |                               FORM STYLING
@@ -435,6 +488,7 @@ main header~ul li:last-of-type, .lists>ul li:last-of-type{
 .hidden{
   display: none;
 }
+
 
 /*------------------------------------------------------------------------------
 |                               MOBILE STYLING
