@@ -217,7 +217,7 @@
                   <?php else: ?>
                     <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
                     <label for="file">File Name:</label>
-                    <input type="file" name="fileToProcess" id="file" multiple/>
+                    <input type="file" name="fileToProcess" id="file"/>
                   <?php endif; ?>
                 </div>
 
