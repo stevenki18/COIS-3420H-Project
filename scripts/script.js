@@ -305,6 +305,7 @@ window.addEventListener('DOMContentLoaded', () => {
   |
   |           EDIT LIST ITEM PAGE
   |   CANCEL BUTTON
+  |   REMOVE IMAGE BUTTON
   |
   --------------------------------------*/
   if (document.title == "Edit List Item") {

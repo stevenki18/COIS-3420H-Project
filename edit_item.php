@@ -96,6 +96,9 @@
     }
 
     if(isset($_POST['remove-image'])){
+      //DELETE THE FILE
+        unlink($result['picpath']);
+      // UPDATE SQL
         $query = "UPDATE `g10_listitems` SET picpath = ? WHERE id = ?";
         $stmt = $pdo->prepare($query);
         $stmt->execute([null, $itemid]);
@@ -210,7 +213,7 @@
                       <img id="image" src="<?= $result['picpath'] ?>" alt="<?= $result['name'] ?>-image"/>
                     </figure>
                     <button type="button" class="delete" name="remove-image">Remove Image</a>
-                    
+
                   <?php else: ?>
                     <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
                     <label for="file">File Name:</label>
