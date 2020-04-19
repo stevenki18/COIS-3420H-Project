@@ -722,7 +722,6 @@ window.addEventListener('DOMContentLoaded', () => {
   |        OPEN IMAGE IN MODAL
   |
   --------------------------------------*/
-  // Enable close on all modal windows
   if(imagelink != null){
     imagelink.addEventListener("click", function() {
       document.getElementById('image-modal').style.display = 'block';

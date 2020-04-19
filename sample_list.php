@@ -110,6 +110,8 @@
         </main>
 
         <?php include 'modals/view_item.php' ?>
+        <?php include 'modals/image_view.php' ?>
+
 
         <!-- FOOTER -->
         <?php include 'includes/footer.php' ?>
