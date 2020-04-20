@@ -17,6 +17,8 @@
 
   /* require or include the library */
   require_once './includes/library.php';
+  $pdo = connectDB();
+
 
   /* $errors starts as an empty array */
   $errors = [];
@@ -37,7 +39,6 @@
     if (!isset($pass)) array_push($errors, "Incorrect Password.");
 
     if (count($errors) === 0) {
-      $pdo = connectDB();
 
       $query = "SELECT * FROM g10_users WHERE username = ?";
       $stmt = $pdo->prepare($query);
@@ -71,7 +72,6 @@
     $email = $_POST['email'];
     $pass = $_POST['password'];
 
-    $pdo = connectDB();
 
     $query = "SELECT * FROM g10_users WHERE username = ?";
     $stmt = $pdo->prepare($query);

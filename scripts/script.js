@@ -425,17 +425,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /*--------------------------------------
   |
-  |           SAMPLE LIST PAGE
-  |            VIEW LIST PAGE
-  |             RESULTS PAGE
   |  VIEW ITEM
   |  SAMPLE ADD ITEM REDIRECT
   |
   --------------------------------------*/
-  if (document.title == "Sample List" || document.title == "View List" || document.title == "Results") {
-    // VIEW A LIST ITEM
-    const view_button = document.querySelectorAll(".viewbutton");
+  // VIEW A LIST ITEM
+  const view_button = document.querySelectorAll(".viewbutton");
 
+  if(view_button != null){
     view_button.forEach(view_button =>
       view_button.addEventListener("click", function () {
         var id = view_button.value;
@@ -456,6 +453,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if(data.picpath != null){
               imagelink.classList.remove("hidden");
               imagelink.setAttribute("src",data.picpath);
+              imagelink.setAttribute("alt",data.name);
             }else{
               imagelink.classList.add("hidden");
             }
@@ -472,16 +470,17 @@ window.addEventListener('DOMContentLoaded', () => {
           }
         };
         xhttp.send();
-      })); // END OF VIEW ITEM
+      })
+    );
+  } // END OF VIEW ITEM
 
-    if(document.title == "Sample List"){
-      const redirect = document.getElementById("additem");
+  if(document.title == "Sample List"){
+    const redirect = document.getElementById("additem");
 
-      redirect.addEventListener("click", ev =>{
-        location.href="login.php";
-      });
-    }
-  }// END OF SAMPLE/VIEW/RESULTS PAGE
+    redirect.addEventListener("click", ev =>{
+      location.href="login.php";
+    });
+  }
 
 
   /*--------------------------------------
@@ -906,6 +905,28 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
   }// END OF MAX DATE
+
+
+    /*--------------------------------------
+    |
+    |             DROP DOWN on NAV
+    |
+    --------------------------------------*/
+    // LISTS DROPDOWN
+    var navIcon = document.getElementById("nav-icon");
+
+    navIcon.addEventListener("click", ()=>{
+      var listsdropdown = document.getElementById("myTopnav");
+      console.log(listsdropdown);
+      if(listsdropdown.className === "topnav"){
+        listsdropdown.className += " responsive";
+      }else {
+        listsdropdown.className = "topnav";
+      }
+    });
+
+    // END OF LISTS DROPDOWN
+
 
 }); // END OF DOMContentLoaded
 

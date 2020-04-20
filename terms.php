@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php session_start();
+require_once './includes/library.php';
+$pdo = connectDB();
+ ?>
 <!DOCTYPE HTML>
 <html lang="en">
 

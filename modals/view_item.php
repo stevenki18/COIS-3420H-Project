@@ -33,7 +33,7 @@
 
                     <!-- ITEM PHOTO -->
                     <figure class="sampleImage">
-                      <img id="image" src="<?= $result['picpath'] ?>" alt="item-image"/>
+                      <img id="image" src="" alt=""/>
                     </figure>
 
 
