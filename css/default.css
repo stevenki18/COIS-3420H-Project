@@ -26,7 +26,7 @@ body {
   background-color: #9bc3ed;
   color: var(--text-color);
   font-family: Verdana, Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: 1em;
   margin: auto;
 }
 
@@ -280,16 +280,64 @@ input[name$="search"] {
     float: none;
     display: block;
     text-align: left;
+    margin: 0.2em 0;
+    width: 100%;
   }
+
   .topnav.responsive ul{
     flex-direction: column;
-    padding: 1rem;
+    padding: 1rem 0;
     margin: 0 1rem;
   }
-  .topnav.responsive .dropdown {float: none;}
-  .topnav.responsive .dropdown-content {position: relative;}
   .topnav.responsive .dropdown {
+    float: none;
+    padding: 0;
+  }
+
+  .topnav.responsive .dropdown-content {
+    position: relative;
+    top: auto;
+    margin: 0;
+  }
+
+  /* .topnav.responsive .dropdown-content li {
+    padding: 1em 0;
+  } */
+
+  .topnav.responsive .icon a {
+    display: inline;
+    text-align: right;
+  }
+
+  .topnav.responsive .icon {
+    text-align: right;
+    padding-right: 1em;
+  }
+
+  .topnav.responsive a {
     display: block;
+    margin: 0;
+  }
+
+  .topnav.responsive .personal{
+    /* margin: 1em 0; */
+    display: table;
+  }
+
+  .topnav.responsive .personal > i, .topnav.responsive .personal a{
+    display: table-cell;
+  }
+
+  .topnav.responsive .personal a{
+    width: 100%
+  }
+  .topnav.responsive > ul > li:nth-child(2) {
+    order:1;
+  }
+
+  .topnav.responsive .dropdown {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     text-align: left;
   }
