@@ -390,7 +390,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     editButton.addEventListener("click", event => {
       if(!valid){
-        preventDefault();
+        event.preventDefault();
       }
     });
 
@@ -503,6 +503,8 @@ window.addEventListener('DOMContentLoaded', () => {
     let passwordConf = document.getElementById('password_confirm');
     let passError = document.querySelector("#password_confirm~span");
 
+    let strengthError = document.querySelector("#newpassword-strength-text~span");
+
     let first = document.getElementById('firstname');
     let firstError = document.querySelector("#firstname~span");
 
@@ -535,6 +537,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if(header == "Register"){
       var password = document.getElementById('password');
+      strengthError = document.querySelector("#password-strength-text~span");
       var tac = document.getElementById('agreebox');
       var tacError = document.querySelector("#agreebox~span");
       var addAccount = document.getElementById('register');
@@ -557,18 +560,19 @@ window.addEventListener('DOMContentLoaded', () => {
             if (this.readyState == 4 && this.status == 200) {
               var data = JSON.parse(this.responseText);
 
-              if(data['username'] == username){
-                userError.innerHTML = "Sorry that username is already taken";
-                userError.classList.remove("hidden");
-                userField.style.borderColor = "red";
-                valid = false;
+              if(data != null){
+                if(data['username'] == username){
+                  userError.innerHTML = "Sorry that username is already taken";
+                  userError.classList.remove("hidden");
+                  userField.style.borderColor = "red";
+                  valid = false;
+                }
+                else{
+                  userError.classList.add("hidden");
+                  userField.style.borderColor = "black";
+                  valid = true;
+                }
               }
-              else{
-                userError.classList.add("hidden");
-                userField.style.borderColor = "black";
-                valid = true;
-              }
-
             }
           };
           xhttp.send();
@@ -584,28 +588,50 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    if(header == "Edit Account"){
+    if(header == "Edit Account Information"){
       var newpassword = document.getElementById('new_password');
+      strengthError = document.querySelector("#newpassword-strength-text~span");
       var updateAccount = document.getElementById("update");
       var deleteAccount = document.querySelector("button[name=deleteAccount]");
+      password = document.getElementById('new_password');
+      meter = document.getElementById('newpassword-strength');
+      text = document.getElementById('newpassword-strength-text');
 
       newpassword.value = null;
     }
 
-    // If user is logged in (Change password in edit account)
-    if(newpassword == null){
-      newpassword = document.getElementById('new_password');
-      meter = document.getElementById('newpassword-strength');
-      text = document.getElementById('newpassword-strength-text');
-    }
-
     passwordStrength(password,meter,text);
+
+    // PASSWORD FOCUS
+    password.addEventListener("focus", event => {
+      strengthError.classList.add("hidden");
+      password.style.borderColor = "";
+    });
+
+    // PASSWORD BLUR
+    password.addEventListener("blur", event => {
+      if((header == "Edit Account Information" && password.value != "") || header == "Register"){
+        if(meter.value < 2){
+          strengthError.classList.remove("hidden");
+          password.style.borderColor = "red";
+          valid = false;
+        }
+        else{
+          strengthError.classList.add("hidden");
+          password.style.borderColor = "black";
+          valid = true;
+        }
+      }
+    });
+
+
 
 
 
 
     // REGISTRATION VALIDATION
-    addAccount.addEventListener("click", event => {
+    if(addAccount != null){
+      addAccount.addEventListener("click", event => {
 
       // CHECK PASSWORDS
       if(password.value == "" || password.value != passwordConf.value){
@@ -651,12 +677,14 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       if(!valid)
-        preventDefault();
+        event.preventDefault();
 
     });
+    }
 
     // UPDATE VALIDATION
-    updateAccount.addEventListener("click", event => {
+    if(updateAccount != null){
+      updateAccount.addEventListener("click", event => {
       // CHECK PASSWORDS
       if(password.value != ""){
         if(password.value != passwordConf.value){
@@ -697,14 +725,15 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       if(!valid)
-        preventDefault();
+        event.preventDefault();
     });
-
+    }
     // DELETE ACCOUNT
-    deleteAccount.addEventListener("click", event => {
-      var response = confirm("This will permanently delete your account. You will have no way to restore your account or retrieve list/list items after this process");
+    if(deleteAccount != null){
+      deleteAccount.addEventListener("click", event => {
+      var response = prompt("This will permanently delete your account. \nYou will have no way to restore your account or retrieve list/list items after this process. \nEnter Username to confirm", "");
 
-      if(response){
+      if(response == username.value){
         var post = new XMLHttpRequest();
 
         let urlEncodeData = "", urlEncodeDataPairs = [];
@@ -751,6 +780,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
     });
+    }
   }// END OF ACCOUNT PAGE
 
   /*--------------------------------------

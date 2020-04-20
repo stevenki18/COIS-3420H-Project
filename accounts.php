@@ -274,6 +274,7 @@
           <input name="new_password" type="password" id="new_password" minlength="8">
           <meter max="4" id="newpassword-strength"></meter>
           <p id="newpassword-strength-text"></p>
+          <span class = "error hidden">Password not strong enough</span>
         </div>
         <div>
           <label for="password_confirm">Confirm Password:</label>
@@ -287,6 +288,7 @@
           <input name="password" type="password" id="password" minlength="8" required>
           <meter max="4" id="password-strength"></meter>
           <p id="password-strength-text"></p>
+          <span class = "error hidden">Password not strong enough</span>
         </div>
         <div>
           <label for="password_confirm">Confirm Password:</label>
