@@ -490,14 +490,14 @@ form div{
 
 
 /*------------------------------------------------------------------------------
-|                             MANAGE LIST STYLING
+|                                 LIST STYLING
 |-----------------------------------------------------------------------------*/
 main header div:nth-child(-n+3) span{
   font-size: 1.5em;
   font-weight: bold;
 }
 
-main header~ul li, .lists>ul li{
+main header~ul li, section ul li{
   align-content: center;
   border-bottom: 0.1em solid #818181;
   display: flex;
@@ -505,28 +505,17 @@ main header~ul li, .lists>ul li{
   padding: 0.3em 0;
 }
 
-main header~ul li span{
+main header~ul li span, section ul li span{
   align-self: center;
 }
 
-main header~ul li div{
+main header~ul li div, section ul li div{
   margin-left: auto;
 }
 
-main header~ul li:last-of-type{
+main header~ul li:last-of-type, section ul li:last-of-type{
   border: none;
   justify-self: flex-start;
-}
-
-/*------------------------------------------------------------------------------
-|                             INDEX STYLING
-|-----------------------------------------------------------------------------*/
-section ul li {
-  align-content: center;
-  border-bottom: 0.1em solid #818181;
-  display: flex;
-  margin: 1em 3em;
-  padding: 0.3em 0;
 }
 
 /*------------------------------------------------------------------------------
