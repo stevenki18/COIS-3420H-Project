@@ -82,7 +82,6 @@
                 <?php endforeach ?>
 
                 <li><button id = "additem"><i class="fa fa-plus"></i></button></li>
-                <li><button type="button" name="Return" ><a href="display_list.php">Return</a></button></li>
             </ul>
 
             <h2>Completed</h2>

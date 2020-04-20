@@ -418,9 +418,8 @@ main header~ul li div{
   margin-left: auto;
 }
 
-main header~ul li:last-of-type, .lists>ul li:last-of-type{
+main header~ul li:last-of-type{
   border: none;
-  display:block;
   justify-self: flex-start;
 }
 

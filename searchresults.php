@@ -87,6 +87,7 @@
     <span>Results for: <?= $search ?></span>
 
     <?php if(isset($_SESSION['user'])): ?>
+      <!-- MY LISTS -->
       <h2>My List(s)</h2>
       <?php if($stmt1->rowCount() <= 0): ?>
         <p>No Results found</p>
@@ -95,17 +96,20 @@
         <ul>
           <?php foreach($stmt1 as $list): ?>
             <li>
-              <?php if($list['private'] == 1):?>
-                <span><i class="fa fa-lock"></i></span>
+              <?php if ($list['private'] == 1):?>
+                  <span><i class="fa fa-lock"></i> <?= $list['listname']?></span>
               <?php else: ?>
-                <span><i class="fa fa-unlock"></i></span>
+                  <span><i class="fa fa-unlock"></i> <?= $list['listname']?></span>
               <?php endif ?>
-              <?= $list['listname']?>
-              <a href = "view_list.php?list=<?= $list['id']?>"><i class="fa fa-eye"></i></a>
+              <div>
+                <button><a href = "view_list.php?list=<?= $list['id']?>"><i class="fa fa-eye"></i></a></button>
+              </div>
             </li>
           <?php endforeach ?>
         </ul>
       <?php endif; ?>
+      
+      <!-- MY ITEMS -->
       <h2>My Item(s)</h2>
       <?php if($stmt2->rowCount() <= 0): ?>
         <p>No Results found</p>
@@ -115,7 +119,7 @@
           <?php foreach($stmt2 as $item): ?>
             <li>
               <?php if ($item['private'] == 1):?>
-                      <span><i class="fa fa-lock"></i> <?= $item['name']?></span>
+                  <span><i class="fa fa-lock"></i> <?= $item['name']?></span>
               <?php else: ?>
                   <span><i class="fa fa-unlock"></i> <?= $item['name']?></span>
               <?php endif ?>
@@ -124,15 +128,12 @@
               </div>
             </li>
           <?php endforeach ?>
-          <li>
-              <button type="button" name="Return" ><a href="display_list.php">View Lists</a></button>
-          </li>
         </ul>
       <?php endif; ?>
 
     <?php endif; ?>
 
-    <!-- PUBLIC ROWS -->
+    <!-- PUBLIC LISTS -->
     <h2>Public List(s)</h2>
     <?php if($stmt3->rowCount() <= 0): ?>
       <p>No Results found</p>
@@ -141,12 +142,16 @@
       <ul>
         <?php foreach($stmt3 as $list): ?>
           <li>
-            <?= $list['listname'] ?>
-            <a href = "view_list.php?list=<?= $list['id']?>"><i class="fa fa-eye"></i></a>
+            <span><i class="fa fa-unlock"></i> <?= $list['listname'] ?></span>
+            <div>
+                <button><a href = "view_list.php?list=<?= $list['id']?>"><i class="fa fa-eye"></i></a></button>
+            </div>
           </li>
         <?php endforeach ?>
       </ul>
     <?php endif; ?>
+    
+    <!-- PUBLIC LISTS -->
     <h2>Public Item(s)</h2>
     <?php if($stmt4->rowCount() <= 0): ?>
       <p>No Results found</p>
@@ -155,7 +160,7 @@
       <ul>
         <?php foreach($stmt4 as $item): ?>
           <li>
-            <?= $item['name'] ?>
+            <span><i class="fa fa-unlock"></i> <?= $item['name']?></span>
             <div>
                 <button class="viewbutton" value="<?= $item['id']?>"><i class="fa fa-eye"></i></button>
             </div>

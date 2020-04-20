@@ -50,7 +50,6 @@
     <?php if(isset($_SESSION['user'])): ?>
       <!-- DISPLAY LIST -->
       <h2>My Lists</h2>
-      <div class="lists">
         <ul>
           <?php foreach($myresult as $row):?>
           <li>
@@ -69,7 +68,6 @@
           <li><button id="addlist"><i class="fa fa-plus"></i></button></li>
 
         </ul>
-      </div>
 
       <!-- Add item Button -->
       <!-- <button onclick="document.getElementById('create-modal').style.display='block'"> -->
@@ -79,8 +77,6 @@
 
     <!-- PUBLIC LISTS -->
     <h2>Public Lists</h2>
-
-    <div class="lists">
       <ul>
         <?php foreach($publicresults as $rows):?>
         <li>
@@ -91,7 +87,6 @@
         </li>
         <?php endforeach ?>
       </ul>
-    </div>
     </main>
 
     <!-- FOOTER -->
