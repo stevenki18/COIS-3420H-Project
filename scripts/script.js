@@ -311,10 +311,12 @@ window.addEventListener('DOMContentLoaded', () => {
   if (document.title == "Edit List Item") {
     var itemName = document.getElementById('itemname');
     var nameError = document.querySelector("#itemname~span");
+    var compError = document.querySelector("#complete~span");
     var filePath = document.getElementById('file');
     var fileError = document.querySelector("#file~span");
     var editButton = document.querySelector('button[name=save]');
     var clearButton = document.querySelector("button[name=Clear]");
+    var removeImgButton = document.querySelector("button[name=remove-image]");
     let valid = true;
 
     document.querySelector("button[name=Cancel]").addEventListener("click", () => {
@@ -326,7 +328,7 @@ window.addEventListener('DOMContentLoaded', () => {
       itemName.style.border = "";
       nameError.classList.add("hidden");
     });
-    
+
     itemName.addEventListener("blur", event => {
       if(itemName.value == ""){
         itemName.style.border = "red";
@@ -341,12 +343,30 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    complete.addEventListener("focus", (ev) =>{
+      complete.style.border = "";
+      compError.classList.add("hidden");
+    });
+
+    complete.addEventListener("blur", (ev) => {
+      if(complete.value != ""){
+        if(complete.value < "1900-01-01" || complete.value > getTodaysDate()) {
+          complete.style.borderColor = "red";
+          compError.classList.remove("hidden");
+          valid = false;
+        }
+      }
+    });
+
+
     if(filePath != null){
       filePath.addEventListener("focus", event => {
+        console.log("Selected FilePath");
         fileError.classList.add("hidden");
       });
 
       filePath.addEventListener("blur", event =>{
+        console.log("DESelected FilePath");
         if(filePath.files[0] != null && filePath.files[0].size > 1000000){
           fileError.classList.remove("hidden");
           valid = false;
@@ -359,43 +379,47 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    clearButton.addEventListener("click", event =>{
-      filePath.value = "";
-      document.querySelector("#file~span").classList.add("hidden");
-      clearButton.classList.add("hidden");
-    });
-    
-    
-    editButton.addEventListener("click", event => { 
+    if(clearButton != null){
+      clearButton.addEventListener("click", event =>{
+        filePath.value = "";
+        document.querySelector("#file~span").classList.add("hidden");
+        clearButton.classList.add("hidden");
+      });
+    }
+
+
+    editButton.addEventListener("click", event => {
       if(!valid){
         preventDefault();
       }
     });
-    
 
-    document.querySelector("button[name=remove-image]").addEventListener("click", event =>{
+
+    if(removeImgButton != null){
+      removeImgButton.addEventListener("click", event =>{
       event.preventDefault();
 
       var response = confirm("Are you sure you want to delete the image?");
 
-      if(response){
-        var post = new XMLHttpRequest();
+        if(response){
+          var post = new XMLHttpRequest();
 
-        let urlEncodeData = "", urlEncodeDataPairs = [];
+          let urlEncodeData = "", urlEncodeDataPairs = [];
 
-        urlEncodeDataPairs.push(encodeURIComponent("remove-image") + '=' + encodeURIComponent(""));
-        urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
+          urlEncodeDataPairs.push(encodeURIComponent("remove-image") + '=' + encodeURIComponent(""));
+          urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
 
-        post.addEventListener("load", function(event) {
-          console.log("Image removed.")
-          location.href= window.location.href;
-        });
+          post.addEventListener("load", function(event) {
+            console.log("Image removed.")
+            location.href= window.location.href;
+          });
 
-        post.open("POST", window.location.href);
-        post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        post.send(urlEncodeData);
-      }
-    });
+          post.open("POST", window.location.href);
+          post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          post.send(urlEncodeData);
+        }
+      });
+    }
   } // END OF EDIT LIST ITEM PAGE
 
 
@@ -488,10 +512,26 @@ window.addEventListener('DOMContentLoaded', () => {
     let email = document.getElementById('email');
     let emailError = document.querySelector("#email~span");
 
-    let dob = document.getElementById('birthdate');
-    let dobError = document.querySelector("#birthdate~span");
+
+    let birthdateError = document.querySelector("#birthdate~span");
 
     let valid = true;
+
+
+    birthdate.addEventListener("focus", (ev) =>{
+      birthdate.style.border = "";
+      birthdateError.classList.add("hidden");
+    });
+
+    birthdate.addEventListener("blur", (ev) => {
+      if(birthdate.value != ""){
+        if(birthdate.value < "1900-01-01" || birthdate.value > getTodaysDate()) {
+          birthdate.style.borderColor = "red";
+          birthdateError.classList.remove("hidden");
+          valid = false;
+        }
+      }
+    });
 
     if(header == "Register"){
       var password = document.getElementById('password');
@@ -545,20 +585,24 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     if(header == "Edit Account"){
-      var password = document.getElementById('new_password');
+      var newpassword = document.getElementById('new_password');
       var updateAccount = document.getElementById("update");
       var deleteAccount = document.querySelector("button[name=deleteAccount]");
 
-      password.value = null;
+      newpassword.value = null;
     }
 
     // If user is logged in (Change password in edit account)
-    if(password == null){
-      password = document.getElementById('new_password');
+    if(newpassword == null){
+      newpassword = document.getElementById('new_password');
       meter = document.getElementById('newpassword-strength');
       text = document.getElementById('newpassword-strength-text');
     }
+
     passwordStrength(password,meter,text);
+
+
+
 
     // REGISTRATION VALIDATION
     addAccount.addEventListener("click", event => {
@@ -592,10 +636,10 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       // CHECK BIRTHDAY
-      if(dob.value != ""){
-        if(dob.value < "1900-01-01" || dob.value > getTodaysDate()){
-          dob.style.borderColor = "red";
-          dobError.classList.remove("hidden");
+      if(birthdate.value != ""){
+        if(birthdate.value < "1900-01-01" || birthdate.value > getTodaysDate()){
+          birthdate.style.borderColor = "red";
+          birthdateError.classList.remove("hidden");
           valid = false;
         }
       }
@@ -644,10 +688,10 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       // CHECK BIRTHDAY
-      if(dob.value != ""){
-        if(dob.value < "1900-01-01" || dob.value > getTodaysDate()){
-          dob.style.borderColor = "red";
-          dobError.classList.remove("hidden");
+      if(birthdate.value != ""){
+        if(birthdate.value < "1900-01-01" || birthdate.value > getTodaysDate()){
+          birthdate.style.borderColor = "red";
+          birthdateError.classList.remove("hidden");
           valid = false;
         }
       }
@@ -726,7 +770,7 @@ window.addEventListener('DOMContentLoaded', () => {
       addButton.name = "submitList";
       addButton.innerHTML = "Add List";
       listError.classList.add("hidden");
-      
+
       document.getElementById('create-modal').style.display = 'block';
 
       document.getElementById("addListToDB").addEventListener("click", event => {
@@ -818,11 +862,19 @@ window.addEventListener('DOMContentLoaded', () => {
   // MAX DATE
   if(complete != null || birthdate != null){
     // <!-- SET MAXIMUM DATE THAT LIST ITEM CAN BE COMPLETED -->
-    if(complete != null)
+    if(complete != null){
       complete.setAttribute("max", getTodaysDate());
-
-    else
+      if(complete.type != "date"){
+        complete.setAttribute("placeholder", "yyyy-mm-dd");
+        // Complete validation (if not supported)
+      }
+    }
+    else{
       birthdate.setAttribute("max", getTodaysDate());
+      if(birthdate.type != "date"){
+        birthdate.setAttribute("placeholder", "yyyy-mm-dd");
+      }
+    }
   }// END OF MAX DATE
 
 }); // END OF DOMContentLoaded

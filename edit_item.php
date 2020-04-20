@@ -113,7 +113,7 @@
             array_push($errors, "Please enter an item name");
         }
 
-        
+
 
         if(isset($_POST['viewable']))
             $viewable = 0;
@@ -206,6 +206,7 @@
                 <div>
                     <label for="complete">Date of Completion:</label>
                     <input id="complete" type="date" name="complete" min="1900-01-01" value= "<?= $result['completion']?>">
+                    <span class = "error hidden">Please enter a valid date</span>
                 </div>
 
                 <!-- IMAGES -->

@@ -1,7 +1,7 @@
-<?php session_start(); 
+<?php session_start();
   require_once 'includes/library.php';
 
-  if($_SESSION['user'])
+  if(isset($_SESSION['user']))
     $pdo = connectDB();
 ?>
 <!DOCTYPE HTML>

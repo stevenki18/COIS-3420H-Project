@@ -2,10 +2,10 @@
 
   session_start();
   require_once './includes/library.php';
+  $pdo = connectDB();
 
   if(isset($_SESSION['user'])){
     $user = $_SESSION['user'];
-    $pdo = connectDB();
 
     $query = "SELECT * FROM g10_users WHERE username = ?";
     $stmt = $pdo->prepare($query);
@@ -22,7 +22,7 @@
   /*---------------------------
   |
   |       REGISTRATION
-  | 
+  |
   ---------------------------*/
   if (isset($_POST['register'])){
     /* Redirect if $_POST has nothing in it */
@@ -60,10 +60,6 @@
     if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false)
       array_push($errors, "Please enter a valid email address");
 
-    // BIRTHDATE ??? NEED TO DOUBLE CHECK
-    if(!isset($_POST['birthdate']) || strlen($_POST['birthdate']) == 0)
-      array_push($errors, "Please enter a birthdate that is between 1900-01-01 and " + date("Y-m-d"));
-
     // TERMS AND CONDITIONS
     if(!isset($_POST['agreebox']))
       array_push($errors, "Please accept the Terms and Conditions");
@@ -83,14 +79,15 @@
 
       $dob = $_POST['birthdate'];
 
-      // Connect to the database
-      $pdo = connectDB();
-
       /* Add the new user */
       $query = "INSERT INTO `g10_users` (username, pass, first, last, email, dob) VALUES (?, ?, ?, ?, ?, ?)";
       $statement = $pdo->prepare($query);
 
-      $statement->execute([$username, $hash, $fname, $lname, $email, $dob]);
+      if(strlen($_POST['birthdate']) == 0)
+          $statement->execute([$username, $hash, $fname, $lname, $email, null]);
+      else
+          $statement->execute([$username, $hash, $fname, $lname, $email, $dob]);
+
 
       // redirect to log in
       header("Location: login.php");
@@ -101,7 +98,7 @@
   /*---------------------------
   |
   |       EDIT ACCOUNT
-  | 
+  |
   ---------------------------*/
   if(isset($_POST['update'])){
 
@@ -131,9 +128,6 @@
     if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false)
       array_push($errors, "Please enter a valid email address");
 
-    // BIRTHDATE ??? NEED TO DOUBLE CHECK
-    if(!isset($_POST['birthdate']) || strlen($_POST['birthdate']) == 0)
-      array_push($errors, "Please enter a birthdate that is between 1900-01-01 and " + date("Y-m-d"));
 
     // No errors do the work with the datbase
     if(sizeof($errors) == 0){
@@ -146,10 +140,6 @@
 
       $dob = $_POST['birthdate'];
 
-
-      // Connect to the database
-      $pdo = connectDB();
-
       /* Update the account (with/without password change) */
       if($changepass){
         $pass = $_POST['new_password'];
@@ -158,14 +148,23 @@
         $query = "UPDATE `g10_users` SET pass = ?, first= ?, last= ?, email= ?, dob=? WHERE username = ?";
         $statement = $pdo->prepare($query);
 
-        $statement->execute([$hash, $fname, $lname, $email, $dob, $user]);
+        if(strlen($_POST['birthdate']) == 0)
+          $statement->execute([$hash, $fname, $lname, $email, null, $user]);
+        else
+          $statement->execute([$hash, $fname, $lname, $email, $dob, $user]);
+
+
         $updateCount = $statement->rowCount();
       }
       else{
         $query = "UPDATE `g10_users` SET first= ?, last= ?, email= ?, dob=? WHERE username = ?";
         $statement = $pdo->prepare($query);
 
-        $statement->execute([$fname, $lname, $email, $dob, $user]);
+        if(strlen($_POST['birthdate']) == 0)
+          $statement->execute([$fname, $lname, $email, null, $user]);
+        else
+          $statement->execute([$fname, $lname, $email, $dob, $user]);
+
         $updateCount = $statement->rowCount();
       }
     }
@@ -175,7 +174,7 @@
   /*---------------------------
   |
   |       GOOGLE ACCOUNT
-  | 
+  |
   ---------------------------*/
   if(isset($_POST['g-create'])){
     // Get all POST data (passed by java and google)
@@ -188,9 +187,6 @@
     $lname = $_POST['lastname'];
 
     $email = $_POST['email'];
-
-    // Connect to the database
-    $pdo = connectDB();
 
     /* Add the new user */
     $query = "INSERT INTO `g10_users` (username, pass, first, last, email) VALUES (?, ?, ?, ?, ?)";
@@ -215,7 +211,6 @@
 
 
   if(isset($_POST['deleteAccount'])){
-    $pdo = connectDB();
 
     $query = "DELETE FROM g10_users WHERE id = ?";
     $stmt = $pdo->prepare($query);
@@ -342,9 +337,9 @@
         <label for="birthdate">Date of Birth:</label>
         <input id="birthdate" type="date" name="birthdate" min="1900-01-01"
         <?php if(isset($_SESSION['user'])): ?>
-          value = "<?= $results['dob'] ?>" required>
+          value = "<?= $results['dob'] ?>">
         <?php else: ?>
-          required>
+          >
         <?php endif ?>
         <span class = "error hidden">Please enter a valid birthdate</span>
       </div>
