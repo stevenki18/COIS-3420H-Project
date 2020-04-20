@@ -1,3 +1,8 @@
+<!-- Page name: view_item.php
+Description: Modal window that displays a bucket list item in detail. Includes
+the item name, description, privacy setting, and photo and date of completion
+if either are set. -->
+
 <!-- The Modal -->
 <div id="view-modal" class="modal">
 
@@ -19,7 +24,7 @@
 
                 <!-- EDIT LIST -->
                 <form id="view-item" action="#" method="post">
-                    <!-- BUCKET LIST ITEM -->
+                    <!-- BUCKET LIST ITEM NAME -->
                     <div>
                         <label for="item">Item Name:</label>
                         <input type="text" id="item" name="item" readonly/>

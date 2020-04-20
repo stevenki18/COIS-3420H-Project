@@ -1,4 +1,11 @@
 <?php
+
+/*
+Page name: library.php
+Description: defines connectDB function to connect to PHPmyadmin
+Note: Taken from class lab 6.
+*/
+
 // Get the acutal document and webroot path for virtual directories
 $direx = explode('/', getcwd());
 define('DOCROOT', "/$direx[1]/$direx[2]/"); // /home/username/

@@ -1,3 +1,8 @@
+<!-- Page name: meta.php
+Description: HTML including webpage display specifications, calls to local and
+remote stylesheets(font awesome), javascript files, google sign-in API, and
+the title of the current webpage. -->
+
 <!-- METADATA -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

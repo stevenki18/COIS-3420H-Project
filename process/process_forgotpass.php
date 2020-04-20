@@ -1,4 +1,10 @@
 <?php
+/*
+Page name: process_forgotpass.php
+Description: Changes user's password if forgotten. First checks if user's
+account exists.
+*/
+
     // Check for a valid session (if not redirect back to login)
     session_start();
 
@@ -25,7 +31,7 @@
       if (!isset($forgotusername) || strlen($forgotusername) === 0) array_push($forgoterrors, "Please enter a valid username.");
       if (!filter_var($forgotemail, FILTER_VALIDATE_EMAIL)) array_push($forgoterrors, "Please enter a valid email address.");
 
-
+      // checks if user exists in site's database
       if(sizeof($forgoterrors) == 0){
         $pdo = connectDB();
 
@@ -33,7 +39,8 @@
         $stmt = $pdo->prepare($query);
         $stmt->execute([$forgotusername, $forgotemail]);
         $results = $stmt->rowCount();
-        // if account is found with correct usernqame and PASSWORD
+
+        // if account is found with correct username and PASSWORD
         if($results <= 0){
           echo "User Not Found";
           unset($_POST);
@@ -48,7 +55,6 @@
           echo $error;
         }
       }
-
 
       // change window to change password fields
       echo "END OF PAGE";

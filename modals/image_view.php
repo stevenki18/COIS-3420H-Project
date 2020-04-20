@@ -1,3 +1,7 @@
+<!-- Page name: image_view.php
+Description: Displays an image associated with a bucket list item inside a Modal
+window together with a caption. -->
+
 <!-- The Modal -->
 <div id="image-modal" class="modal">
 

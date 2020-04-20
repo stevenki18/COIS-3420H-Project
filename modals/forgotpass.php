@@ -1,3 +1,7 @@
+<!-- Page name: forgot_pass.php
+Description: Modal window used to change a user's account password if they
+forget it. -->
+
 <!-- The Modal -->
 <div id="forgotpass" class="modal">
 
@@ -16,7 +20,7 @@
     <div class="modal-body">
       <h3>Forgot your password</h3>
         <form id="forgot-pass-modal" action="#" method = "post">
-          <!-- col align logins -->
+            <!-- ASKS FOR USERNAME AND EMAIL TO LOCATE THE ACCOUNT -->
             <div id="forgotCheck" class="manual-login">
               <input type="text" name="forgotusername" placeholder="Username" required>
               <span class = "error hidden">Please enter a username</span>
@@ -24,6 +28,7 @@
               <span class = "error hidden">Email is invalid</span>
               <button type="submit" name="forgot-check" id="forgot-check">Submit</button>
             </div>
+            <!-- ASKS USER TO INPUT NEW PASSWORD -->
             <div id="forgotChange" class="manual-login">
                 <label for="forgotpassword">Password (at least 8 characters):</label>
                 <input name="forgotpassword" type="password" minlength="8" required>

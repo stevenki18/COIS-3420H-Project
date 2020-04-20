@@ -1,3 +1,7 @@
+<!-- Page name: add_item.php
+Description: Modal window used to add a item to a bucket list. Includes item
+name, description, and item privacy. -->
+
 <!-- The Modal -->
 <div id="add-modal" class="modal">
 
@@ -19,6 +23,7 @@
 
                 <!-- ADD ITEM TO LIST -->
                 <form id="addToList" action="<?= $_SERVER['PHP_SELF'] ?>?list=<?= $listid?>" method = "post">
+                    <!-- BUCKET LIST NAME -->
                     <div>
                         <label for="itemname">Add Bucket Item:</label>
                         <input type="text" id="itemname" name="itemname" placeholder="Item Name" required/>
@@ -31,6 +36,7 @@
                         <textarea id="luckydescription" name="lukcydescription" rows="5" cols="30" readonly></textarea>
                     </div>
 
+                    <!-- ITEM PRIVACY SETTING -->
                     <div>
                         <label for="viewable">Publicly Viewable?</label>
                         <input id="viewable" type="checkbox" name="viewable">
