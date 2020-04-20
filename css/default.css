@@ -170,7 +170,7 @@ nav li, nav form {
 }
 
 /* Search bar (2nd last child in list) */
-nav > ul > li:nth-last-child(2) {
+nav > ul > li:nth-last-child(3) {
   margin-left: auto;
 }
 
@@ -198,36 +198,38 @@ input[name$="search"] {
 
 /*------------------------------------------------------------------------------
 |                               DROP DOWN
+| Modified From w3schools
 |-----------------------------------------------------------------------------*/
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
 .dropdown {
-  /* border: 2px solid blue; */
-  outline: none;
-  position: relative;
-  display: flex;
-  flex-direction: column;
+  float: left;
+  overflow: hidden;
 }
 
 .dropdown a {
   margin: 0.4rem 0.2rem;
 }
 
+
 /* DROP DOWN BOXES (APPEARS AFTER NAV BUTTON IS HOVERED OVER) */
 .dropdown-content {
-  background-color: #F9F9F9;
-  box-shadow: 0rem 0.5rem 1rem 0rem #000;
   display: none;
-  min-width: 20rem;
   position: absolute;
-  top: 1.5rem;
-  left: -2em;
+  background-color: #f9f9f9;
+  min-width: 20rem;
+  box-shadow: 0rem 0.5rem 1rem 0rem #000;
   z-index: 1;
+  top: 3rem;
   border-radius: 0.5rem;
-}
 
-/* HOVERING OVER NAV LIST */
-.dropdown:hover .dropdown-content {
-  display: flex;
-  flex-direction: column;
 }
 
 /* LINKS IN DROP DOWN BOXES */
@@ -245,10 +247,55 @@ input[name$="search"] {
   margin: 0.4rem;
 }
 
-/* HOVERING OVER LINKS IN DROP DOWN BOXES */
+.topnav a:hover, .dropdown:hover .dropbtn {
+  background-color: var(--linkhover-color);
+}
+
 .dropdown-content a:hover {
   background-color: var(--linkhover-color);
 }
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 700px) {
+  .topnav li:not(:first-child), .dropdown {
+    display: none;
+  }
+  .topnav li.icon {
+    display: block;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive li.icon {
+    position: absolute;
+    right: 0;
+  }
+  .topnav.responsive > ul li {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .topnav.responsive ul{
+    flex-direction: column;
+    padding: 1rem;
+    margin: 0 1rem;
+  }
+  .topnav.responsive .dropdown {float: none;}
+  .topnav.responsive .dropdown-content {position: relative;}
+  .topnav.responsive .dropdown {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+/* End of copy from w3schools */
+
 
 
 /*------------------------------------------------------------------------------
@@ -421,6 +468,17 @@ main header~ul li div{
 main header~ul li:last-of-type{
   border: none;
   justify-self: flex-start;
+}
+
+/*------------------------------------------------------------------------------
+|                             INDEX STYLING
+|-----------------------------------------------------------------------------*/
+section ul li {
+  align-content: center;
+  border-bottom: 0.1em solid #818181;
+  display: flex;
+  margin: 1em 3em;
+  padding: 0.3em 0;
 }
 
 /*------------------------------------------------------------------------------

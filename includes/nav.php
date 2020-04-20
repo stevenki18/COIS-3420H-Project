@@ -1,13 +1,13 @@
 <?php
 
-  if(isset($_SESSION['user'])){    
-    $query = "SELECT listname, id, private FROM g10_lists WHERE fk_userid = ?";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([$_SESSION['id']]);
-    $results = $stmt->fetchAll();
+  if(isset($_SESSION['user'])){
+    $queryLists = "SELECT listname, id, private FROM g10_lists WHERE fk_userid = ?";
+    $stmtLists = $pdo->prepare($queryLists);
+    $stmtLists->execute([$_SESSION['id']]);
+    $resultLists = $stmtLists->fetchAll();
   }
 ?>
-<nav>
+<nav class="topnav" id="myTopnav">
   <ul>
     <li>
       <a href="index.php"><div class="logo">
@@ -17,7 +17,8 @@
         <span>My Bucket List(s)</span>
       </div></a>
     </li>
-    <li class="dropdown">Lists
+    <li class="dropdown">
+      <button class="dropbtn">Lists</button>
       <ul class="dropdown-content">
         <li><a href="display_list.php">View All</a></li>
         <?php if(isset($_SESSION['user'])): ?>
@@ -54,6 +55,8 @@
         <a href = "login.php">Login</a>
       </li>
     <?php endif; ?>
+
+    <li class="icon"><a id="nav-icon" href="#" >&#9776;</a></li>
 
   </ul>
 
