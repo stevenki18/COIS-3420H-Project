@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start(); 
+  require_once 'includes/library.php';
+
+  if($_SESSION['user'])
+    $pdo = connectDB();
+?>
 <!DOCTYPE HTML>
 <!-- ******************************** Filename: index.html, uses default.css
  *

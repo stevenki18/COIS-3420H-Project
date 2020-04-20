@@ -310,6 +310,7 @@ window.addEventListener('DOMContentLoaded', () => {
   --------------------------------------*/
   if (document.title == "Edit List Item") {
     var itemName = document.getElementById('itemname');
+    var nameError = document.querySelector("#itemname~span");
     var filePath = document.getElementById('file');
     var fileError = document.querySelector("#file~span");
     var editButton = document.querySelector('button[name=save]');
@@ -323,13 +324,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     itemName.addEventListener("focus", event => {
       itemName.style.border = "";
-      document.querySelector("#itemname~span").classList.add("hidden");
+      nameError.classList.add("hidden");
     });
     
     itemName.addEventListener("blur", event => {
       if(itemName.value == ""){
         itemName.style.border = "red";
-        fileError.classList.remove("hidden");
+        nameError.classList.remove("hidden");
         valid = false;
       }
 
@@ -717,18 +718,18 @@ window.addEventListener('DOMContentLoaded', () => {
   if(addlistlink != null){
     addlistlink.addEventListener("click", event => {
       let addButton = document.getElementById("addListToDB");
+      const listName = document.getElementById("listName");
+      const listError = document.querySelector("#listName~span");
+
       document.getElementById("listName").value = "";
 
       addButton.name = "submitList";
       addButton.innerHTML = "Add List";
-
+      listError.classList.add("hidden");
+      
       document.getElementById('create-modal').style.display = 'block';
 
       document.getElementById("addListToDB").addEventListener("click", event => {
-        const listName = document.getElementById("listName");
-        const listError = document.querySelector("#listName~span");
-
-
         listError.classList.add("hidden");
         let valid = true;
 

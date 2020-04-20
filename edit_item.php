@@ -221,7 +221,7 @@
                     <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
                     <label for="file">File Name:</label>
                     <input type="file" name="fileToProcess" id="file"/>
-                    <button class = "hidden" type="button" name="Clear">&times;</button>
+                    <button class = "delete hidden" type="button" name="Clear">Clear File</button>
                     <span class = "error hidden">Please select a smaller image</span>
                   <?php endif; ?>
                 </div>

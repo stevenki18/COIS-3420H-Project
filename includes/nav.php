@@ -1,7 +1,7 @@
 <?php
 
   if(isset($_SESSION['user'])){    
-    $query = "SELECT listname, id FROM g10_lists WHERE fk_userid = ?";
+    $query = "SELECT listname, id, private FROM g10_lists WHERE fk_userid = ?";
     $stmt = $pdo->prepare($query);
     $stmt->execute([$_SESSION['id']]);
     $results = $stmt->fetchAll();
@@ -19,18 +19,20 @@
     </li>
     <li class="dropdown">Lists
       <ul class="dropdown-content">
-        <li><a href="display_list.php">All Lists</a></li>
-        <!-- <li><a href="display_list.php">Public Lists</a></li> -->
-        <li><a href="sample_list.php">Our Sample List</a></li>
+        <li><a href="display_list.php">View All</a></li>
         <?php if(isset($_SESSION['user'])): ?>
         <?php foreach ($results as $row):?>
-            <li><a href="view_list.php?=<?= $row['id']?>"><?= $row['listname'] ?></a></li>
+            <li class="personal"><i class="fa fa-chevron-right"></i><a href="view_list.php?list=<?= $row['id']?>">
+          <?php if($row['private'] == 1): ?>
+            <i class="fa fa-lock"></i> <?= $row['listname'] ?>
+          <?php else: ?>
+            <i class="fa fa-unlock"></i> <?= $row['listname'] ?>
+          <?php endif ?>
+          </a></li>
         <?php endforeach ?>
-        <li>
-          <a href="#" id="add-list-nav">Add List</a>
-          <!-- <a href = "#create_modal" id="create-btn" class="mod-btn">Add List</a> -->
-        </li>
+        <li><a href="#" id="add-list-nav"><i class="fa fa-plus"></i> Create New List</a></li>
         <?php endif; ?>
+        <li><a href="sample_list.php">Sample Bucket List</a></li>
       </ul>
     </li>
     <li>
