@@ -74,8 +74,10 @@
           <ul>
             <?php foreach($list as $row): ?>
               <li>
-                <?= $row['listname']?>
-                <a href = "view_list.php?list=<?= $row['id']?>"><i class="fa fa-eye"></i></a>
+                <span><i class="fa fa-unlock"></i> <?= $row['listname'] ?></span>
+                <div>
+                  <button><a href = "view_list.php?list=<?= $row['id']?>"><i class="fa fa-eye"></i></a></button>
+                </div>
               </li>
             <?php endforeach ?>
           </ul>
