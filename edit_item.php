@@ -3,10 +3,10 @@
   |
   |   PAGE:         edit_item.php
   |
-  |   DESCRIPTION:  Page designed to edit an items details. 
+  |   DESCRIPTION:  Page designed to edit an items details.
   |                 Allows a description of the item, date of
   |                 completion and a single image upload of max
-  |                 size 1MB in addition to the item name and 
+  |                 size 1MB in addition to the item name and
   |                 viewable status (public/private)
   |
   -----------------------------------------------------------*/
@@ -132,7 +132,7 @@
     // ITEM NAME
     if(!$itemname || strlen($itemname) == 0)
       array_push($errors, "Please enter an item name");
-    
+
     // VIEWABLE
     if(isset($_POST['viewable']))
       $viewable = 0;
@@ -146,7 +146,7 @@
       //creates new file name for 1 uploaded image, and copies it to loki
       $dbID=uniqid();  //database id for item
       if(is_uploaded_file($_FILES['fileToProcess']['tmp_name'])){
-        $newname=createFilename('fileToProcess','../../../www_data/', 'img', $dbID);
+        $newname=createFilename('fileToProcess','../../www_data/', 'img', $dbID);
         checkAndMoveFile('fileToProcess', 1000000, $newname);
       }
     }
@@ -213,8 +213,8 @@
       <!-- VIEWABLE -->
       <div>
         <label for="viewable">Publicly Viewable?</label>
-        <input id="viewable" type="checkbox" name="viewable" 
-        <?php if($result['private'] == 0): ?> 
+        <input id="viewable" type="checkbox" name="viewable"
+        <?php if($result['private'] == 0): ?>
           checked>
         <?php else: ?>
           >
