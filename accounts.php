@@ -168,6 +168,14 @@
           $updateCount = $statement->rowCount();
         }
       }// END OF DB WORK
+
+      // Get newest values to update form
+      $query = "SELECT * FROM g10_users WHERE username = ?";
+      $stmt = $pdo->prepare($query);
+      $stmt->execute([$user]);
+      $results = $stmt->fetch();
+
+
     }// END OF UPDATE
 
 
@@ -235,6 +243,8 @@
   ?>
   <!-- Source https://github.com/dropbox/zxcvbn -->
   <script defer src="scripts/zxcvbn.js"></script>
+  <script defer src="scripts/datedropper.js"></script>
+
 </head>
 
 <body>
@@ -344,9 +354,15 @@
       <!-- MINIMUM = JAN 1, 1900, MAXIMUM = TODAY (SET IN SCRIPT.JS) -->
       <div>
         <label for="birthdate">Date of Birth:</label>
-        <input data-dd-theme="bucket" class="datedropper-init" type="text" id="birthdate" name="birthdate" min="1900-01-01"
+        <input data-dd-theme="bucket" class="datedropper-init" data-dd-format="Y-m-d" type="text" id="birthdate" name="birthdate"
         <?php if(isset($_SESSION['user'])): ?>
           value="<?= $results['dob'] ?>">
+          <button <?php if($results['dob'] != ""): ?>
+            class="delete"
+          <?php else: ?>
+            class="delete hidden"
+          <?php endif; ?>
+          type="button" name="ClearDate">Clear Date</button>
         <?php else: ?>
           >
         <?php endif ?>

@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
     /*--------------------------------------
     |
     |   PAGE:       Login
-    |   
+    |
     |   HANDLES:    Forgot password modal
     |               and register redirect
     |
@@ -38,11 +38,12 @@ window.addEventListener('DOMContentLoaded', () => {
         |   OPEN FORGOT PASSWORD MODAL
         |
         -----------------------------*/
-        document.getElementById("forgot").addEventListener("click", () => {
+        document.getElementById("forgot").addEventListener("click", (event) => {
             const checker = document.querySelector("#forgotCheck");
             const changer = document.querySelector("#forgotChange");
             const username = document.querySelector("#forgotCheck>input");
             const email = document.querySelector("#forgotCheck>input:last-of-type");
+            event.preventDefault();
 
             // Set up the modal sections
             checker.classList.remove("hidden");
@@ -152,6 +153,7 @@ window.addEventListener('DOMContentLoaded', () => {
         |
         -----------------------------*/
         document.getElementById("register").addEventListener("click", event => {
+          event.preventDefault();
             location = "accounts.php";
         });
 
@@ -380,7 +382,7 @@ window.addEventListener('DOMContentLoaded', () => {
     |   PAGE:       Edit List
     |
     |   HANDLES:    Cancel button and image
-    |               removal as well as form 
+    |               removal as well as form
     |               validation
     |
     --------------------------------------*/
@@ -393,9 +395,14 @@ window.addEventListener('DOMContentLoaded', () => {
         var fileError = document.querySelector("#file~span");
         var editButton = document.querySelector('button[name=save]');
         var clearButton = document.querySelector("button[name=Clear]");
+        var clearDateButton = document.querySelector("button[name=ClearDate]")
         var cancelButton = document.querySelector("button[name=Cancel]")
         var removeImgButton = document.querySelector("button[name=remove-image]");
         let valid = true;
+
+        let cd0 = Date.parse("January 1, 1900");
+        let cd1 = Date.parse(complete.value);
+        let cd2 = Date.parse(getTodaysDate());
 
 
         /*-----------------------------
@@ -434,11 +441,12 @@ window.addEventListener('DOMContentLoaded', () => {
         |   ** FOCUS AND BLUR
         |
         |   ** FIX FOR SAFARI AS THERE
-        |      IS NO DATE PICKER SO 
+        |      IS NO DATE PICKER SO
         |      DATE MUST BE ENTERED AS
         |      STRING
         |
         -----------------------------*/
+
         // FOCUS
         complete.addEventListener("focus", (ev) => {
             complete.style.border = "";
@@ -448,7 +456,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // BLUR
         complete.addEventListener("blur", (ev) => {
             if (complete.value != "") {
-                if (complete.value < "01/01/1900" || complete.value > getTodaysDate()) {
+                if (cd1 < cd0 || cd1 > cd2) {
                     complete.style.borderColor = "red";
                     compError.classList.remove("hidden");
                     valid = false;
@@ -456,12 +464,32 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }); // END OF BLUR
 
+        var datedr = document.querySelector("#datedropper-0");
+        if(datedr != null){
+          datedr.addEventListener("click", () =>{
+            console.log("Click on datedropper");
+          });
+        }
+
+
         // SET MAX COMPLETION DATE
         complete.setAttribute("max", getTodaysDate());
 
         // SAFARI FIX
         if (complete.type != "date")
-            complete.setAttribute("placeholder", "mm/dd/yyyy");
+            complete.setAttribute("placeholder", "yyyy-mm-dd");
+
+        /*-----------------------------
+        |
+        |         CLEAR COMPLETION DATE BUTTON
+        |
+        -----------------------------*/
+        if (clearDateButton != null) {
+            clearDateButton.addEventListener("click", event => {
+                complete.value = "";
+                clearDateButton.classList.add("hidden");
+            });
+        } // END OF CLEAR COMPLETION DATE BUTTON
 
         /*-----------------------------
         |
@@ -500,6 +528,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 clearButton.classList.add("hidden");
             });
         } // END OF CLEAR BUTTON
+
 
 
         /*-----------------------------
@@ -563,8 +592,8 @@ window.addEventListener('DOMContentLoaded', () => {
     |
     |   PAGE:       Account Information
     |
-    |   HANDLES:    Password strength and 
-    |               delete account as well 
+    |   HANDLES:    Password strength and
+    |               delete account as well
     |               as form validation
     |
     --------------------------------------*/
@@ -586,7 +615,13 @@ window.addEventListener('DOMContentLoaded', () => {
         let emailError = document.querySelector("#email~span");
         let birthdate = document.getElementById("birthdate");
         let birthdateError = document.querySelector("#birthdate~span");
+        var clearBDButton = document.querySelector("button[name=ClearDate]")
+
         let valid = true;
+
+        let d0 = Date.parse("January 1, 1900");
+        let d1 = Date.parse(birthdate.value);
+        let d2 = Date.parse(getTodaysDate());
 
 
         /*-----------------------------
@@ -595,7 +630,7 @@ window.addEventListener('DOMContentLoaded', () => {
         |
         |   ** FOCUS AND BLUR
         |   ** FIX FOR SAFARI AS THERE
-        |      IS NO DATE PICKER SO 
+        |      IS NO DATE PICKER SO
         |      DATE MUST BE ENTERED AS
         |      STRING
         |
@@ -609,7 +644,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // BLUR
         birthdate.addEventListener("blur", (ev) => {
             if (birthdate.value != "") {
-                if (birthdate.value < "01/01/1900" || birthdate.value > getTodaysDate()) {
+              if (d1 < d0 || d1 > d2) {
                     birthdate.style.borderColor = "red";
                     birthdateError.classList.remove("hidden");
                     valid = false;
@@ -622,14 +657,26 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // SAFARI FIX
         if (birthdate.type != "date")
-            birthdate.setAttribute("placeholder", "mm/dd/yyyy");
-        
+            birthdate.setAttribute("placeholder", "yyyy-mm-dd");
+
+        /*-----------------------------
+        |
+        |         CLEAR BIRTHDAY DATE BUTTON
+        |
+        -----------------------------*/
+        if (clearBDButton != null) {
+            clearBDButton.addEventListener("click", event => {
+                birthdate.value = "";
+                clearBDButton.classList.add("hidden");
+            });
+        } // END OF CLEAR BIRTHDAY DATE BUTTON
+
 
         /*--------------------------------------
         |
         |   PAGE:       Register
         |
-        |   HANDLES:    Error checking for the 
+        |   HANDLES:    Error checking for the
         |               registration page
         |
         --------------------------------------*/
@@ -740,7 +787,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 // CHECK BIRTHDAY
                 if (birthdate.value != "") {
-                    if (birthdate.value < "01/01/1900" || birthdate.value > getTodaysDate()) {
+                    if (d1 < d0 || d1 > d2) {
                         birthdate.style.borderColor = "red";
                         birthdateError.classList.remove("hidden");
                         valid = false;
@@ -767,8 +814,8 @@ window.addEventListener('DOMContentLoaded', () => {
         |
         |   PAGE:       Edit Account
         |
-        |   HANDLES:    Error checking for the 
-        |               edit account page as 
+        |   HANDLES:    Error checking for the
+        |               edit account page as
         |               well as account deletion
         |
         --------------------------------------*/
@@ -805,7 +852,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     birthdate.style.borderColor = "";
                     birthdateError.classList.add("hidden");
                 }// END OF RESET ERRORS
-                
+
                 // CHECK PASSWORDS
                 if (password.value != "") {
                     if (password.value != passwordConf.value) {
@@ -838,7 +885,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 // CHECK BIRTHDAY
                 if (birthdate.value != "") {
-                    if (birthdate.value < "01/01/1900" || birthdate.value > getTodaysDate()) {
+                    if (d1 < d0 || d1 > d2) {
                         birthdate.style.borderColor = "red";
                         birthdateError.classList.remove("hidden");
                         valid = false;
@@ -850,7 +897,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     event.preventDefault();
             });// END OF EDIT ACCOUNT VALIDATION
 
-            
+
             /*-----------------------------
             |
             |       DELETE ACCOUNT
@@ -950,10 +997,10 @@ window.addEventListener('DOMContentLoaded', () => {
     |
     |   PAGE:       Sample List
     |
-    |   HANDLES:    Redirect to login when 
+    |   HANDLES:    Redirect to login when
     |               add button is clicked
     |
-    |               Login will redirect to 
+    |               Login will redirect to
     |               display lists page if
     |               already logged in
     |
@@ -974,8 +1021,8 @@ window.addEventListener('DOMContentLoaded', () => {
     |   HANDLES:    Open the add list modal
     |               fro the all lists page
     |
-    |               Nav bar button is found 
-    |               below under all pages 
+    |               Nav bar button is found
+    |               below under all pages
     |               section
     |
     --------------------------------------*/
@@ -1018,21 +1065,21 @@ window.addEventListener('DOMContentLoaded', () => {
     /*-------------------------------------*/
     /*-------------------------------------*/
     /*-------------------------------------*/
-    
+
 
     /*--------------------------------------
     |
     |   PAGE:       All Pages
     |
-    |   HANDLES:    Event Listeners for 
-    |               view list items, add 
-    |               list from the navigation 
-    |               bar, open image modal, 
-    |               view list from search 
-    |               results/index/and all 
-    |               lists pages, close 
+    |   HANDLES:    Event Listeners for
+    |               view list items, add
+    |               list from the navigation
+    |               bar, open image modal,
+    |               view list from search
+    |               results/index/and all
+    |               lists pages, close
     |               modal buttons and drop
-    |               down for responsive 
+    |               down for responsive
     |               navigation bar
     |
     --------------------------------------*/
@@ -1089,7 +1136,7 @@ window.addEventListener('DOMContentLoaded', () => {
     |
     |               VIEW LIST
     |
-    --------------------------------------*/ 
+    --------------------------------------*/
     if (viewList != null) {
         viewList.forEach(viewList =>
             viewList.addEventListener("click", event => {
@@ -1158,7 +1205,7 @@ window.addEventListener('DOMContentLoaded', () => {
     |
     |        CLOSE BUTTONS FOR MODALS
     |
-    --------------------------------------*/ 
+    --------------------------------------*/
     if (close != null) {
         close.forEach(close => {
             // Enable close on all modal windows
@@ -1197,7 +1244,7 @@ window.addEventListener('DOMContentLoaded', () => {
 /*----------------------------------------
 |
 |   NAME:           processChangePass()
-|   
+|
 |   DESCRIPTION:    Changes password for
 |                   forgot password
 |
@@ -1239,9 +1286,9 @@ function processChangePass(data) {
 /*----------------------------------------
 |
 |   NAME:           getTodaysDate()
-| 
-|   DESCRIPTION:    Get the current date 
-|                   in the format 
+|
+|   DESCRIPTION:    Get the current date
+|                   in the format
 |                   mm/dd/yyyy
 |
 ----------------------------------------*/
@@ -1266,11 +1313,11 @@ function getTodaysDate() {
 /*----------------------------------------
 |
 |   NAME:           passwordStrength()
-| 
-|   DESCRIPTION:    Live update of 
+|
+|   DESCRIPTION:    Live update of
 |                   password strength
-|                   Applies to Acccount 
-|                   information, Forgot 
+|                   Applies to Acccount
+|                   information, Forgot
 |                   Password
 |
 ----------------------------------------*/

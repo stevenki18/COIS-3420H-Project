@@ -189,6 +189,8 @@
     $PAGE_TITLE = "Edit List Item";
     include 'includes/meta.php';
   ?>
+  <script defer src="scripts/datedropper.js"></script>
+
 </head>
 
 <body>
@@ -230,7 +232,13 @@
       <!-- DATE OF COMPLETION -->
       <div>
         <label for="complete">Date of Completion:</label>
-        <input data-dd-theme="bucket" class="datedropper-init" type="text" id="complete" name="complete" min="1900-01-01" value="<?= $result['completion']?>">
+        <input data-dd-theme="bucket" class="datedropper-init" data-dd-format="Y-m-d" type="text" id="complete" name="complete" value="<?= $result['completion']?>">
+        <button <?php if($result['completion'] != ""): ?>
+          class="delete"
+        <?php else: ?>
+          class="delete hidden"
+        <?php endif; ?>
+        type="button" name="ClearDate">Clear Date</button>
         <span class="error hidden">Please enter a valid date</span>
       </div>
 
