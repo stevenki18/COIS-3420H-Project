@@ -63,6 +63,8 @@ function googleSignin(data) {
         else if (event.target.responseText == "Success") {
             console.log("Account found, redirecting");
             location.href = "display_list.php";
+        } else{
+          alert("Something went wrong");
         }
     });
 

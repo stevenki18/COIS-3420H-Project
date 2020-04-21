@@ -13,7 +13,7 @@
 
   if(isset($_COOKIE['bucket']))
     $user=$_COOKIE['bucket'];
-  
+
   else
     $user="";
 
@@ -43,12 +43,12 @@
 
     // SANITIZE USERNAME INPUT (USING THIS TO CHECK LOGIN)
     $sanitizedUser = filter_var($user, FILTER_SANITIZE_STRING);
-    
+
     // USERNAME
     if (!$sanitizedUser || strlen($sanitizedUser) == 0)
       array_push($errors, "Please enter a valid username.");
     // PASSWORD
-    if (!isset($pass)) 
+    if (!isset($pass))
       array_push($errors, "Incorrect Password.");
     // No errors do the work with the database
     if (count($errors) == 0) {
@@ -74,9 +74,9 @@
           $usererror=true;
 
       }
-      
+
       //Fetch failed (No row for username)
-      else 
+      else
         $usererror=true;
     }// END OF DB WORK
   }// END OF LOGIN
@@ -113,15 +113,16 @@
       else
         $usererror=true;
     }
-    
+
     //Fetch failed (No row for username)
     else
+      echo "No Username";
       $usererror=true;
 
     exit();
   }// END OF GOOGLE LOGIN
 
-  
+
   /*---------------------------
   |
   |          LOGOUT
@@ -175,10 +176,10 @@
           <!-- LOGIN -->
           <input type="text" name="username" placeholder="Username" value="<?= $user ?>" required>
           <input type="password" name="password" placeholder="Password" required>
-          
+
           <!-- notice variable which triggers output of error message if sticky processing fails -->
           <?php if ($usererror):?>
-            <span class="error">Your username or password was invalid</span> 
+            <span class="error">Your username or password was invalid</span>
           <?php endif ?>
 
           <!-- REMEMBER ME -->
@@ -195,10 +196,10 @@
               <?php endforeach ?>
             </ul>
           </div>
-          
+
           <!-- LOGIN -->
           <button type="submit" name="login">Login</button>
-          
+
           <!-- FORGOT PASSWORD -->
           <button id="forgot" class="modBtn" type="button">Forgot Password</button>
 
@@ -211,9 +212,9 @@
 
   </main>
 
-  <?php 
+  <?php
     include 'modals/forgotpass.php';
-    include 'includes/footer.php' 
+    include 'includes/footer.php'
   ?>
 
 </body>
