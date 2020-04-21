@@ -448,7 +448,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // BLUR
         complete.addEventListener("blur", (ev) => {
             if (complete.value != "") {
-                if (complete.value < "1900-01-01" || complete.value > getTodaysDate()) {
+                if (complete.value < "01/01/1900" || complete.value > getTodaysDate()) {
                     complete.style.borderColor = "red";
                     compError.classList.remove("hidden");
                     valid = false;
@@ -461,7 +461,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // SAFARI FIX
         if (complete.type != "date")
-            complete.setAttribute("placeholder", "yyyy-mm-dd");
+            complete.setAttribute("placeholder", "mm/dd/yyyy");
 
         /*-----------------------------
         |
@@ -609,7 +609,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // BLUR
         birthdate.addEventListener("blur", (ev) => {
             if (birthdate.value != "") {
-                if (birthdate.value < "1900-01-01" || birthdate.value > getTodaysDate()) {
+                if (birthdate.value < "01/01/1900" || birthdate.value > getTodaysDate()) {
                     birthdate.style.borderColor = "red";
                     birthdateError.classList.remove("hidden");
                     valid = false;
@@ -622,7 +622,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // SAFARI FIX
         if (birthdate.type != "date")
-            birthdate.setAttribute("placeholder", "yyyy-mm-dd");
+            birthdate.setAttribute("placeholder", "mm/dd/yyyy");
         
 
         /*--------------------------------------
@@ -740,7 +740,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 // CHECK BIRTHDAY
                 if (birthdate.value != "") {
-                    if (birthdate.value < "1900-01-01" || birthdate.value > getTodaysDate()) {
+                    if (birthdate.value < "01/01/1900" || birthdate.value > getTodaysDate()) {
                         birthdate.style.borderColor = "red";
                         birthdateError.classList.remove("hidden");
                         valid = false;
@@ -838,7 +838,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 // CHECK BIRTHDAY
                 if (birthdate.value != "") {
-                    if (birthdate.value < "1900-01-01" || birthdate.value > getTodaysDate()) {
+                    if (birthdate.value < "01/01/1900" || birthdate.value > getTodaysDate()) {
                         birthdate.style.borderColor = "red";
                         birthdateError.classList.remove("hidden");
                         valid = false;
@@ -1242,7 +1242,7 @@ function processChangePass(data) {
 | 
 |   DESCRIPTION:    Get the current date 
 |                   in the format 
-|                   yyyy-mm-dd
+|                   mm/dd/yyyy
 |
 ----------------------------------------*/
 function getTodaysDate() {
@@ -1257,7 +1257,7 @@ function getTodaysDate() {
         mm = '0' + mm
     }
 
-    today = yyyy + '-' + mm + '-' + dd;
+    today = mm + '/' + dd + '/' + yyyy;
 
     return today;
 } // END OF GET TODAYS DATE
