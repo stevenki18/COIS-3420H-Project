@@ -344,7 +344,7 @@
       <!-- MINIMUM = JAN 1, 1900, MAXIMUM = TODAY (SET IN SCRIPT.JS) -->
       <div>
         <label for="birthdate">Date of Birth:</label>
-        <input class="datedropper-init bucket" type="text" id="birthdate" name="birthdate" min="1900-01-01"
+        <input data-dd-theme="bucket" class="datedropper-init" type="text" id="birthdate" name="birthdate" min="1900-01-01"
         <?php if(isset($_SESSION['user'])): ?>
           value="<?= $results['dob'] ?>">
         <?php else: ?>

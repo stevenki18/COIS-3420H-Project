@@ -593,3 +593,21 @@ main header~ul li:last-of-type, section ul li:last-of-type{
 .hidden{
   display: none;
 }
+
+/*
+|
+| DATE DROPPER STYLING
+|
+*/
+div.datedropper.bucket {
+
+  --dd-color1: #8fcf69;
+  --dd-color2: #FFF;
+  --dd-color3: #4D4D4D;
+  --dd-color4: #FFF;
+
+  --dd-radius: 6px;
+  --dd-width: 183px;
+  --dd-shadow: 0 0 32px 0px rgba(0, 0, 0, 0.1);
+
+}

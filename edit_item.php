@@ -230,7 +230,7 @@
       <!-- DATE OF COMPLETION -->
       <div>
         <label for="complete">Date of Completion:</label>
-        <input class="datedropper-init bucket" type="text" id="complete" name="complete" min="1900-01-01" value="<?= $result['completion']?>">
+        <input data-dd-theme="bucket" class="datedropper-init" type="text" id="complete" name="complete" min="1900-01-01" value="<?= $result['completion']?>">
         <span class="error hidden">Please enter a valid date</span>
       </div>
 
