@@ -2,10 +2,10 @@
 |
 |   PAGE:           google.js
 |
-|   DESCRIPTION:    Handles Google sign and account 
+|   DESCRIPTION:    Handles Google sign and account
 |                   creation
 |
-|   SOURCE:         https://github.com/dropbox/zxcvbn
+|   SOURCE:         https://developers.google.com/identity/sign-in/web/sign-in
 |
 -------------------------------------------------------*/
 
@@ -58,8 +58,8 @@ function googleSignin(data) {
         if (event.target.responseText == "No Username") {
             console.log("creating new user");
             createnew(data);
-        } 
-        
+        }
+
         else if (event.target.responseText == "Success") {
             console.log("Account found, redirecting");
             location.href = "display_list.php";
@@ -106,7 +106,7 @@ function createnew(data) {
         }
         else
             alert("Information Passed, but account not created");
-        
+
     });
 
     XHR.addEventListener("error", function (event) {

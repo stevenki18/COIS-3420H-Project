@@ -38,7 +38,7 @@ if either are set. -->
 
                     <!-- ITEM PHOTO -->
                     <figure class="sampleImage">
-                      <img id="image" src="" alt=""/>
+                      <img id="image" src="#" alt="#"/>
                     </figure>
 
 

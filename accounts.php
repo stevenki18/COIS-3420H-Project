@@ -3,9 +3,9 @@
     |
     |   PAGE:         accounts.php
     |
-    |   DESCRIPTION:  Allow a user to register an account and 
-    |                 edit or delete an existing account. This 
-    |                 page also handles account creation when 
+    |   DESCRIPTION:  Allow a user to register an account and
+    |                 edit or delete an existing account. This
+    |                 page also handles account creation when
     |                 a user signs in with their Google account
     |
     -----------------------------------------------------------*/
@@ -261,7 +261,7 @@
       <!-- Once created a username cannot be changed -->
       <div>
         <label for="username">Username:</label>
-        <input id="username" name="username" type="text" 
+        <input id="username" name="username" type="text"
         <?php if(isset($_SESSION['user'])): ?>
           value="<?= $results['username'] ?>" readonly>
         <?php else: ?>
@@ -293,7 +293,7 @@
         <div>
           <label for="password">Password (at least 8 characters):</label>
           <input name="password" type="password" id="password" minlength="8" required>
-          <meter max="4" id="password-strength"></meter>
+          <meter max="4" value="0" id="password-strength"></meter>
           <p id="password-strength-text"></p>
           <span class="error hidden">Password not strong enough</span>
         </div>
@@ -319,7 +319,7 @@
       <!-- LAST NAME -->
       <div>
         <label for="lastname">Last Name:</label>
-        <input id="lastname" name="lastname" type="text" 
+        <input id="lastname" name="lastname" type="text"
         <?php if(isset($_SESSION['user'])): ?>
           value="<?= $results['last'] ?>" required>
         <?php else: ?>
@@ -331,7 +331,7 @@
       <!-- EMAIL -->
       <div>
         <label for="email">Email Address:</label>
-        <input id="email" name="email" type="text" 
+        <input id="email" name="email" type="text"
         <?php if(isset($_SESSION['user'])): ?>
           value="<?= $results['email'] ?>" required>
         <?php else: ?>

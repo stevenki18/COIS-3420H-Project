@@ -18,7 +18,7 @@ window together with a caption. -->
         </div>
 
         <!-- Modal Content (The Image) -->
-        <img class="modal-contentimg" id="img01">
+        <img class="modal-contentimg" id="img01" src="#" alt="#">
         <!-- Modal Caption (Image Text) -->
         <div id="caption"></div>
 

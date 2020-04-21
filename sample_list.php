@@ -75,7 +75,7 @@
                 <?php foreach($listitems as $row): ?>
                     <!-- SKIP COMPLETED ITEMS -->
                     <!-- DISPLAYED IN COMPLETED SECTION -->
-                    <?php 
+                    <?php
                         if($row['completion'] != null)
                             continue;
                     ?>
@@ -84,7 +84,7 @@
                         <!-- PRIVATE ITEM -->
                         <?php if ($row['private'] == 1):?>
                             <span><i class="fa fa-lock"></i> <?= $row['name']?></span>
-                        <!-- PUBLIC ITEM --> 
+                        <!-- PUBLIC ITEM -->
                         <?php else: ?>
                             <span><i class="fa fa-unlock"></i> <?= $row['name']?></span>
                         <?php endif ?>
@@ -105,7 +105,7 @@
                 <?php foreach($listitems as $row): ?>
                     <!-- SKIP INCOMPLETE ITEMS -->
                     <!-- DISPLAYED IN PROGRESS SECTION -->
-                    <?php 
+                    <?php
                         if($row['completion'] == null)
                             continue;
                     ?>
@@ -121,17 +121,14 @@
                         <div><button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button></div>
                     </li>
                 <?php endforeach ?>
-                <li>
-                    <button type="button" name="Return" ><a href="display_list.php">Return</a></button>
-                </li>
             </ul>
         </section>
     </main>
 
-    <?php 
+    <?php
         include 'modals/view_item.php';
         include 'modals/image_view.php';
-        include 'includes/footer.php' 
+        include 'includes/footer.php'
     ?>
 
 </body>

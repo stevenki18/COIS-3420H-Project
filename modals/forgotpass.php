@@ -31,12 +31,12 @@ forget it. -->
             <!-- ASKS USER TO INPUT NEW PASSWORD -->
             <div id="forgotChange" class="manual-login">
                 <label for="forgotpassword">Password (at least 8 characters):</label>
-                <input name="forgotpassword" type="password" minlength="8" required>
+                <input id="forgotpassword" name="forgotpassword" type="password" minlength="8" required>
                 <span class = "error hidden">Please enter valid password</span>
-                <meter max="4" id="forgotpassword-strength"></meter>
+                <meter max="4" value="0" id="forgotpassword-strength"></meter>
                 <p id="forgotpassword-strength-text"></p>
                 <label for="fogotconfirmpassword">Confirm Password:</label>
-                <input name="forgotconfirmpassword" type="password" minlength="8" required>
+                <input id="fogotconfirmpassword" name="forgotconfirmpassword" type="password" minlength="8" required>
                 <span class = "error hidden">Passwords do not match</span>
               <button type="submit" name="forgot-change" id="forgot-change">Submit</button>
             </div>

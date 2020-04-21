@@ -48,4 +48,5 @@ name and viewability setting. -->
             <p>&copy; Group 10</p>
         </div>
 
+  </div>
 </div>

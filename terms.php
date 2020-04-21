@@ -1,4 +1,4 @@
-<?php 
+<?php
   /*-----------------------------------------------------------
   |
   |   PAGE:         terms.php
@@ -30,6 +30,7 @@
     </header>
 
     <article id="tac">
+      <h2 class="hidden">Terms and Conditions</h2>
         <!-- USE OF INFORMATION -->
         <section id="tacInfo">
             <h2>1. Use of Information</h2>
