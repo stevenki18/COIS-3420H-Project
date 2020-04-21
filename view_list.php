@@ -3,13 +3,13 @@
     |
     |   PAGE:         view_list.php
     |
-    |   DESCRIPTION:  Displays the a lists details and items. 
+    |   DESCRIPTION:  Displays the a lists details and items.
     |                 Used for both user lists and public lists.
     |                 This page will populate with additional
     |                 buttons if the owner of the list is logged
     |                 in. This includes edit and delete buttons
-    |                 for both the list and all list items and 
-    |                 an add list item button which opens the 
+    |                 for both the list and all list items and
+    |                 an add list item button which opens the
     |                 add list modal
     |
     -----------------------------------------------------------*/
@@ -17,7 +17,7 @@
     // DOING THIS TO GET AROUND MULTITUDE OF ERRORS WHEN TRYING TO VIEW PUBLIC WHEN NOT LOGGED IN
     if(!isset($_SESSION['user']))
         $_SESSION['id'] = 0;
-    
+
 
     require_once './includes/library.php';
     $pdo = connectDB();
@@ -28,7 +28,7 @@
     $user = $_SESSION['id'];
     $listid = $_GET['list'];
 
-    
+
     /*---------------------------
     |
     |          LIST INFO
@@ -196,7 +196,7 @@
                 <?php foreach($listitems as $row): ?>
                     <!-- SKIP COMPLETED ITEMS AND PRIVATE ITEM WHERE USER IS NOT OWNER OF LIST -->
                     <!-- DISPLAYED IN COMPLETED SECTION -->
-                    <?php 
+                    <?php
                         if(($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id']) || $row['completion'] != null)
                             continue;
                     ?>
@@ -233,7 +233,7 @@
                 <?php foreach($listitems as $row): ?>
                     <!-- SKIP INCOMPLETE ITEMS AND PRIVATE ITEM WHERE USER IS NOT OWNER OF LIST -->
                     <!-- DISPLAYED IN PROGRESS SECTION -->
-                    <?php 
+                    <?php
                         if(($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id']) || $row['completion'] == null)
                             continue;
                     ?>
@@ -256,13 +256,9 @@
                         </div>
                     </li>
                 <?php endforeach ?>
-                <li>
-                    <button type="button" name="Return" ><a href="display_list.php">Return</a></button>
-                </li>
-
             </ul>
         </section>
-        <?php 
+        <?php
             include 'modals/add_item.php';
             include 'modals/view_item.php';
             include 'modals/image_view.php'

@@ -81,6 +81,7 @@ h2 {
   font-size: 2em;
   font-weight: bold;
   border-bottom: 2px solid var(--link-color);
+  padding-left: 0.5em;
 }
 
 h3 {
@@ -320,6 +321,10 @@ input[name$="search"] {
   .topnav.responsive .personal{
     /* margin: 1em 0; */
     display: table;
+  }
+
+  .topnav.responsive #login-link{
+    text-align:center;
   }
 
   .topnav.responsive .personal > i, .topnav.responsive .personal a{

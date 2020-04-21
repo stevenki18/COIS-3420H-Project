@@ -400,9 +400,9 @@ window.addEventListener('DOMContentLoaded', () => {
         var removeImgButton = document.querySelector("button[name=remove-image]");
         let valid = true;
 
-        let cd0 = Date.parse("January 1, 1900");
-        let cd1 = Date.parse(complete.value);
-        let cd2 = Date.parse(getTodaysDate());
+        let cd0 = "1900-01-01";
+        let cd1 = getTodaysDate();
+        let cd2 = getTodaysDate();
 
 
         /*-----------------------------
@@ -438,44 +438,36 @@ window.addEventListener('DOMContentLoaded', () => {
         |
         |        COMPLETION DATE
         |
-        |   ** FOCUS AND BLUR
-        |
-        |   ** FIX FOR SAFARI AS THERE
-        |      IS NO DATE PICKER SO
-        |      DATE MUST BE ENTERED AS
-        |      STRING
+        |   ** FOCUS THEN BODY CLICK
+        |   ** DATE DROPPER FAILSAFE
         |
         -----------------------------*/
-
-        // FOCUS
+        // DATE DROPPER SELECTED, SWITCHED TO BODY CLICKS
+        // Pro version has additional options which we don't have!
+        // WORK AROUND!!!
         complete.addEventListener("focus", (ev) => {
-            complete.style.border = "";
-            compError.classList.add("hidden");
-        }); // END OF FOCUS
+          document.body.addEventListener("click", (ev) => {
+            cd1 = complete.value;
+            if(cd1 != "")
+              clearDateButton.classList.remove("hidden");
+            else
+              clearDateButton.classList.add("hidden");
 
-        // BLUR
-        complete.addEventListener("blur", (ev) => {
-            if (complete.value != "") {
+              if (cd1 != "") {
                 if (cd1 < cd0 || cd1 > cd2) {
-                    complete.style.borderColor = "red";
-                    compError.classList.remove("hidden");
-                    valid = false;
+                      complete.style.borderColor = "red";
+                      compError.classList.remove("hidden");
+                      valid = false;
+                }else{
+                  complete.style.border = "";
+                  compError.classList.add("hidden");
                 }
-            }
-        }); // END OF BLUR
 
-        var datedr = document.querySelector("#datedropper-0");
-        if(datedr != null){
-          datedr.addEventListener("click", () =>{
-            console.log("Click on datedropper");
-          });
-        }
+              }
+          }); // END OF BODY CLICK
+        }); // END FOCUS
 
-
-        // SET MAX COMPLETION DATE
-        complete.setAttribute("max", getTodaysDate());
-
-        // SAFARI FIX
+        // DATEDROPPER FAILSAFE
         if (complete.type != "date")
             complete.setAttribute("placeholder", "yyyy-mm-dd");
 
@@ -619,43 +611,45 @@ window.addEventListener('DOMContentLoaded', () => {
 
         let valid = true;
 
-        let d0 = Date.parse("January 1, 1900");
-        let d1 = Date.parse(birthdate.value);
-        let d2 = Date.parse(getTodaysDate());
+        let d0 = "1900-01-01";
+        let d1 = getTodaysDate();
+        let d2 = getTodaysDate();
 
 
         /*-----------------------------
         |
         |          BIRTHDATE
         |
-        |   ** FOCUS AND BLUR
-        |   ** FIX FOR SAFARI AS THERE
-        |      IS NO DATE PICKER SO
-        |      DATE MUST BE ENTERED AS
-        |      STRING
+        |   ** FOCUS THEN BODY CLICK
+        |   ** DATE DROPPER FAILSAFE
         |
         -----------------------------*/
-        // FOCUS
+        // DATE DROPPER SELECTED, SWITCHED TO BODY CLICKS
+        // Pro version has additional options which we don't have!
+        // WORK AROUND!!!
         birthdate.addEventListener("focus", (ev) => {
-            birthdate.style.border = "";
-            birthdateError.classList.add("hidden");
-        }); // END OF FOCUS
+          document.body.addEventListener("click", (ev) => {
+            d1 = birthdate.value;
+            if(d1 != "")
+              clearBDButton.classList.remove("hidden");
+            else
+              clearBDButton.classList.add("hidden");
 
-        // BLUR
-        birthdate.addEventListener("blur", (ev) => {
-            if (birthdate.value != "") {
-              if (d1 < d0 || d1 > d2) {
-                    birthdate.style.borderColor = "red";
-                    birthdateError.classList.remove("hidden");
-                    valid = false;
+              if (d1 != "") {
+                if (d1 < d0 || d1 > d2) {
+                      birthdate.style.borderColor = "red";
+                      birthdateError.classList.remove("hidden");
+                      valid = false;
+                }else{
+                  birthdate.style.border = "";
+                  birthdateError.classList.add("hidden");
                 }
-            }
-        }); // END OF BLUR
 
-        // SET MAX DATE
-        birthdate.setAttribute("max", getTodaysDate());
+              }
+          }); // END OF BODY CLICK
+        }); // END FOCUS
 
-        // SAFARI FIX
+        // DATEDROPPER FAILSAFE
         if (birthdate.type != "date")
             birthdate.setAttribute("placeholder", "yyyy-mm-dd");
 
@@ -787,6 +781,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 // CHECK BIRTHDAY
                 if (birthdate.value != "") {
+                  //CHECK YEAR
                     if (d1 < d0 || d1 > d2) {
                         birthdate.style.borderColor = "red";
                         birthdateError.classList.remove("hidden");
@@ -1304,7 +1299,7 @@ function getTodaysDate() {
         mm = '0' + mm
     }
 
-    today = mm + '/' + dd + '/' + yyyy;
+    today = yyyy + "-" + mm + "-" + dd;
 
     return today;
 } // END OF GET TODAYS DATE
