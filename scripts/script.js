@@ -1,6 +1,6 @@
 /*-------------------------------------------------------
 |
-|   PAGE:           script.js
+|   FILE:           script.js
 |
 |   DESCRIPTION:    All javascript that is applied to
 |                   the site can be found here
@@ -18,11 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const close = document.querySelectorAll(".close");
     const view_button = document.querySelectorAll(".viewbutton");
-
     var addlistlink = document.querySelector("#add-list-nav");
-    var addlist = document.querySelector("#addlist");
-    var complete = document.getElementById("complete");
-    var birthdate = document.getElementById("birthdate");
     var imagelink = document.getElementById("image");
     var navIcon = document.getElementById("nav-icon");
     var viewList = document.querySelectorAll(".viewList");
@@ -36,7 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
     |
     --------------------------------------*/
     if (document.title == "Login") {
-        
+
         /*-----------------------------
         |
         |   OPEN FORGOT PASSWORD MODAL
@@ -47,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const changer = document.querySelector("#forgotChange");
             const username = document.querySelector("#forgotCheck>input");
             const email = document.querySelector("#forgotCheck>input:last-of-type");
-            
+
             // Set up the modal sections
             checker.classList.remove("hidden");
             changer.classList.add("hidden");
@@ -67,14 +63,10 @@ window.addEventListener('DOMContentLoaded', () => {
                 if (username.value == "") {
                     userError.classList.remove("hidden");
                     valid = false;
-                }
-                
-                else if (email.value == "") {
+                } else if (email.value == "") {
                     emailError.classList.remove("hidden");
                     valid = false;
-                }
-                
-                else if (!emailIsValid(email.value)) {
+                } else if (!emailIsValid(email.value)) {
                     emailError.classList.remove("hidden");
                     valid = false;
                 }
@@ -84,7 +76,8 @@ window.addEventListener('DOMContentLoaded', () => {
                     // Process POST
                     const XHR = new XMLHttpRequest();
 
-                    let urlEncodeData = "", urlEncodeDataPairs = [];
+                    let urlEncodeData = "",
+                        urlEncodeDataPairs = [];
 
                     urlEncodeDataPairs.push(encodeURIComponent("username") + '=' + encodeURIComponent(username.value));
                     urlEncodeDataPairs.push(encodeURIComponent("email") + '=' + encodeURIComponent(email.value));
@@ -122,9 +115,7 @@ window.addEventListener('DOMContentLoaded', () => {
                                     passError.classList.remove("hidden");
                                     confError.classList.remove("hidden");
                                     valid = false;
-                                }
-                                
-                                else if (password.value != confpassword.value) {
+                                } else if (password.value != confpassword.value) {
                                     confError.classList.remove("hidden");
                                     valid = false;
                                 }
@@ -138,8 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
                                     processChangePass(data);
                                 }
                             });
-                        } 
-                        else
+                        } else
                             alert("Account not found.");
                     });
 
@@ -204,7 +194,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 // IF FILLED OUT POST TO SELF
                 if (response) {
                     var post = new XMLHttpRequest();
-                    let urlEncodeData = "", urlEncodeDataPairs = [];
+                    let urlEncodeData = "",
+                        urlEncodeDataPairs = [];
 
                     urlEncodeDataPairs.push(encodeURIComponent("deleteList") + '=' + encodeURIComponent(""));
                     urlEncodeDataPairs.push(encodeURIComponent("listName") + '=' + encodeURIComponent(response));
@@ -221,9 +212,9 @@ window.addEventListener('DOMContentLoaded', () => {
                     post.send(urlEncodeData);
                 }
             }); // END OF REMOVE LIST
-        }// END OF REMOVE LIST
+        } // END OF REMOVE LIST
 
-        
+
         /*-----------------------------
         |
         |          EDIT LIST
@@ -258,7 +249,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 editButton.parentElement.appendChild(listNumber);
             });
-        }// END OF EDIT LIST
+        } // END OF EDIT LIST
 
 
         /*---------------------------*/
@@ -281,7 +272,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     let valid = true;
 
                     itemError.classList.add("hidden");
-                    
+
                     if (itemName.value == "") {
                         itemError.classList.remove("hidden");
                         valid = false;
@@ -295,7 +286,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 // I FEEL LUCKY
                 document.getElementById("feelingLucky").addEventListener("click", event => {
                     event.preventDefault();
-                    
+
                     // REMOVES ERROR IF PRESENT
                     document.querySelector("#itemname~span").classList.add("hidden");
 
@@ -313,10 +304,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
                             if (data != null)
                                 document.getElementById("luckydescription").parentElement.classList.remove("hidden");
-                            
+
                             else
                                 document.getElementById("luckydescription").parentElement.classList.add("hidden");
-                            
+
 
                         }
                     };
@@ -325,8 +316,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 });
 
-            }); 
-        }// END OF ADD ITEM
+            });
+        } // END OF ADD ITEM
 
 
         /*-----------------------------
@@ -339,10 +330,10 @@ window.addEventListener('DOMContentLoaded', () => {
                 edit_button.addEventListener("click", function () {
                     // REDIRECT TO EDIT ITEM PAGE
                     location.href = 'edit_item.php?item=' + edit_button.value;
-                })); 
-        }// END OF EDIT ITEM
+                }));
+        } // END OF EDIT ITEM
 
-        
+
         /*-----------------------------
         |
         |          REMOVE ITEM
@@ -360,7 +351,8 @@ window.addEventListener('DOMContentLoaded', () => {
                     if (response) {
                         var post = new XMLHttpRequest();
 
-                        let urlEncodeData = "", urlEncodeDataPairs = [];
+                        let urlEncodeData = "",
+                            urlEncodeDataPairs = [];
 
                         urlEncodeDataPairs.push(encodeURIComponent("deleteItem") + '=' + encodeURIComponent(""));
                         urlEncodeDataPairs.push(encodeURIComponent("itemDeleted") + '=' + encodeURIComponent(listItemId));
@@ -377,10 +369,10 @@ window.addEventListener('DOMContentLoaded', () => {
                         post.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         post.send(urlEncodeData);
                     }
-                })); 
-        }// END OF REMOVE ITEM
+                }));
+        } // END OF REMOVE ITEM
 
-    }// END OF VIEW LIST PAGE
+    } // END OF VIEW LIST PAGE
 
 
     /*--------------------------------------
@@ -395,6 +387,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (document.title == "Edit List Item") {
         var itemName = document.getElementById('itemname');
         var nameError = document.querySelector("#itemname~span");
+        var complete = document.getElementById("complete");
         var compError = document.querySelector("#complete~span");
         var filePath = document.getElementById('file');
         var fileError = document.querySelector("#file~span");
@@ -416,7 +409,7 @@ window.addEventListener('DOMContentLoaded', () => {
         itemName.addEventListener("focus", event => {
             itemName.style.border = "";
             nameError.classList.add("hidden");
-        });// END OF FOCUS
+        }); // END OF FOCUS
 
         // BLUR
         itemName.addEventListener("blur", event => {
@@ -431,7 +424,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 fileError.classList.add("hidden");
                 valid = true;
             }
-        });// END OF BLUR
+        }); // END OF BLUR
 
 
         /*-----------------------------
@@ -450,7 +443,7 @@ window.addEventListener('DOMContentLoaded', () => {
         complete.addEventListener("focus", (ev) => {
             complete.style.border = "";
             compError.classList.add("hidden");
-        });// END OF FOCUS
+        }); // END OF FOCUS
 
         // BLUR
         complete.addEventListener("blur", (ev) => {
@@ -461,8 +454,14 @@ window.addEventListener('DOMContentLoaded', () => {
                     valid = false;
                 }
             }
-        });// END OF BLUR
+        }); // END OF BLUR
 
+        // SET MAX COMPLETION DATE
+        complete.setAttribute("max", getTodaysDate());
+
+        // SAFARI FIX
+        if (complete.type != "date")
+            complete.setAttribute("placeholder", "yyyy-mm-dd");
 
         /*-----------------------------
         |
@@ -475,7 +474,7 @@ window.addEventListener('DOMContentLoaded', () => {
             // FOCUS
             filePath.addEventListener("focus", event => {
                 fileError.classList.add("hidden");
-            });// FOCUS
+            }); // FOCUS
 
             // BLUR
             filePath.addEventListener("blur", event => {
@@ -483,11 +482,10 @@ window.addEventListener('DOMContentLoaded', () => {
                     fileError.classList.remove("hidden");
                     valid = false;
                     clearButton.classList.remove("hidden");
-                }
-                else if (filePath.files[0] != null)
+                } else if (filePath.files[0] != null)
                     clearButton.classList.remove("hidden");
-            });// END OF BLUR
-        }// END OF FILE PATH
+            }); // END OF BLUR
+        } // END OF FILE PATH
 
 
         /*-----------------------------
@@ -501,7 +499,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 document.querySelector("#file~span").classList.add("hidden");
                 clearButton.classList.add("hidden");
             });
-        }// END OF CLEAR BUTTON
+        } // END OF CLEAR BUTTON
 
 
         /*-----------------------------
@@ -512,7 +510,7 @@ window.addEventListener('DOMContentLoaded', () => {
         editButton.addEventListener("click", event => {
             if (!valid)
                 event.preventDefault();
-        });// END OF EDIT BUTTON
+        }); // END OF EDIT BUTTON
 
 
         /*-----------------------------
@@ -530,7 +528,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 // IF FILLED OUT POST TO SELF
                 if (response) {
                     var post = new XMLHttpRequest();
-                    let urlEncodeData = "", urlEncodeDataPairs = [];
+                    let urlEncodeData = "",
+                        urlEncodeDataPairs = [];
 
                     urlEncodeDataPairs.push(encodeURIComponent("remove-image") + '=' + encodeURIComponent(""));
                     urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
@@ -545,7 +544,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     post.send(urlEncodeData);
                 }
             });
-        }// END OF REMOVE IMAG
+        } // END OF REMOVE IMAG
 
 
         /*-----------------------------
@@ -555,7 +554,7 @@ window.addEventListener('DOMContentLoaded', () => {
         -----------------------------*/
         cancelButton.addEventListener("click", () => {
             location.href = 'view_list.php?list=' + cancelButton.value;
-        });// END OF CANCEL
+        }); // END OF CANCEL
 
     } // END OF EDIT LIST ITEM PAGE
 
@@ -585,22 +584,27 @@ window.addEventListener('DOMContentLoaded', () => {
         let lastError = document.querySelector("#lastname~span");
         let email = document.getElementById('email');
         let emailError = document.querySelector("#email~span");
+        let birthdate = document.getElementById("birthdate");
         let birthdateError = document.querySelector("#birthdate~span");
         let valid = true;
 
 
         /*-----------------------------
         |
-        |          ITEM NAME
+        |          BIRTHDATE
         |
         |   ** FOCUS AND BLUR
+        |   ** FIX FOR SAFARI AS THERE
+        |      IS NO DATE PICKER SO 
+        |      DATE MUST BE ENTERED AS
+        |      STRING
         |
         -----------------------------*/
         // FOCUS
         birthdate.addEventListener("focus", (ev) => {
             birthdate.style.border = "";
             birthdateError.classList.add("hidden");
-        });// END OF FOCUS
+        }); // END OF FOCUS
 
         // BLUR
         birthdate.addEventListener("blur", (ev) => {
@@ -611,27 +615,42 @@ window.addEventListener('DOMContentLoaded', () => {
                     valid = false;
                 }
             }
-        });// END OF BLUR
+        }); // END OF BLUR
 
+        // SET MAX DATE
+        birthdate.setAttribute("max", getTodaysDate());
 
+        // SAFARI FIX
+        if (birthdate.type != "date")
+            birthdate.setAttribute("placeholder", "yyyy-mm-dd");
         
+
+        /*--------------------------------------
+        |
+        |   PAGE:       Register
+        |
+        |   HANDLES:    Error checking for the 
+        |               registration page
+        |
+        --------------------------------------*/
         if (header == "Register") {
             var password = document.getElementById('password');
-            strengthError = document.querySelector("#password-strength-text~span");
             var tac = document.getElementById('agreebox');
             var tacError = document.querySelector("#agreebox~span");
             var addAccount = document.getElementById('register');
+            strengthError = document.querySelector("#password-strength-text~span");
 
             // USERNAME FOCUS
             userField.addEventListener("focus", event => {
                 userError.classList.add("hidden");
                 userField.style.borderColor = "";
-            });
+            });// END OF FOCUS
 
             // USERNAME BLUR
             userField.addEventListener("blur", event => {
                 let username = userField.value;
 
+                // AJAX REQUEST TO CHECK IF THE USERNAME EXISTS ALREADY
                 if (username != "") {
                     var xhttp = new XMLHttpRequest();
                     xhttp.open("GET", "api/response.php?username=" + username);
@@ -641,6 +660,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             var data = JSON.parse(this.responseText);
 
                             if (data != null) {
+                                // IF USER NAME EXISTS; ERROR
                                 if (data['username'] == username) {
                                     userError.innerHTML = "Sorry that username is already taken";
                                     userError.classList.remove("hidden");
@@ -662,52 +682,33 @@ window.addEventListener('DOMContentLoaded', () => {
                     valid = false;
                 }
 
-            });
-        }
-
-        if (header == "Edit Account Information") {
-            var newpassword = document.getElementById('new_password');
-            strengthError = document.querySelector("#newpassword-strength-text~span");
-            var updateAccount = document.getElementById("update");
-            var deleteAccount = document.querySelector("button[name=deleteAccount]");
-            password = document.getElementById('new_password');
-            meter = document.getElementById('newpassword-strength');
-            text = document.getElementById('newpassword-strength-text');
-
-            newpassword.value = null;
-        }
-
-        passwordStrength(password, meter, text);
-
-        // PASSWORD FOCUS
-        password.addEventListener("focus", event => {
-            strengthError.classList.add("hidden");
-            password.style.borderColor = "";
-        });
-
-        // PASSWORD BLUR
-        password.addEventListener("blur", event => {
-            if ((header == "Edit Account Information" && password.value != "") || header == "Register") {
-                if (meter.value < 2) {
-                    strengthError.classList.remove("hidden");
-                    password.style.borderColor = "red";
-                    valid = false;
-                } else {
-                    strengthError.classList.add("hidden");
-                    password.style.borderColor = "black";
-                    valid = true;
-                }
-            }
-        });
+            });// END OF BLUR
 
 
-
-
-
-
-        // REGISTRATION VALIDATION
-        if (addAccount != null) {
+            /*-----------------------------
+            |
+            |    REGISTRATION VALIDATION
+            |
+            -----------------------------*/
             addAccount.addEventListener("click", event => {
+                resetErrors();
+
+                // RESET ALL ERROR MESSAGES AND VALIDITY
+                function resetErrors(){
+                    valid = true;
+                    password.style.borderColor = "";
+                    passError.classList.add("hidden");
+                    firstname.style.borderColor = "";
+                    firstError.classList.add("hidden");
+                    lastname.style.borderColor = "";
+                    lastError.classList.add("hidden");
+                    email.style.borderColor = "";
+                    emailError.classList.add("hidden");
+                    birthdate.style.borderColor = "";
+                    birthdateError.classList.add("hidden");
+                    tac.style.borderColor = "";
+                    tacError.classList.add("hidden");
+                }// END OF RESET ERRORS
 
                 // CHECK PASSWORDS
                 if (password.value == "" || password.value != passwordConf.value) {
@@ -746,21 +747,65 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
+                // CHECK FOR TERMS AND CONDITIONS
                 if (!tac.checked) {
                     tac.style.borderColor = "red";
                     tacError.classList.remove("hidden");
                     valid = false;
                 }
 
+                // IF ERRORS STOP SUBMISSION
                 if (!valid)
                     event.preventDefault();
 
-            });
-        }
+            });// END OF REGISTRATION VALIDATION
 
-        // UPDATE VALIDATION
-        if (updateAccount != null) {
+        }// END OF REGISTER PAGE
+
+
+        /*--------------------------------------
+        |
+        |   PAGE:       Edit Account
+        |
+        |   HANDLES:    Error checking for the 
+        |               edit account page as 
+        |               well as account deletion
+        |
+        --------------------------------------*/
+        if (header == "Edit Account Information") {
+            var newpassword = document.getElementById('new_password');
+            var updateAccount = document.getElementById("update");
+            var deleteAccount = document.querySelector("button[name=deleteAccount]");
+            strengthError = document.querySelector("#newpassword-strength-text~span");
+            password = document.getElementById('new_password');
+            meter = document.getElementById('newpassword-strength');
+            text = document.getElementById('newpassword-strength-text');
+
+            newpassword.value = null;
+
+            /*-----------------------------
+            |
+            |    EDIT ACCOUNT VALIDATION
+            |
+            -----------------------------*/
             updateAccount.addEventListener("click", event => {
+                resetErrors();
+
+                // RESET ALL ERROR MESSAGES AND VALIDITY
+                function resetErrors(){
+                    valid = true;
+                    password.style.borderColor = "";
+                    passError.classList.add("hidden");
+                    firstname.style.borderColor = "";
+                    firstError.classList.add("hidden");
+                    lastname.style.borderColor = "";
+                    lastError.classList.add("hidden");
+                    email.style.borderColor = "";
+                    emailError.classList.add("hidden");
+                    birthdate.style.borderColor = "";
+                    birthdateError.classList.add("hidden");
+                }// END OF RESET ERRORS
+                
                 // CHECK PASSWORDS
                 if (password.value != "") {
                     if (password.value != passwordConf.value) {
@@ -800,30 +845,36 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
+                // IF ERRORS STOP SUBMISSION
                 if (!valid)
                     event.preventDefault();
-            });
-        }
-        // DELETE ACCOUNT
-        if (deleteAccount != null) {
+            });// END OF EDIT ACCOUNT VALIDATION
+
+            
+            /*-----------------------------
+            |
+            |       DELETE ACCOUNT
+            |
+            -----------------------------*/
             deleteAccount.addEventListener("click", event => {
+                // PROMPT USER TO CONFIRM ACCOUNT DELETION BY ENTERING USERNAME
                 var response = prompt("This will permanently delete your account. \nYou will have no way to restore your account or retrieve list/list items after this process. \nEnter Username to confirm", "");
 
+                // IF FILLED IN AND USERNAME MATCHES; POST TO SELF
                 if (response == username.value) {
                     var post = new XMLHttpRequest();
 
-                    let urlEncodeData = "",
-                        urlEncodeDataPairs = [];
+                    let urlEncodeData = "", urlEncodeDataPairs = [];
 
                     urlEncodeDataPairs.push(encodeURIComponent("deleteAccount") + '=' + encodeURIComponent(""));
                     urlEncodeData = urlEncodeDataPairs.join('&').replace(/%20/g, '+');
 
+                    // SUCCESSFULL DELETE; REDIRECT TO LOGIN
                     post.addEventListener("load", function (event) {
                         console.log("Account Deleted.")
                         const XHR = new XMLHttpRequest();
 
-                        let urlEncodeData = "",
-                            urlEncodeDataPairs = [];
+                        let urlEncodeData = "", urlEncodeDataPairs = [];
 
                         urlEncodeDataPairs.push(encodeURIComponent("logout") + '=' + encodeURIComponent(""));
 
@@ -856,31 +907,154 @@ window.addEventListener('DOMContentLoaded', () => {
                     post.send(urlEncodeData);
                 }
 
-            });
-        }
+            });// END OF DELETE ACCOUNT
+
+        }// END OF EDIT ACCOUNT PAGE
+
+        passwordStrength(password, meter, text);
+
+
+        /*-----------------------------
+        |
+        |          PASSWORD
+        |
+        |   ** FOCUS AND BLUR
+        |
+        -----------------------------*/
+        // PASSWORD FOCUS
+        password.addEventListener("focus", event => {
+            strengthError.classList.add("hidden");
+            password.style.borderColor = "";
+        });// END OF FOCUS
+
+        // PASSWORD BLUR
+        password.addEventListener("blur", event => {
+            // CHECK PASSWORD STRENGTH
+            if ((header == "Edit Account Information" && password.value != "") || header == "Register") {
+                if (meter.value < 2) {
+                    strengthError.classList.remove("hidden");
+                    password.style.borderColor = "red";
+                    valid = false;
+                } else {
+                    strengthError.classList.add("hidden");
+                    password.style.borderColor = "black";
+                    valid = true;
+                }
+            }
+        });// END OF BLUR
+
     } // END OF ACCOUNT PAGE
 
-    
+
     /*--------------------------------------
     |
-    |           VIEW ITEM
-    |  SAMPLE ADD ITEM REDIRECT
+    |   PAGE:       Sample List
+    |
+    |   HANDLES:    Redirect to login when 
+    |               add button is clicked
+    |
+    |               Login will redirect to 
+    |               display lists page if
+    |               already logged in
     |
     --------------------------------------*/
-    // VIEW A LIST ITEM
+    if (document.title == "Sample List") {
+        const redirect = document.getElementById("additem");
 
+        redirect.addEventListener("click", ev => {
+            location.href = "login.php";
+        });
+    }// END OF SAMPLE LIST PAGE
+
+
+    /*--------------------------------------
+    |
+    |   PAGE:       All Lists
+    |
+    |   HANDLES:    Open the add list modal
+    |               fro the all lists page
+    |
+    |               Nav bar button is found 
+    |               below under all pages 
+    |               section
+    |
+    --------------------------------------*/
+    if(document.title == "All Lists"){
+        var addlist = document.querySelector("#addlist");
+
+        // OPEN ADD LIST MODAL
+        // WILL ONLY OPEN IF LOGGED IN
+        if(addlist != null){
+            addlist.addEventListener("click", () => {
+                let addButton = document.getElementById("addListToDB");
+
+                addButton.name = "submitList";
+                addButton.innerHTML = "Add List";
+
+                document.getElementById('create-modal').style.display = 'block';
+
+                // ADD LIST
+                document.getElementById("addListToDB").addEventListener("click", event => {
+                    const listName = document.getElementById("listName");
+                    const listError = document.querySelector("#listName~span");
+
+                    listError.classList.add("hidden");
+                    let valid = true;
+
+                    if (listName.value == "") {
+                        listError.classList.remove("hidden");
+                        valid = false;
+                    }
+
+                    if (!valid)
+                        event.preventDefault();
+
+                });
+            });
+        }
+    } // END OF ADD LIST
+
+
+    /*-------------------------------------*/
+    /*-------------------------------------*/
+    /*-------------------------------------*/
+    
+
+    /*--------------------------------------
+    |
+    |   PAGE:       All Pages
+    |
+    |   HANDLES:    Event Listeners for 
+    |               view list items, add 
+    |               list from the navigation 
+    |               bar, open image modal, 
+    |               view list from search 
+    |               results/index/and all 
+    |               lists pages, close 
+    |               modal buttons and drop
+    |               down for responsive 
+    |               navigation bar
+    |
+    --------------------------------------*/
+
+    /*--------------------------------------
+    |
+    |               VIEW ITEM
+    |
+    --------------------------------------*/
     if (view_button != null) {
         view_button.forEach(view_button =>
             view_button.addEventListener("click", function () {
                 var id = view_button.value;
                 let itemid = view_button.value;
-                console.log("You are about to view item: " + itemid);
 
+                // SHOW VIEW ITEM MODAL
                 document.getElementById('view-modal').style.display = 'block';
 
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("GET", "api/response.php?itemid=" + itemid);
 
+                // AJAX REQUEST TO GET ALL THE ITEM INFORMATION TO POPULATE ALL FIELDS
                 xhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
                         let data = JSON.parse(this.responseText);
@@ -903,7 +1077,6 @@ window.addEventListener('DOMContentLoaded', () => {
                         } else {
                             datefield.parentElement.classList.add("hidden");
                         }
-
                     }
                 };
                 xhttp.send();
@@ -911,19 +1084,23 @@ window.addEventListener('DOMContentLoaded', () => {
         );
     } // END OF VIEW ITEM
 
-    if (document.title == "Sample List") {
-        const redirect = document.getElementById("additem");
 
-        redirect.addEventListener("click", ev => {
-            location.href = "login.php";
-        });
-    }
+    /*--------------------------------------
+    |
+    |               VIEW LIST
+    |
+    --------------------------------------*/ 
+    if (viewList != null) {
+        viewList.forEach(viewList =>
+            viewList.addEventListener("click", event => {
+                location.href = "view_list.php?list=" + viewList.value;
+            }));
+    } // END OF VIEW LIST
 
 
     /*--------------------------------------
     |
-    |               ADD LISTS
-    | FROM NAV OR ON MANAGE PAGE
+    |          ADD LISTS FROM NAV
     |
     --------------------------------------*/
     if (addlistlink != null) {
@@ -932,45 +1109,15 @@ window.addEventListener('DOMContentLoaded', () => {
             const listName = document.getElementById("listName");
             const listError = document.querySelector("#listName~span");
 
-            document.getElementById("listName").value = "";
-
             addButton.name = "submitList";
             addButton.innerHTML = "Add List";
             listError.classList.add("hidden");
 
+            // SHOW ADD ITEM MODAL
             document.getElementById('create-modal').style.display = 'block';
 
+            // FORM VALIDATION
             document.getElementById("addListToDB").addEventListener("click", event => {
-                listError.classList.add("hidden");
-                let valid = true;
-
-                if (listName.value == "") {
-                    listError.classList.remove("hidden");
-                    valid = false;
-                }
-
-                if (!valid)
-                    event.preventDefault();
-
-            });
-        });
-    } // end if addlistlink != null
-
-    if (addlist != null) {
-        addlist.addEventListener("click", () => {
-            let addButton = document.getElementById("addListToDB");
-            document.getElementById("listName").value = "";
-
-            addButton.name = "submitList";
-            addButton.innerHTML = "Add List";
-
-            document.getElementById('create-modal').style.display = 'block';
-
-            // ADD LIST
-            document.getElementById("addListToDB").addEventListener("click", event => {
-                const listName = document.getElementById("listName");
-                const listError = document.querySelector("#listName~span");
-
                 listError.classList.add("hidden");
                 let valid = true;
 
@@ -985,6 +1132,7 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         });
     } // END OF ADD LIST
+
 
     /*--------------------------------------
     |
@@ -1006,42 +1154,19 @@ window.addEventListener('DOMContentLoaded', () => {
     } // END OF IMAGE CLICK
 
 
-
     /*--------------------------------------
     |
     |        CLOSE BUTTONS FOR MODALS
     |
-    --------------------------------------*/
-    // Enable close on all modal windows
+    --------------------------------------*/ 
     if (close != null) {
         close.forEach(close => {
+            // Enable close on all modal windows
             close.addEventListener("click", (ev) => {
                 ev.target.parentElement.parentElement.parentElement.style.display = 'none';
             });
         }); // End close foreach
     } // END OF CLOSE
-
-    /*--------------------------------------
-    |
-    |             SET MAX DATE
-    |
-    --------------------------------------*/
-    // MAX DATE
-    if (complete != null || birthdate != null) {
-        // <!-- SET MAXIMUM DATE THAT LIST ITEM CAN BE COMPLETED -->
-        if (complete != null) {
-            complete.setAttribute("max", getTodaysDate());
-            if (complete.type != "date") {
-                complete.setAttribute("placeholder", "yyyy-mm-dd");
-                // Complete validation (if not supported)
-            }
-        } else {
-            birthdate.setAttribute("max", getTodaysDate());
-            if (birthdate.type != "date") {
-                birthdate.setAttribute("placeholder", "yyyy-mm-dd");
-            }
-        }
-    } // END OF MAX DATE
 
 
     /*--------------------------------------
@@ -1049,7 +1174,6 @@ window.addEventListener('DOMContentLoaded', () => {
     |             DROP DOWN ON NAV
     |
     --------------------------------------*/
-    // LISTS DROPDOWN
     navIcon.addEventListener("click", () => {
         var listsdropdown = document.getElementById("myTopnav");
         console.log(listsdropdown);
@@ -1059,15 +1183,6 @@ window.addEventListener('DOMContentLoaded', () => {
             listsdropdown.className = "topnav";
         }
     }); // END OF LISTS DROPDOWN
-
-
-    // EDIT A LIST ITEM
-    if (viewList != null) {
-        viewList.forEach(viewList =>
-            viewList.addEventListener("click", event => {
-                location.href = "view_list.php?list=" + viewList.value;
-            }));
-    } // END OF EDIT ITEM
 
 }); // END OF DOMContentLoaded
 
@@ -1079,12 +1194,14 @@ window.addEventListener('DOMContentLoaded', () => {
 /*----------------------------------------------------------------------------*/
 
 
-/*--------------------------------------
+/*----------------------------------------
 |
-|        processChangePass(data)
-| Changes password for forgot password
+|   NAME:           processChangePass()
+|   
+|   DESCRIPTION:    Changes password for
+|                   forgot password
 |
---------------------------------------*/
+----------------------------------------*/
 function processChangePass(data) {
     const XHR = new XMLHttpRequest();
 
@@ -1118,13 +1235,16 @@ function processChangePass(data) {
     XHR.send(urlEncodeData);
 } // END OF PROCESS CHANGE PASS
 
-/*--------------------------------------
+
+/*----------------------------------------
 |
-|           getTodaysDate()
-| Get the current date in the format
-| yyyy-mm-dd
+|   NAME:           getTodaysDate()
+| 
+|   DESCRIPTION:    Get the current date 
+|                   in the format 
+|                   yyyy-mm-dd
 |
---------------------------------------*/
+----------------------------------------*/
 function getTodaysDate() {
     var today = new Date();
     var dd = today.getDate();
@@ -1142,13 +1262,18 @@ function getTodaysDate() {
     return today;
 } // END OF GET TODAYS DATE
 
-/*--------------------------------------
+
+/*----------------------------------------
 |
-|    passwordStrength(password, meter, text)
-| Live update of password strength
-| Applies to Acccount information, Forgot Password
+|   NAME:           passwordStrength()
+| 
+|   DESCRIPTION:    Live update of 
+|                   password strength
+|                   Applies to Acccount 
+|                   information, Forgot 
+|                   Password
 |
---------------------------------------*/
+----------------------------------------*/
 function passwordStrength(password, meter, text) {
     var strength = {
         0: "Weakest",

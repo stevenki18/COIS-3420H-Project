@@ -1,6 +1,6 @@
 /*-------------------------------------------------------
 |
-|   PAGE:           google.js
+|   FILE:           google.js
 |
 |   DESCRIPTION:    Handles Google sign and account
 |                   creation

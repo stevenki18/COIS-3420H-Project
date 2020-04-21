@@ -1,6 +1,6 @@
 /*-------------------------------------------------------
 |
-|   PAGE:           zxcvbn.js (JAVASCRIPT PLUGGIN)
+|   FILE:           zxcvbn.js (JAVASCRIPT PLUGGIN)
 |
 |   DESCRIPTION:    Handles password strength
 |
