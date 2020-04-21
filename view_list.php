@@ -1,12 +1,26 @@
 <?php
-    // Check for a valid session (if not redirect back to login)
+    /*-----------------------------------------------------------
+    |
+    |   PAGE:         view_list.php
+    |
+    |   DESCRIPTION:  Displays the a lists details and items. 
+    |                 Used for both user lists and public lists.
+    |                 This page will populate with additional
+    |                 buttons if the owner of the list is logged
+    |                 in. This includes edit and delete buttons
+    |                 for both the list and all list items and 
+    |                 an add list item button which opens the 
+    |                 add list modal
+    |
+    -----------------------------------------------------------*/
     session_start();
     // DOING THIS TO GET AROUND MULTITUDE OF ERRORS WHEN TRYING TO VIEW PUBLIC WHEN NOT LOGGED IN
-    if(!isset($_SESSION['user'])){
+    if(!isset($_SESSION['user']))
         $_SESSION['id'] = 0;
-    }
+    
 
     require_once './includes/library.php';
+    $pdo = connectDB();
 
     $errors = [];
     $listitem = "";
@@ -14,9 +28,12 @@
     $user = $_SESSION['id'];
     $listid = $_GET['list'];
 
-    $pdo = connectDB();
-
-    // GET LIST INFO
+    
+    /*---------------------------
+    |
+    |          LIST INFO
+    |
+    ---------------------------*/
     $query = "SELECT * FROM `g10_lists` WHERE id = ?";
     $stmt = $pdo->prepare($query);
     $stmt->execute([$listid]);
@@ -29,13 +46,24 @@
         exit();
     }
 
-    // GET ALL LIST ITEMS
+
+    /*---------------------------
+    |
+    |       LIST ITEMS
+    |
+    ---------------------------*/
     $query =  "SELECT id, name, completion, private FROM `g10_listitems` WHERE fk_listid = ?";
     $stmt = $pdo->prepare($query);
     $stmt->execute([$listid]);
     $listitems = $stmt->fetchAll();
 
-    // DELETE LIST
+
+    /*---------------------------
+    |
+    |       DELETE LIST
+    |
+    |   ** POST COMES FROM JS
+    ---------------------------*/
     if(isset($_POST['deleteList'])) {
         if($_POST['listName'] == $list['listname']){
             $query = "DELETE FROM `g10_lists` WHERE id = ?";
@@ -46,10 +74,15 @@
             header("Location: display_list.php");
             exit();
         }
+    }// END OF DELETE LIST
 
-    }
 
-    // DELETE LIST ITEM
+    /*---------------------------
+    |
+    |      DELETE LIST ITEM
+    |
+    |   ** POST COMES FROM JS
+    ---------------------------*/
     if(isset($_POST['deleteItem'])) {
         $id = $_POST['itemDeleted'];
 
@@ -67,22 +100,26 @@
             header("Location: view_list.php?list=".$listid);
             exit();
         }
+    }// END OF DELETE LIST ITEM
 
-    }
 
-    // ADD LIST ITEM
+    /*---------------------------
+    |
+    |       ADD LIST ITEM
+    |
+    ---------------------------*/
     if(isset($_POST['add_item'])){
-        $listitem = $_POST['itemname'];
-
-        if($listitem == null || strlen($listitem) == 0)
+        $listitem = filter_var($_POST['itemname'], FILTER_SANITIZE_STRING);
+        // ITEM NAME
+        if(!$listitem || strlen($listitem) == 0)
             array_push($errors, "Please Enter An Item Name");
-
+        // VIEWABLE
         if(isset($_POST['viewable']))
             $viewable = 0;
-
+        // I"M FEELING LUCKY
         if(isset($_POST['lukcydescription']))
           $desc = $_POST['lukcydescription'];
-
+        // No errors do the work with the datbase
         if(sizeof($errors == 0)){
             $pdo = connectDB();
             $query = "INSERT INTO `g10_listitems` (id, fk_listid, name, description, private) VALUES (NULL, ?, ?, ?, ?)";
@@ -93,10 +130,8 @@
             unset($_POST);
             header("Location: edit_item.php?item=".$last_id);
             exit();
-        }
-    }
-
-
+        }// END OF DB WORK
+    }// END OF ADD LIST ITEM
 
 ?>
 <!DOCTYPE html>
@@ -110,13 +145,11 @@
     </head>
 
     <body>
-        <!-- HEADER -->
         <header>
             <?php include 'includes/nav.php' ?>
         </header>
 
         <main>
-            <!-- DISPLAYS LIST -->
             <header>
                 <!-- LIST NAME -->
                 <h1>
@@ -143,6 +176,7 @@
                 <?php endif ?>
 
                 <!-- EDIT LIST -->
+                <!-- DELETE LIST -->
                 <?php if($list['fk_userid'] == $_SESSION['id']):?>
                     <div>
                         <button type="button" id = "editList"><i class="fa fa-edit"></i></button>
@@ -151,23 +185,28 @@
                 <?php endif ?>
             </header>
 
-            <!-- IN PROGRESS -->
+        <section>
             <h2>In Progress</h2>
             <ul>
                 <?php foreach($listitems as $row): ?>
-                    <!-- PRIVATE ITEM AND NOT OWNER OF LIST -->
-                    <?php if(($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id'])||$row['completion'] != null)
+                    <!-- SKIP COMPLETED ITEMS AND PRIVATE ITEM WHERE USER IS NOT OWNER OF LIST -->
+                    <!-- DISPLAYED IN COMPLETED SECTION -->
+                    <?php 
+                        if(($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id']) || $row['completion'] != null)
                             continue;
                     ?>
 
                     <li>
+                        <!-- PRIVATE ITEM -->
                         <?php if ($row['private'] == 1):?>
-                                <span><i class="fa fa-lock"></i> <?= $row['name']?></span>
+                            <span><i class="fa fa-lock"></i> <?= $row['name']?></span>
+                        <!-- PUBLIC ITEM -->
                         <?php else: ?>
                             <span><i class="fa fa-unlock"></i> <?= $row['name']?></span>
                         <?php endif ?>
                         <div>
                             <button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
+                            <!-- EDIT AND DELETE BUTTON -->
                             <?php if($list['fk_userid'] == $_SESSION['id']):?>
                                 <button type="button" name="edititem" value="<?= $row['id']?>" class="editbutton"><i class="fa fa-edit"></i></button>
                                 <button type="button" name="deleteitem" value="<?= $row['id']?>" class="delete removebutton"><i class="fa fa-trash"></i></button>
@@ -180,25 +219,31 @@
                 <?php if($list['fk_userid'] == $_SESSION['id']):?>
                     <li><button id = "additem"><i class="fa fa-plus"></i></button></li>
                 <?php endif ?>
-
             </ul>
+        </section>
 
+        <section>
             <h2>Completed</h2>
             <ul>
                 <?php foreach($listitems as $row): ?>
-                    <!-- PRIVATE ITEM AND NOT OWNER OF LIST -->
-                    <?php if(($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id']) || $row['completion'] == null)
+                    <!-- SKIP INCOMPLETE ITEMS AND PRIVATE ITEM WHERE USER IS NOT OWNER OF LIST -->
+                    <!-- DISPLAYED IN PROGRESS SECTION -->
+                    <?php 
+                        if(($row['private'] == 1 && $list['fk_userid'] != $_SESSION['id']) || $row['completion'] == null)
                             continue;
                     ?>
 
                     <li>
+                        <!-- PRIVATE ITEM -->
                         <?php if ($row['private'] == 1):?>
-                                <span><i class="fa fa-lock"></i> <?= $row['name']?></span>
+                            <span><i class="fa fa-lock"></i> <?= $row['name']?></span>
+                        <!-- PUBLIC ITEM -->
                         <?php else: ?>
                             <span><i class="fa fa-unlock"></i> <?= $row['name']?></span>
                         <?php endif ?>
                         <div>
                             <button class="viewbutton" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
+                            <!-- EDIT AND DELETE BUTTONS -->
                             <?php if($list['fk_userid'] == $_SESSION['id']):?>
                                 <button type="button" name="edititem" value="<?= $row['id']?>" class="editbutton"><i class="fa fa-edit"></i></button>
                                 <button type="button" name="deleteitem" value="<?= $row['id']?>" class="delete removebutton"><i class="fa fa-trash"></i></button>
@@ -211,14 +256,15 @@
                 </li>
 
             </ul>
-
-            <?php include 'modals/add_item.php' ?>
-            <?php include 'modals/view_item.php' ?>
-            <?php include 'modals/image_view.php' ?>
+        </section>
+        <?php 
+            include 'modals/add_item.php';
+            include 'modals/view_item.php';
+            include 'modals/image_view.php'
+        ?>
 
         </main>
 
-        <!-- FOOTER -->
         <?php include 'includes/footer.php' ?>
 
     </body>

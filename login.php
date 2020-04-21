@@ -1,12 +1,21 @@
 <?php
-
+  /*-----------------------------------------------------------
+  |
+  |   PAGE:         login.php
+  |
+  |   DESCRIPTION:  Login page which gives the user the option
+  |                 to login to an existing account or create
+  |                 a new one either manually or by linking
+  |                 their Google account.
+  |
+  -----------------------------------------------------------*/
   session_start();
 
-  if(isset($_COOKIE['bucket'])){
+  if(isset($_COOKIE['bucket']))
     $user=$_COOKIE['bucket'];
-  }else {
+  
+  else
     $user="";
-  }
 
   // If redirected to login page and already logged in
   // Handle also if logout
@@ -15,40 +24,43 @@
     exit();
   }
 
-  /* require or include the library */
   require_once './includes/library.php';
   $pdo = connectDB();
 
-
-  /* $errors starts as an empty array */
   $errors = [];
   $usererror = false;
 
-  /* ------ <from-the-last-lab> ------- */
-  // Handle login
+  /*---------------------------
+  |
+  |           LOGIN
+  |
+  ---------------------------*/
   if(isset($_POST['login'])){
 
-
-    /* Get everything from $_POST */
+    // Get everything from $_POST
     $user = $_POST['username'] ?? NULL;
     $pass = $_POST['password'] ?? NULL;
 
-
-    /* Error Validation (from last lab) */
-    if (!isset($user) || strlen($user) === 0) array_push($errors, "Please enter a valid username.");
-    if (!isset($pass)) array_push($errors, "Incorrect Password.");
-
-    if (count($errors) === 0) {
-
+    // SANITIZE USERNAME INPUT (USING THIS TO CHECK LOGIN)
+    $sanitizedUser = filter_var($user, FILTER_SANITIZE_STRING);
+    
+    // USERNAME
+    if (!$sanitizedUser || strlen($sanitizedUser) == 0)
+      array_push($errors, "Please enter a valid username.");
+    // PASSWORD
+    if (!isset($pass)) 
+      array_push($errors, "Incorrect Password.");
+    // No errors do the work with the database
+    if (count($errors) == 0) {
       $query = "SELECT * FROM g10_users WHERE username = ?";
       $stmt = $pdo->prepare($query);
-      $results=$stmt->execute([$user]);
+      $results=$stmt->execute([$sanitizedUser]);
 
       if($row=$stmt->fetch()){
         //verify password
         if(password_verify($pass, $row['pass'])){
           session_start();
-          $_SESSION['user'] = $user;
+          $_SESSION['user'] = $sanitizedUser;
           $_SESSION['id'] = $row['id'];
 
           if (isset($_POST['remember']))
@@ -57,21 +69,28 @@
           header("Location: display_list.php");
           exit();
 
-        }else{ // password_verify
+        }
+        else
           $usererror=true;
-        }// END IF (password_verify)
 
-      }else{ //Fetch failed (No row for username)
+      }
+      
+      //Fetch failed (No row for username)
+      else 
         $usererror=true;
-      } // END IF (row fetch)
-    }
-  } // End if POST login
+    }// END OF DB WORK
+  }// END OF LOGIN
 
-  // Handle google-login
+
+  /*---------------------------
+  |
+  |       GOOGLE LOGIN
+  |
+  ---------------------------*/
   if(isset($_POST['g-login'])){
+    // NO SANITIZE AS GOOGLE HANDLES IT ON THEIR END
     $email = $_POST['email'];
     $pass = $_POST['password'];
-
 
     $query = "SELECT * FROM g10_users WHERE username = ?";
     $stmt = $pdo->prepare($query);
@@ -89,41 +108,43 @@
         echo "Success";
         exit();
 
-      }else{ // password_verify
+      }
+
+      else
         $usererror=true;
-        echo "Incorrect Password";
-      }// END IF (password_verify)
-
-    }else{ //Fetch failed (No row for username)
+    }
+    
+    //Fetch failed (No row for username)
+    else
       $usererror=true;
-      echo "No Username";
-
-    } // END IF (row fetch)
 
     exit();
-  } // End google Login (or create)
+  }// END OF GOOGLE LOGIN
 
-  // Handle logout
+  
+  /*---------------------------
+  |
+  |          LOGOUT
+  |
+  ---------------------------*/
   if(isset($_POST['logout'])){
     session_unset($_SESSION['user']);
     echo "Logged Out";
     exit();
-  }
-
+  }// END OF LOGOUT
 
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
 
 <head>
-
   <?php
       $PAGE_TITLE = "Login";
       require "includes/meta.php"
     ?>
+    <!-- ADDITIONAL SCRIPTS FOR GOOGLE SIGN IN  -->
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-    <script defer src="scripts/zxcvbn.js"></script>
-
+    <!-- <script defer src="scripts/zxcvbn.js"></script> -->
 </head>
 
 <body>
@@ -134,11 +155,10 @@
 
   <main>
     <header>
-      <!-- Register -->
       <h1>Login</h1>
     </header>
 
-    <!-- FORM -->
+    <!-- LOGIN FORM -->
     <form id="login" action="<?= $_SERVER['PHP_SELF']; ?>" method = "post">
       <!-- col align logins -->
       <div class="login-methods">
@@ -152,13 +172,16 @@
 
 
         <div class="manual-login">
-          <h4>or Manually</h4>
-
+          <!-- LOGIN -->
           <input type="text" name="username" placeholder="Username" value="<?= $user ?>" required>
           <input type="password" name="password" placeholder="Password" required>
-          <!--notice variable which triggers output of error message if sticky processing fails-->
-          <?php if ($usererror){?><span class="error">Your username or password was invalid</span> <?php }?>
+          
+          <!-- notice variable which triggers output of error message if sticky processing fails -->
+          <?php if ($usererror):?>
+            <span class="error">Your username or password was invalid</span> 
+          <?php endif ?>
 
+          <!-- REMEMBER ME -->
           <div id="remember-me-sect">
             <label for="remember_me">Remember Me</label>
             <input type="checkbox" id="remember_me" name="remember" value="0"/>
@@ -169,30 +192,29 @@
             <ul id="errors">
               <?php foreach ($errors as $error): ?>
                 <li><?= $error ?></li>
-              <?php endforeach; ?>
+              <?php endforeach ?>
             </ul>
           </div>
+          
+          <!-- LOGIN -->
+          <button type="submit" name="login">Login</button>
+          
+          <!-- FORGOT PASSWORD -->
+          <button id="forgot" class="modBtn" type="button">Forgot Password</button>
 
-          <div class="register-login">
-             <a href="accounts.php">Create Account</a>
-             <button type="submit" name="login">Login</button>
-          </div>
+          <!-- REGISTER -->
+          <button id="register" name="register">Register Here</button>
 
-          <div id="forgot-pass">
-            <button id="forgot" class="modBtn" type="button">Forgot password?</button>
-          </div>
         </div>
-
       </div>
     </form>
 
-
   </main>
 
-  <?php include 'modals/forgotpass.php' ?>
-
-
-  <?php include 'includes/footer.php' ?>
+  <?php 
+    include 'modals/forgotpass.php';
+    include 'includes/footer.php' 
+  ?>
 
 </body>
 

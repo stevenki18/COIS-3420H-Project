@@ -1,4 +1,15 @@
-<?php session_start();
+<?php 
+  /*-----------------------------------------------------------
+  |
+  |   PAGE:         index.php
+  |
+  |   DESCRIPTION:  Main home page for the site. This page
+  |                 will display 3 sample lists and 10 items
+  |                 that can be viewed
+  |
+  -----------------------------------------------------------*/
+
+  session_start();
   require_once 'includes/library.php';
   $pdo = connectDB();
 
@@ -14,7 +25,7 @@
   $stmt->execute();
   $list = $stmt->fetchAll();
 
-  // GET 5 List Items
+  // GET 10 LIST ITEMS
   $query =  "SELECT id, name, completion FROM `g10_listitems` WHERE private = ? LIMIT ?";
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(1, $private,PDO::PARAM_INT);
@@ -52,39 +63,37 @@
     <main>
       <article>
         <header>
-          <!-- LOGO -->
           <div class="logo">
             <figure>
               <img src="img/bucket.png" alt="Bucket List Logo" height=200 />
             </figure>
           </div>
-
           <h1>Welcome to My Bucket List(s)</h1>
         </header>
 
         <section id="about">
           <h2>About</h2>
-          <p>
-            At this site you will be able to create your own bucket list, and keep track on the progress.
-          </p>
+          <p>At this site you will be able to create your own bucket list, and keep track on the progress.</p>
         </section>
 
-        <section id="ideas">
+        <section id="homelists">
           <h2>Sample Public Lists</h2>
           <ul>
             <?php foreach($list as $row): ?>
               <li>
-                <span><i class="fa fa-unlock"></i> <?= $row['listname'] ?></span>
-                <div>
-                  <button><a href = "view_list.php?list=<?= $row['id']?>"><i class="fa fa-eye"></i></a></button>
-                </div>
+                <h3>
+                  <span><i class="fa fa-unlock"></i> <?= $row['listname'] ?></span>
+                  <div>
+                    <button class="viewList" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
+                  </div>
+                </h3>
               </li>
             <?php endforeach ?>
           </ul>
         </section>
 
-        <section id="top-ten">
-          <h2>Top 10</h2>
+        <section id="homeitems">
+          <h2>Sample Public List Items</h2>
           <ol>
             <?php foreach($listitems as $row): ?>
                 <!-- PUBLIC ITEMS ONLY -->
@@ -94,7 +103,7 @@
                     <i class="fa fa-check-square-o"></i>
                   <?php else: ?>
                     <i class="fa fa-square-o"></i>
-                  <?php endif; ?>
+                  <?php endif ?>
                   <?= $row['name']?></button>
                 </li>
             <?php endforeach ?>
@@ -103,11 +112,12 @@
 
       </article>
 
-      <?php include 'modals/view_item.php' ?>
-      <?php include 'modals/image_view.php' ?>
+      <?php 
+        include 'modals/view_item.php';
+        include 'modals/image_view.php' 
+      ?>
 
     </main>
-
 
     <?php include 'includes/footer.php' ?>
 

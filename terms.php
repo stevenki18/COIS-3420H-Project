@@ -1,7 +1,12 @@
-<?php session_start();
-require_once './includes/library.php';
-$pdo = connectDB();
- ?>
+<?php 
+  /*-----------------------------------------------------------
+  |
+  |   PAGE:         terms.php
+  |
+  |   DESCRIPTION:  Terms and Conditions for the site
+  |
+  -----------------------------------------------------------*/
+?>
 <!DOCTYPE HTML>
 <html lang="en">
 
@@ -21,13 +26,12 @@ $pdo = connectDB();
 
   <main>
     <header>
-      <!-- TERMS AND CONDITIONS -->
       <h1>Terms And Conditions</h1>
     </header>
 
-    <article>
+    <article id="tac">
         <!-- USE OF INFORMATION -->
-        <section>
+        <section id="tacInfo">
             <h2>1. Use of Information</h2>
             <p>We will only use your information obtained in the registration process to best tailor the experience of our app to your liking.</p>
             <p>This includes:</p>
@@ -39,7 +43,7 @@ $pdo = connectDB();
         </section>
 
         <!-- SECURITY -->
-        <section>
+        <section id="tacSec">
             <h2>2. Security</h2>
             <p>We take security very seriously and for that reason we will never ask for any personal information aside from the registration and login process. </p>
             <p>We will not email you asking to confirm personal information.</p>
@@ -47,7 +51,7 @@ $pdo = connectDB();
         </section>
 
         <!-- PRIVACY -->
-        <section>
+        <section id="tacPriv">
             <h2>3. Privacy</h2>
             <p>We respect your privacy and your rights to remain a private user on this application. We provide the option to make all lists and list items be private and
                 un-sharable with anyone other users on this page. </p>

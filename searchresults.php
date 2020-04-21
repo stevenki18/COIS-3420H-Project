@@ -1,24 +1,35 @@
 <?php
+  /*-----------------------------------------------------------
+  |
+  |   PAGE:         sample_list.php
+  |
+  |   DESCRIPTION:  Displays the sample list that is assigned
+  |                 to the master account.
+  |
+  -----------------------------------------------------------*/
   session_start();
-  // FROM lecture notes
   include "includes/library.php";
-
   $pdo = connectdb();
 
+  /*---------------------------
+  |
+  |           SEARCH
+  |
+  ---------------------------*/
   if(isset($_POST['search'])){
     $search = $_POST['searchData'];
 
     if($search == "")
       $errors = true;
-    else {
+    else
       $errors = false;
-    }
 
     if(!$errors){
       //Sanitize search
       $sanitizedsearch = filter_var($search, FILTER_SANITIZE_STRING);
+
       // Wrap in wildcards (don't let user)
-      $wildcardsearch = "%".$search."%";
+      $wildcardsearch = "%".$sanitizedsearch."%";
 
       // Search to include users lists/items
       if(isset($_SESSION['user'])){
@@ -42,8 +53,10 @@
         $stmt4=$pdo->prepare($query4);
         $stmt4->execute([$wildcardsearch,"0",$_SESSION['id']]);
 
+      }
 
-      }else{
+      // ONLY PUBLIC 
+      else{
         $query3 = "SELECT id,listname FROM `g10_lists` WHERE listname LIKE ? AND private = ?";
         $stmt3=$pdo->prepare($query3);
         $stmt3->execute([$wildcardsearch,"0"]);
@@ -51,12 +64,12 @@
         $query4 = "SELECT id,name FROM `g10_listitems` WHERE name LIKE ? AND private = ?";
         $stmt4=$pdo->prepare($query4);
         $stmt4->execute([$wildcardsearch,"0"]);
-
       }
     } // end if errors
 
-  }// end if isset($_POST[searchData])
-  else {
+  }// END SEARCH
+  
+  else{
     header("Location: index.php");
     exit();
   }
@@ -66,11 +79,9 @@
 
 <head>
   <?php
-      $PAGE_TITLE = "Results";
-      include "includes/meta.php"
-    ?>
-
-  <link type="text/css" rel="stylesheet" href="css/terms.css" />
+    $PAGE_TITLE = "Results";
+    include "includes/meta.php"
+  ?>
 </head>
 
 <body>
@@ -86,9 +97,11 @@
 
     <span>Results for: <?= $search ?></span>
 
+    <!-- GET USER LISTS AND ITEMS -->
     <?php if(isset($_SESSION['user'])): ?>
       <!-- MY LISTS -->
       <h2>My List(s)</h2>
+      <!-- NO RESULTS -->
       <?php if($stmt1->rowCount() <= 0): ?>
         <p>No Results found</p>
 
@@ -111,6 +124,7 @@
       
       <!-- MY ITEMS -->
       <h2>My Item(s)</h2>
+      <!-- NO RESULTS -->
       <?php if($stmt2->rowCount() <= 0): ?>
         <p>No Results found</p>
 
@@ -135,6 +149,7 @@
 
     <!-- PUBLIC LISTS -->
     <h2>Public List(s)</h2>
+    <!-- NO RESULTS -->
     <?php if($stmt3->rowCount() <= 0): ?>
       <p>No Results found</p>
 
@@ -153,6 +168,7 @@
     
     <!-- PUBLIC LISTS -->
     <h2>Public Item(s)</h2>
+    <!-- NO RESULTS -->
     <?php if($stmt4->rowCount() <= 0): ?>
       <p>No Results found</p>
 
@@ -166,19 +182,16 @@
             </div>
           </li>
         <?php endforeach ?>
-        <li>
-            <button type="button" name="Return" ><a href="display_list.php">View Lists</a></button>
-        </li>
       </ul>
-    <?php endif; ?>
-
-
-    <?php include 'modals/view_item.php' ?>
-
+    <?php endif ?>
 
   </main>
 
-  <?php include 'includes/footer.php' ?>
+  
+  <?php 
+    include 'modals/view_item.php';
+    include 'includes/footer.php' 
+  ?>
 
 </body>
 

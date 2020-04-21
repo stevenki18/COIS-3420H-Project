@@ -1,6 +1,19 @@
 <?php
+    /*-----------------------------------------------------------
+    |
+    |   PAGE:         response.php
+    |
+    |   DESCRIPTION:  Turns a database query into a JSON
+    |                 formatted response message
+    |
+    -----------------------------------------------------------*/
     require "results.php";
 
+    /*---------------------------
+    |
+    |       ITEM DETAILS
+    |
+    ---------------------------*/
     if(!empty($_GET['itemid'])){
         $param=$_GET['itemid'];
         $item = getItemDetails($param);
@@ -11,6 +24,12 @@
             response(200, $item);
     }
 
+
+    /*---------------------------
+    |
+    |     RANDOM PUBLIC ITEM
+    |
+    ---------------------------*/
     else if(!empty($_GET['randid'])){
       if($_GET['randid'] >= 0){
         $itemid = getRandomPublicItem();
@@ -24,6 +43,11 @@
 
     }
 
+    /*---------------------------
+    |
+    |       CHECK USERNAME
+    |
+    ---------------------------*/
     else if(!empty($_GET['username'])){
         $param = $_GET['username'];
         $user = checkUsername($param);
@@ -38,6 +62,12 @@
     else
         response(400, NULL);
 
+    
+    /*---------------------------
+    |
+    |      FORMAT RESPONSE
+    |
+    ---------------------------*/
     function response($status, $data){
         // SEND APPROPRIATE HEADERS
         // JSON
