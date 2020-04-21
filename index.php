@@ -81,12 +81,10 @@
           <ul>
             <?php foreach($list as $row): ?>
               <li>
-                <h3>
-                  <span><i class="fa fa-unlock"></i> <?= $row['listname'] ?></span>
-                  <div>
-                    <button class="viewList" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
-                  </div>
-                </h3>
+                <h3><i class="fa fa-unlock"></i> <?= $row['listname'] ?></h3>
+                <div>
+                  <button class="viewList" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
+                </div>
               </li>
             <?php endforeach ?>
           </ul>

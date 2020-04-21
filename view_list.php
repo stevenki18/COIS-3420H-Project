@@ -65,7 +65,10 @@
     |   ** POST COMES FROM JS
     ---------------------------*/
     if(isset($_POST['deleteList'])) {
-        if($_POST['listName'] == $list['listname']){
+        // SANITIZE POST TO COMPARE WITH SANITIZED LIST NAME
+        $deletedList = filter_var($_POST['listName'], FILTER_SANITIZE_STRING);
+
+        if($deletedList == $list['listname']){
             $query = "DELETE FROM `g10_lists` WHERE id = ?";
             $statement = $pdo->prepare($query);
             $statement->execute([$listid]);
@@ -85,13 +88,15 @@
     ---------------------------*/
     if(isset($_POST['deleteItem'])) {
         $id = $_POST['itemDeleted'];
+        // SANITIZE POST TO COMPARE WITH SANITIZED ITEM NAME
+        $deletedItem = filter_var($_POST['itemName'], FILTER_SANITIZE_STRING);
 
         $query = "SELECT name FROM `g10_listitems` WHERE id = ?";
         $stmt = $pdo->prepare($query);
         $stmt->execute([$id]);
         $itemName = $stmt->fetch();
 
-        if($_POST['itemName'] == $itemName['name']){
+        if($deletedItem == $itemName['name']){
             $query = "DELETE FROM `g10_listitems` WHERE id = ?";
             $statement = $pdo->prepare($query);
             $statement->execute([$_POST['itemDeleted']]);

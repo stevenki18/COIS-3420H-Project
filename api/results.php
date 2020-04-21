@@ -20,8 +20,7 @@
     |                 is found
     |
     -----------------------------------------------------------*/
-    require_once "../includes/library.php";
-    $pdo = connectDB();    
+    require_once "../includes/library.php";   
     
 
     /*---------------------------
@@ -30,6 +29,7 @@
     |
     ---------------------------*/
     function getItemDetails($itemid){
+        $pdo = connectDB(); 
         $query = "SELECT * FROM `g10_listitems` WHERE id = ?";
         $statement = $pdo->prepare($query);
         $statement->execute([$itemid]);
@@ -48,17 +48,18 @@
     |
     ---------------------------*/
     function getRandomPublicItem(){
-      $query = "SELECT id FROM `g10_listitems` WHERE private = ?";
-      $statement = $pdo->prepare($query);
-      $statement->execute(["0"]);
-      $results = $statement->fetchAll(PDO::FETCH_COLUMN);
+        $pdo = connectDB(); 
+        $query = "SELECT id FROM `g10_listitems` WHERE private = ?";
+        $statement = $pdo->prepare($query);
+        $statement->execute(["0"]);
+        $results = $statement->fetchAll(PDO::FETCH_COLUMN);
 
-      $max = sizeof($results) - 1;
+        $max = sizeof($results) - 1;
 
-      if(isset($results))
-          return $results[rand(0,$max)];
-      else
-          return NULL;
+        if(isset($results))
+            return $results[rand(0,$max)];
+        else
+            return NULL;
     }// END OF GET RANDOM PUBLIC ITEM
 
 
@@ -68,6 +69,7 @@
     |
     ---------------------------*/
     function checkUsername($username){
+        $pdo = connectDB(); 
         $query = "SELECT username FROM `g10_users` WHERE username = ?";
         $statement = $pdo->prepare($query);
         $statement->execute([$username]);

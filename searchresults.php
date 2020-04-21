@@ -115,7 +115,7 @@
                   <span><i class="fa fa-unlock"></i> <?= $list['listname']?></span>
               <?php endif ?>
               <div>
-                <button><a href = "view_list.php?list=<?= $list['id']?>"><i class="fa fa-eye"></i></a></button>
+                <button class="viewList" value="<?= $list['id']?>"><i class="fa fa-eye"></i></button>
               </div>
             </li>
           <?php endforeach ?>
@@ -159,7 +159,7 @@
           <li>
             <span><i class="fa fa-unlock"></i> <?= $list['listname'] ?></span>
             <div>
-                <button><a href = "view_list.php?list=<?= $list['id']?>"><i class="fa fa-eye"></i></a></button>
+              <button class="viewList" value="<?= $list['id']?>"><i class="fa fa-eye"></i></button>
             </div>
           </li>
         <?php endforeach ?>

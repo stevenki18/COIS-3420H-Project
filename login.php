@@ -144,7 +144,7 @@
     ?>
     <!-- ADDITIONAL SCRIPTS FOR GOOGLE SIGN IN  -->
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-    <!-- <script defer src="scripts/zxcvbn.js"></script> -->
+    <script defer src="scripts/zxcvbn.js"></script>
 </head>
 
 <body>

@@ -64,14 +64,15 @@
             <li>
               <h3>
                 <?php if($row['private'] == 1):?>
-                  <span><i class="fa fa-lock"></i> <?= $row['listname']?></span>
+                  <i class="fa fa-lock"></i> <?= $row['listname']?>
                 <?php else: ?>
-                    <span><i class="fa fa-unlock"></i> <?= $row['listname']?></span>
+                  <i class="fa fa-unlock"></i> <?= $row['listname']?>
                 <?php endif ?>
-                <div>
-                  <button class="viewList" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
-                </div>
               </h3>
+              <div>
+                <button class="viewList" value="<?= $row['id']?>"><i class="fa fa-eye"></i></button>
+              </div>
+              
             </li>
             <?php endforeach ?>
             <!-- BUTTON TO ADD ITEMS -->
@@ -85,12 +86,10 @@
         <ul>
           <?php foreach($publicresults as $rows):?>
           <li>
-            <h3>
-              <?= $rows['listname']?>
-              <div>
-                <button class="viewList" value="<?= $rows['id']?>"><i class="fa fa-eye"></i></button>
-              </div>
-            </h3>
+            <h3><?= $rows['listname']?></h3>
+            <div>
+              <button class="viewList" value="<?= $rows['id']?>"><i class="fa fa-eye"></i></button>
+            </div>
           </li>
           <?php endforeach ?>
         </ul>

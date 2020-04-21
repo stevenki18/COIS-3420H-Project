@@ -146,7 +146,7 @@
       //creates new file name for 1 uploaded image, and copies it to loki
       $dbID=uniqid();  //database id for item
       if(is_uploaded_file($_FILES['fileToProcess']['tmp_name'])){
-        $newname=createFilename('fileToProcess','../../www_data/', 'img', $dbID);
+        $newname=createFilename('fileToProcess','../../../www_data/', 'img', $dbID);
         checkAndMoveFile('fileToProcess', 1000000, $newname);
       }
     }

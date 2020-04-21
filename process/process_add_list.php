@@ -13,6 +13,7 @@ and edit lists.
     }
 
     require_once '../includes/library.php';
+    $pdo = connectDB();
 
     //declares array to contain errors and list's privacy setting
     $errors = [];
@@ -20,9 +21,10 @@ and edit lists.
 
     //ADD LIST
     if(isset($_POST['submitList'])){
-        $listname = $_POST['listName'];
+        // SANITIZE LIST NAME
+        $listname = filter_var($_POST['listName'], FILTER_SANITIZE_STRING);
 
-        if($listname == null || strlen($listname) == 0)
+        if(!$listname || strlen($listname) == 0)
             array_push($errors, "Please Enter A List Name");
 
         if(isset($_POST['viewableList']))
@@ -30,7 +32,6 @@ and edit lists.
 
         //if no errors insers list information into database
         if(sizeof($errors == 0)){
-            $pdo = connectDB();
             $query = "INSERT INTO `g10_lists` (id, fk_userid, listname, start, private) VALUES (NULL, ?, ?, ?, ?)";
             $statement = $pdo->prepare($query);
             $statement->execute([$_SESSION['id'], $listname, date("Y-m-d"), $viewable]);
@@ -44,9 +45,10 @@ and edit lists.
 
     // EDIT LIST
     if(isset($_POST['edit_list'])){
-        $listname = $_POST['listName'];
+        // SANITIZE LIST NAME
+        $listname = filter_var($_POST['listName'], FILTER_SANITIZE_STRING);
 
-        if($listname == null || strlen($listname) == 0)
+        if(!$listname || strlen($listname) == 0)
             array_push($errors, "Please Enter A List Name");
 
         if(isset($_POST['viewableList']))
@@ -54,7 +56,6 @@ and edit lists.
 
         //if not errors, succesfully edits list
         if(sizeof($errors == 0)){
-            $pdo = connectDB();
             $query = "UPDATE `g10_lists` SET listname = ?, private = ? WHERE id = ?";
             $statement = $pdo->prepare($query);
             $statement->execute([$listname, $viewable, $_POST['listNo']]);
